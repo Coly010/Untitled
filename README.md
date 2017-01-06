@@ -2,6 +2,7 @@
 
 ### Contents
 
+- [Installation](#install)
 - [Quick Start Guide](#qsg)
   - [Understanding Untitled Workflow](#uuw)
   - [Create your first page](#cyfp)
@@ -19,6 +20,24 @@
   - [Session](#session)
   - [ULogger](#ulogger)
 - [Credits](#credits)
+
+## Installation <a id="install"></a>
+There a few ways to install **Untitled**. We'll go into detail about them below.
+
+### Download the source
+1. Head over to the releases page: https://github.com/Coly010/Untitled/releases
+2. Click the Download link for the zipped source code.
+3. Choose a folder to download to.
+4. Find the downloaded file and unzip it.
+5. Start developing your app!
+
+### Install via composer
+You can also install via composer, however it is not recommended as there is a few additional steps needed to get it to work.
+1. If you do not have composer installed check here: https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx
+2. Run the following command `composer require coly010/untitled`
+3. Now navigate into `vendor/coly010/untitled`
+4. Copy the contents of the folder to your app's root.
+5. Start developing your app!
 
 ## Quick Start Guide <a id="qsg"></a>
 Making web apps has become an integral part of the tech industry, and we all want
