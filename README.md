@@ -33,6 +33,7 @@ There a few ways to install **Untitled**. We'll go into detail about them below.
 
 ### Install via composer
 You can also install via composer, however it is not recommended as there is a few additional steps needed to get it to work.
+
 1. If you do not have composer installed check here: https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx
 2. Run the following command `composer require coly010/untitled`
 3. Now navigate into `vendor/coly010/untitled`
