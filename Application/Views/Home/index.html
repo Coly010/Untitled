@@ -1,0 +1,892 @@
+{% extends "Template/template.tpl" %}
+
+{% block content %}
+
+<div class="container">
+<h1 id="untitled-documentation" style="font-weight: bold; color: #31bad2; border: none;">Untitled Documentation</h1>
+
+
+
+    <h3 id="contents">Contents</h3>
+
+    <ul>
+        <li><a href="#qsg">Quick Start Guide</a>
+            <ul><li><a href="#uuw">Understanding Untitled Workflow</a></li>
+                <li><a href="#cyfp">Create your first page</a></li>
+                <li><a href="#lgsvd">Lets get some View Data!</a></li></ul></li>
+        <li><a href="#walkthrough">Walkthrough</a>
+            <ul><li><a href="#setconfig">Set Configuration</a></li>
+                <li><a href="#pages">Pages</a></li>
+                <li><a href="#routes">Routes</a></li>
+                <li><a href="#dataprocesses">DataProcesses</a></li></ul></li>
+        <li><a href="#alr">Additional Library References</a>
+            <ul><li><a href="#db">Database</a></li>
+                <li><a href="#input">Input</a></li>
+                <li><a href="#sanitiser">Sanitiser</a></li>
+                <li><a href="#validator">Validator</a></li>
+                <li><a href="#session">Session</a></li>
+                <li><a href="#ulogger">ULogger</a></li></ul></li>
+        <li><a href="#credits">Credits</a></li>
+    </ul>
+
+
+
+    <h2 id="quick-start-guide">Quick Start Guide <a id="qsg"></a></h2>
+
+    <p>Making web apps has become an integral part of the tech industry, and we all want
+        to find an easier way to start from scratch, every time we have a new project.</p>
+
+    <p>That’s where <strong>Untitled</strong> comes in. It streamlines the process of setting up a web
+        app by doing a lot of the start up work for you. All you need to do is create your
+        pages and you are good to go! <strong>Untitled</strong> comes shipped with <a href="http://twig.sensiolabs.org/">Twig</a>,
+        a powerful template engine designed for PHP. It helps separate view logic from app logic.</p>
+
+    <p>Below we’ll discuss quickly how to use <strong>Untitled</strong> for your own projects!</p>
+
+
+
+    <h3 id="understanding-untitled-workflow">Understanding Untitled Workflow <a id="uuw"></a></h3>
+
+    <p><strong>Untitled</strong> has a slightly different workflow than you may be used to with different
+        PHP frameworks.</p>
+
+    <p><strong>Untitled</strong> focuses on the pages in your web app. For every page your web app has
+        you simply create a new <code>Page</code> object to represent it. However, <strong>Untitled</strong> needs to
+        match the requested URI to your pages. This is where one of the most powerful features
+        of <strong>Untitled</strong> comes in: <em>Routes</em>.</p>
+
+    <p>Each of your <code>Page</code> objects contains an array of <code>Route</code> objects. When creating a <code>Route</code>
+        object you need to set the URI that the <code>Route</code> will handle. Once you have your <code>Route</code>
+        objects set up you simply add them to your <code>Page</code> object. <strong>Untitled</strong> takes care of the
+        rest.</p>
+
+    <p><code>DataProcess</code> objects are used if you need to perform any logic associated with a <code>Route</code>.
+        Say for example you have a login form and you need to validate the form data, you would
+        create a DataProcess to perform this logic. You then link the DataProcess to the <code>Route</code>
+        object.</p>
+
+    <p><a href="http://twig.sensiolabs.org/">Twig</a> comes shipped and integrated into <strong>Untitled</strong> and is
+        the set method for rendering pages. In your <code>Route</code> object you set the file path to
+        the html file associated with the <code>Route</code>.</p>
+
+
+
+    <h3 id="create-your-first-page">Create Your First Page <a id="cyfp"></a></h3>
+
+    <p>You should take note of the following directory structure for your application:</p>
+
+    <ul>
+        <li>Application
+            <ul><li>Cache</li>
+                <li>Config</li>
+                <li>DataProcesses</li>
+                <li>Pages</li>
+                <li>PageName</li>
+                <li>Routes</li>
+                <li>Views</li></ul></li>
+    </ul>
+
+    <p>This directory structure keeps your application code well structured and easy to find.</p>
+
+    <p>For every page you wish to create, always create a directory in the Pages directory
+        with the name the name of your Page.</p>
+
+    <p>Ok, let’s walk through the creation of our first page. Now, most websites have an
+        <code>About</code> page so lets start there.</p>
+
+    <p>First, create a new folder in the <code>Pages</code> folder and call it <code>About</code>. Now, in the
+        <code>About</code> folder, create another folder called <code>Routes</code>. It’s time now to create the
+        page. <br>
+        Create a new PHP file and name it <code>About_Page.php</code>. Notice the <code>_Page</code> suffix. This
+        helps <strong>Untitled</strong> discover the pages in your app. It is a requirement to have this
+        for the framework to work. <br>
+        Open <code>About_Page.php</code> and type the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Pages</span>\<span class="hljs-title">About</span>\<span class="hljs-title">About_Page</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Untitled</span>\<span class="hljs-title">PageBuilder</span>\<span class="hljs-title">Page</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Pages</span>\<span class="hljs-title">About</span>\<span class="hljs-title">Routes</span>\<span class="hljs-title">About_Route</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">About_Page</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Page</span> {</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">parent</span>::__construct();
+
+    <span class="hljs-variable">$this</span>-&gt;AddRoute(<span class="hljs-keyword">new</span> About_Route());
+  }
+
+}</code></pre>
+
+    <p>Now you may see some errors if you are using an IDE. We’re going to fix that now. <br>
+        Go into the <code>Routes</code> folder in your <code>About</code> folder and create a new file called
+        <code>About_Route.php</code>. <br>
+        Open <code>About_Route.php</code> and type the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Pages</span>\<span class="hljs-title">About</span>\<span class="hljs-title">Routes</span>\<span class="hljs-title">About_Route</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Untitled</span>\<span class="hljs-title">PageBuilder</span>\<span class="hljs-title">Route</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">About_Route</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Route</span> {</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">parent</span>::__construct();
+
+    <span class="hljs-variable">$this</span>-&gt;Request = <span class="hljs-string">"about"</span>;
+    <span class="hljs-variable">$this</span>-&gt;RenderView = <span class="hljs-keyword">true</span>;
+    <span class="hljs-variable">$this</span>-&gt;ViewFilePath = <span class="hljs-string">"About/about.html"</span>;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RunDataProcess</span><span class="hljs-params">()</span>{</span>}
+
+}
+</code></pre>
+
+    <p>As <code>Route</code> is an abstract class we must implement the method <code>RunDataProcess()</code>. <br>
+        The final step to finish your page is create the html file that is associated with
+        the About page. Go to your <code>Views</code> folder and create a new folder called <code>About</code>.
+        In this <code>About</code> folder create a new file called <code>about.html</code>. <br>
+        Open <code>about.html</code> and type the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-html hljs "><span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>This is your about page<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
+
+    <p>And voila, when someone visits your website at url: <a href="http://yoursite.com/about">http://yoursite.com/about</a>
+        <strong>Untitled</strong> will create the page and display it.</p>
+
+
+
+    <h3 id="lets-get-some-view-data">Let’s get some View Data! <a id="lgsvd"></a></h3>
+
+    <p>Rendering a basic page based on a URI is all well and good, but sometimes you need
+        to process a bit of logic to go with it. Sometimes you have calculations to make or
+        data to retrieve from a database to help generate content for your page.</p>
+
+    <p><strong>Untitled</strong> has a solution for this! And that solution comes in the form of
+        DataProcesses! A <code>DataProcess</code> in its simplest form is an empty class you can create
+        to process this logic. <strong>Untitled</strong> comes with a simple wrapper for PDO for MySQL that you may
+        find helpful. If not you can always just access the PDO object directly with</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> Database()-&gt;Connect();
+<span class="hljs-variable">$db</span> = <span class="hljs-variable">$db</span>-&gt;DB;</code></pre>
+
+    <p>Let’s go through an example of how this could work with the About page we created above.
+        Lets assume that there is a table in the database called <code>content</code> with two columns,
+        <code>page</code> and <code>content</code>. In this table there is a record that contains the content for
+        the About page. We need to retrieve this content to display it when a user navigates
+        to the About page. <br>
+        _**Please Note:** the following will not work for you unless you create the appropriate
+        database table with a record. You will also need to change the Database_Config.php
+        file to match your Database Credentials._</p>
+
+    <p>To do this, create a new file in the <code>DataProcesses</code> folder called <code>About_DataProcess.php</code>. <br>
+        Open <code>About_DataProcess.php</code> and type the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">DataProcesses</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Untitled</span>\<span class="hljs-title">PageBuilder</span>\<span class="hljs-title">DataProcess</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">About_DataProcess</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DataProcess</span> {</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">parent</span>::__construct();
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RetrieveContent</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-variable">$this</span>-&gt;db-&gt;Run(<span class="hljs-string">"SELECT * FROM content WHERE page = :page"</span>, [<span class="hljs-string">":page"</span> =&gt; <span class="hljs-string">"about"</span>]);
+    <span class="hljs-variable">$content</span> = <span class="hljs-variable">$this</span>-db-&gt;Fetch()[<span class="hljs-string">'content'</span>];
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$content</span>;
+  }
+
+}
+</code></pre>
+
+    <p>Next, open <code>About_Route.php</code> (which can be found in Pages/About/Routes). <br>
+        Add <code>use Application\DataProcesses\About_DataProcess;</code> statement below <code>use Untitled\PageBuilder\Route;</code> <br>
+        Change the constructor to match the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>{</span>
+  <span class="hljs-keyword">parent</span>::__construct();
+
+  <span class="hljs-variable">$this</span>-&gt;Request = <span class="hljs-string">"about"</span>;
+  <span class="hljs-variable">$this</span>-&gt;RenderView = <span class="hljs-keyword">true</span>;
+  <span class="hljs-variable">$this</span>-&gt;ViewFilePath = <span class="hljs-string">"About/about.html"</span>;
+  <span class="hljs-variable">$this</span>-&gt;DataProcess = <span class="hljs-keyword">new</span> About_DataProcess();
+}</code></pre>
+
+    <p>Now, change <code>public function RunDataProcess(){}</code> to:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RunDataProcess</span><span class="hljs-params">()</span>{</span>
+  <span class="hljs-variable">$this</span>-&gt;ViewData = [<span class="hljs-string">"content"</span> =&gt; <span class="hljs-variable">$this</span>-&gt;DataProcess-&gt;RetrieveContent()];
+}</code></pre>
+
+    <p>It will retrieve the content from the database and pass it to the View Data. This
+        view data should always be an array and is sent to Twig to pass into the view file. <br>
+        Therefore in our <code>about.html</code> we can now do the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-html hljs "><span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>About<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
+  {{ content }}
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
+
+    <p>This will then load the content from the database straight onto the page. Simples.</p>
+
+
+
+    <h2 id="walkthrough">Walkthrough <a id="walkthrough"></a></h2>
+
+    <p>Below you will find more information on different parts of <strong>Untitled</strong>.</p>
+
+
+
+    <h3 id="set-configuration">Set Configuration <a id="setconfig"></a></h3>
+
+    <p>There is some configuration options you may need to change to allow your web app
+        to work. You can find these config files in the <code>Application/Config</code> folder. <br>
+        By default you should see three files:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs ">Application_Config.php
+Database_Config.php
+Twig_Config.php</code></pre>
+
+    <p>If you open <code>Application_Config.php</code>, you will see the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Config</span>;
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Application_Config</span>
+{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$PAGES_DIR</span> = <span class="hljs-string">"Application/Pages"</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$DATA_PROCESSES_DIR</span> = <span class="hljs-string">"Application/DataProcesses"</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$VIEWS_DIR</span> = <span class="hljs-string">"Application/Views"</span>;
+
+}</code></pre>
+
+    <p><code>$PAGES_DIR</code> represents the <em>relative</em> path to the folder your Pages will be stored
+        in. <br>
+        <code>$DATA_PROCESSES_DIR</code> represents the <em>relative</em> path to the folder your DataProcesses will
+        be stored in. <br>
+        <code>$VIEWS_DIR</code> represents the <em>relative</em> path to the folder your Views will be stored in.
+        By default, if you use the folder structure that comes with the source, you should not need
+        to edit any of these variables.</p>
+
+    <p>If you open <code>Database_Config.php</code>, you will see the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Config</span>;
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Database_Config</span>
+{</span>
+
+    <span class="hljs-comment">/**
+     *<span class="hljs-phpdoc"> @var</span> string Database Server host
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$HOST</span> = <span class="hljs-string">"localhost"</span>;
+
+    <span class="hljs-comment">/**
+     *<span class="hljs-phpdoc"> @var</span> string Database name to connect to
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$DBNAME</span> = <span class="hljs-string">""</span>;
+
+    <span class="hljs-comment">/**
+     *<span class="hljs-phpdoc"> @var</span> string Username for the database
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$USER</span> = <span class="hljs-string">""</span>;
+
+    <span class="hljs-comment">/**
+     *<span class="hljs-phpdoc"> @var</span> string Password for the associated username
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$PASS</span> = <span class="hljs-string">""</span>;
+
+}</code></pre>
+
+    <p><code>$HOST</code> represents where the MySQL server is hosted. By default, this is normally
+        <code>localhost</code>. <br>
+        <code>$DBNAME</code> represents the name of database you wish to use. <br>
+        <code>$USER</code> represents the username linked to the database. <br>
+        <code>$PASS</code> represents the password for the associated username.</p>
+
+    <p><code>Twig_Config.php</code> stores some config for Twig. <br>
+        If you open <code>Twig_Config.php</code>, you will see the following:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Config</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Twig_Config</span>
+{</span>
+
+    <span class="hljs-comment">/**
+     *<span class="hljs-phpdoc"> @var</span> string Path to the templates
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$TEMPLATE_PATH</span> = <span class="hljs-string">"Application/Views"</span>;
+
+    <span class="hljs-comment">/**
+     *<span class="hljs-phpdoc"> @var</span> string Path to the cache directory
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$CACHE_PATH</span> = <span class="hljs-string">"Application/Cache"</span>;
+
+}</code></pre>
+
+    <p><code>$TEMPLATE_PATH</code> represents the path to the views your application will use. <br>
+        <code>$CACHE_PATH</code> represents the path to the folder Twig will use to cache your views. <br>
+        <em>You may run into some issues with this, normally it’s due to Twig needing write
+        permissions for that folder. <a href="http://stackoverflow.com/questions/20127884/runtimeexception-unable-to-create-the-cache-directory-var-www-sonata-app-cach">See here for more information.</a></em></p>
+
+
+
+    <h3 id="pages">Pages <a id="page"></a></h3>
+
+    <p>Pages are the backbone to <strong>Untitled</strong>. They represent each page that your application
+        will have. If you think about your web app, you can break it down to having one page,
+        but with multiple views. Think about it.</p>
+
+    <p>Say you have forums. It should be one page, with
+        the appropriate content on it, depending if someone is looking at a thread, a post, a category.
+        A user clicks on a thread, they are still looking at the forum page, but it’s showing them that
+        specific thread, rather than a list of them. <em>But they are still looking at the forum page!</em></p>
+
+    <p><strong>Untitled</strong> accommodates this way of thinking. It lets the developer create the pages
+        they need. Routes are then used to decide what view should be showing on that page. <br>
+        See below for a full reference of <code>Page</code>.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>$Routes</code></td>
+            <td><em>public</em> <em>Route[]</em> An array of routes associated with the <code>Page</code></td>
+        </tr>
+        <tr>
+            <td><code>$Twig</code></td>
+            <td><em>public</em> <em>TwigEnvironment</em> <code>TwigEnvironment</code>, see docs <a href="http://twig.sensiolabs.org/api/2.x/Twig_Environment.html">here</a></td>
+        </tr>
+        <tr>
+            <td><code>$RequestType</code></td>
+            <td><em>public</em> <em>string</em> The request type, normally GET or POST</td>
+        </tr>
+        <tr>
+            <td><code>$RequestString</code></td>
+            <td><em>public</em> <em>string</em> The requested URI</td>
+        </tr>
+        <tr>
+            <td><code>$FoundRoute</code></td>
+            <td><em>public</em> <em>Route</em> The Route object that was found to match the requested URI</td>
+        </tr>
+        <tr>
+            <td><code>AddRoute($Route)</code></td>
+            <td><em>public</em> Add a <code>Route</code> object to the <code>$Routes</code> array.</td>
+        </tr>
+        <tr>
+            <td><code>GetRouteRequestStrings()</code></td>
+            <td><em>public</em> Return an array of strings split between GET or POST from the <code>$Routes</code> array.</td>
+        </tr>
+        <tr>
+            <td><code>SearchRoutes($Request)</code></td>
+            <td><em>public</em> Search <code>$Routes</code> to find a matching URI string.</td>
+        </tr>
+        <tr>
+            <td><code>ProcessFoundRoute()</code></td>
+            <td><em>public</em> Process the found route and either render the page or return the data as a json string</td>
+        </tr>
+        <tr>
+            <td><code>InitialiseTwig()</code></td>
+            <td><em>private</em> Initialise the Twig Environment</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h3 id="routes">Routes <a id="routes"></a></h3>
+
+    <p>Routes are complementary to Pages. Without Routes, Pages wouldn’t work. They are needed
+        to match requested URI’s and show the correct view to match the URI. But Routes do more,
+        they also provide a way for the developer to link a <code>DataProcess</code> to a specific <code>Route</code>
+        which allows the developer to split app logic based on the requested URI.</p>
+
+    <p>All <code>Route</code> objects must implement the <code>RunDataProcess</code> method, which is called automatically
+        by <strong>Untitled</strong> to execute any app logic associated with that <code>Route</code>.</p>
+
+    <p>Routes have another feature which can come in useful in a number of different situations. <br>
+        <code>Complex Routes</code> allow a developer to accept parameters straight from the URI. To do this,
+        the developer needs to know where in the URI each of these arguments will occur.</p>
+
+    <p>Take a simple search feature that you are building for your web app. A lot of the
+        times, developers simply use GET requests to handle search features. To do the same
+        in <strong>Untitled</strong>, you simply create a URI like <code>/search/search_term</code> and then you
+        would create an appropriate <code>Route</code> like this:</p>
+
+
+
+    <pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">Application</span>\<span class="hljs-title">Pages</span>\<span class="hljs-title">Search</span>\<span class="hljs-title">Routes</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Untitled</span>\<span class="hljs-title">PageBuilder</span>\<span class="hljs-title">Route</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Application</span>\<span class="hljs-title">DataProcess</span>\<span class="hljs-title">Search_DataProcess</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Search_Route</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Route</span> {</span>
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">parent</span>::__construct();
+
+    <span class="hljs-variable">$this</span>-&gt;ComplexRoute = <span class="hljs-keyword">true</span>;
+    <span class="hljs-variable">$this</span>-&gt;Request = <span class="hljs-string">"search/%VAR%"</span>
+    <span class="hljs-variable">$this</span>-&gt;RenderView = <span class="hljs-keyword">true</span>;
+    <span class="hljs-variable">$this</span>-&gt;ViewFilePath = <span class="hljs-string">"Search/results.html"</span>;
+    <span class="hljs-variable">$this</span>-&gt;DataProcess = <span class="hljs-keyword">new</span> Search_DataProcess();
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RunDataProcess</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-variable">$this</span>-&gt;ViewData = [<span class="hljs-string">"search_result"</span> =&gt; <span class="hljs-variable">$this</span>-&gt;DataProcess-&gt;DoSearch(<span class="hljs-variable">$this</span>-&gt;Params[<span class="hljs-number">0</span>])];
+  }
+
+}
+</code></pre>
+
+    <p>Anywhere in the URI that the developer expects an argument, they should use <code>%VAR%</code>
+        when setting the <code>$Request</code> of the <code>Route</code>. You could even have something crazy like
+        <code>$this-&gt;Request = /search/%VAR%/filesonly/%VAR%/limit/%VAR%/page/%VAR%</code>. <br>
+        <strong>Untitled</strong> will simply find the arguments in the URI and add them, one by one to <br>
+        the <code>$Params</code> array in the <code>Route</code>.</p>
+
+    <p>See below for a full reference of <code>Route</code>:</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>$ComplexRoute</code></td>
+            <td><em>public</em> <em>bool</em> Set whether the <code>Route</code> is complex</td>
+        </tr>
+        <tr>
+            <td><code>$Params</code></td>
+            <td><em>public</em> <em>mixed[]</em> An array of parameters <strong>Untitled</strong> has found in the URI</td>
+        </tr>
+        <tr>
+            <td><code>$Request</code></td>
+            <td><em>public</em> <em>string</em> The URI the <code>Route</code> is associated with</td>
+        </tr>
+        <tr>
+            <td><code>$DataProcess</code></td>
+            <td><em>public</em> <em>DataProcess</em> The DataProcess associated with the <code>Route</code></td>
+        </tr>
+        <tr>
+            <td><code>$RenderView</code></td>
+            <td><em>public</em> <em>bool</em> Set whether the <code>Route</code> should display a view or return JSON data</td>
+        </tr>
+        <tr>
+            <td><code>$ViewFilePath</code></td>
+            <td><em>public</em> <em>string</em> The file path to the view file that should be displayed</td>
+        </tr>
+        <tr>
+            <td><code>$ViewData</code></td>
+            <td><em>public</em> <em>mixed[]</em> An array of data to pass to the view file</td>
+        </tr>
+        <tr>
+            <td><code>RunDataProcess()</code></td>
+            <td><em>public</em> <em>abstract</em> A method to be implemented by the developer to run app logic</td>
+        </tr>
+        <tr>
+            <td><code>ProcessRoute()</code></td>
+            <td><em>public</em> Called by <strong>Untitled</strong> when building the <code>Page</code> to execute <code>RunDataProcess()</code></td>
+        </tr>
+        </tbody></table>
+
+
+    <h3 id="dataprocesses">DataProcesses <a id="dataprocesses"></a></h3>
+
+    <p>A <code>DataProcess</code> is basically an empty class with a reference to the <code>Database</code> wrapper,
+        that is extended and used by the developer to store any app logic relating to a specific
+        <code>Page</code> or <code>Route</code>. If a particular <code>Page</code> has many <code>Route</code> objects, then the developer
+        may create multiple <code>DataProcess</code> objects to accommodate this and to keep app logic
+        clean and well maintained. If the database config has not been set, the <code>$db</code> will
+        also not be set.</p>
+
+    <p>See below for a full reference of <code>DataProcess</code>:</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>$db</code></td>
+            <td><em>public</em> <em>Database</em> <code>Database</code> object that the <code>DataProcess</code> can use to query the database</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h2 id="additional-library-references">Additional Library References <a id="alr"></a></h2>
+
+    <p><strong>Untitled</strong> comes shipped with some additional libraries that may aid a developer
+        in the creation of their web app. See below for their full references.</p>
+
+
+
+    <h3 id="database">Database <a id="db"></a></h3>
+
+    <p>The <code>Database</code> is simply a wrapper built for the built in <code>PDO</code> object for MySQL
+        databases.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>$DB</code></td>
+            <td><em>public</em> <em>PDO</em> PDO Object</td>
+        </tr>
+        <tr>
+            <td><code>$LastQuery</code></td>
+            <td><em>public</em> <em>string</em> The previous SQL query that was run</td>
+        </tr>
+        <tr>
+            <td><code>$CurrentQuery</code></td>
+            <td><em>public</em> <em>string</em> The current SQL query being run</td>
+        </tr>
+        <tr>
+            <td><code>$PreviousParams</code></td>
+            <td><em>public</em> <em>mixed[]</em> The previous parameters that were used</td>
+        </tr>
+        <tr>
+            <td><code>$CurrentParams</code></td>
+            <td><em>public</em> <em>mixed[]</em> The current parameters that were used</td>
+        </tr>
+        <tr>
+            <td><code>$CurrentStmt</code></td>
+            <td><em>public</em> <em>PDOStatement</em> The current PDOStatement object</td>
+        </tr>
+        <tr>
+            <td><code>$CurrentResult</code></td>
+            <td><em>public</em> <em>mixed[]</em> The current result set</td>
+        </tr>
+        <tr>
+            <td><code>$AffectedRows</code></td>
+            <td><em>public</em> <em>int</em> The number of affected rows</td>
+        </tr>
+        <tr>
+            <td><code>$NumRows</code></td>
+            <td><em>public</em> <em>int</em> The number of rows counted</td>
+        </tr>
+        <tr>
+            <td><code>$InsertId</code></td>
+            <td><em>public</em> <em>int</em> The ID of the previously inserted row</td>
+        </tr>
+        <tr>
+            <td><code>Connect()</code></td>
+            <td><em>public</em> Creates the connection to the database</td>
+        </tr>
+        <tr>
+            <td><code>Query($query)</code></td>
+            <td><em>public</em> Runs a given SQL query and returns a <code>PDOStatement</code> object</td>
+        </tr>
+        <tr>
+            <td><code>Prepare($query)</code></td>
+            <td><em>public</em> Prepares a SQL query to be executed and returns a <code>PDOStatement</code> object</td>
+        </tr>
+        <tr>
+            <td><code>Execute($params = [])</code></td>
+            <td><em>public</em> Executes the prepared statement with the given parameters and returns a <code>PDOStatement</code> object</td>
+        </tr>
+        <tr>
+            <td><code>Run($sql, $params)</code></td>
+            <td><em>public</em> Combines the <code>Prepare()</code> and <code>Execute()</code> methods in one and returns a <code>PDOStatement</code> object</td>
+        </tr>
+        <tr>
+            <td><code>Fetch($FetchType = \PDO::FETCH_BOTH)</code></td>
+            <td><em>public</em> Returns the result set from the executed query</td>
+        </tr>
+        <tr>
+            <td><code>FetchAll($FetchType = \PDO::FETCH_BOTH)</code></td>
+            <td><em>public</em> Returns the all the rows in the result set from the executed query</td>
+        </tr>
+        <tr>
+            <td><code>NumRows()</code></td>
+            <td><em>public</em> Returns the value of <code>$NumRows</code></td>
+        </tr>
+        <tr>
+            <td><code>AffectedRows()</code></td>
+            <td><em>public</em> Returns the value of <code>$AffectedRows</code></td>
+        </tr>
+        <tr>
+            <td><code>InsertId()</code></td>
+            <td><em>public</em> Returns the value of <code>$InsertId</code></td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h3 id="input">Input <a id="input"></a></h3>
+
+    <p>The <code>Input</code> library is a simple class with static methods for accessing the
+        <code>PHP</code> <code>$_POST</code> and <code>$_GET</code> arrays.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>Get($key)</code></td>
+            <td><em>public</em> <em>static</em> <em>mixed</em> Returns the value of <code>$_GET[$key]</code> if it exists, if not returns false.</td>
+        </tr>
+        <tr>
+            <td><code>Post($key)</code></td>
+            <td><em>public</em> <em>static</em> <em>mixed</em> Returns the value of <code>$_POST[$key]</code> if it exists, if not returns false.</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h3 id="sanitiser">Sanitiser <a id="sanitiser"></a></h3>
+
+    <p>The <code>Sanitiser</code> class comes with some static methods to help the developer sanitise inputs
+        from the user.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>Int($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>int</em> Sanitises and returns a integer value</td>
+        </tr>
+        <tr>
+            <td><code>Number($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>float</em> Sanitises and returns a float value</td>
+        </tr>
+        <tr>
+            <td><code>String($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>string</em> Sanitises and returns a string value</td>
+        </tr>
+        <tr>
+            <td><code>Email($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>string</em> Sanitises a string for email and returns a string value</td>
+        </tr>
+        <tr>
+            <td><code>Url($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>string</em> Sanitises a string for url and returns a string value</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h3 id="validator">Validator <a id="validator"></a></h3>
+
+    <p>The <code>Validator</code> class comes with some static methods to help the developer validate inputs
+        from the user.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>BetweenRange($value, $min, $max)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if value is between a range</td>
+        </tr>
+        <tr>
+            <td><code>LettersOnly($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if the string is letters only</td>
+        </tr>
+        <tr>
+            <td><code>Email($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if string is a valid email address</td>
+        </tr>
+        <tr>
+            <td><code>Url($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if string is valid URL</td>
+        </tr>
+        <tr>
+            <td><code>NotEmpty($value)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if string is not empty</td>
+        </tr>
+        <tr>
+            <td><code>LengthLessThan($value, $limit)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if length of string is less than limit</td>
+        </tr>
+        <tr>
+            <td><code>LengthGreaterThan($value, $limit)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if length of string is greater than limit</td>
+        </tr>
+        <tr>
+            <td><code>GreaterThan($value, $limit)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if value is greater than limit</td>
+        </tr>
+        <tr>
+            <td><code>LessThan($value, $limit)</code></td>
+            <td><em>public</em> <em>static</em> <em>bool</em> Check if value is less than limit</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h3 id="session">Session <a id="session"></a></h3>
+
+    <p>The <code>Session</code> class comes with some static methods to help the developer work with
+        sessions.</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>Start()</code></td>
+            <td><em>public</em> <em>static</em> Starts the session</td>
+        </tr>
+        <tr>
+            <td><code>Add($key, $item)</code></td>
+            <td><em>public</em> <em>static</em> Add a key value pair to the session array</td>
+        </tr>
+        <tr>
+            <td><code>Remove($key)</code></td>
+            <td><em>public</em> <em>static</em> Remove a key value pair from the session array</td>
+        </tr>
+        <tr>
+            <td><code>Get($key)</code></td>
+            <td><em>public</em> <em>static</em> Get a value from the session array</td>
+        </tr>
+        <tr>
+            <td><code>Regenerate()</code></td>
+            <td><em>public</em> <em>static</em> Regenerate the session</td>
+        </tr>
+        <tr>
+            <td><code>Destroy()</code></td>
+            <td><em>public</em> <em>static</em> Destroy the current session</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h3 id="ulogger">ULogger <a id="ulogger"></a></h3>
+
+    <p>The <code>ULogger</code> is a very basic class with some static methods to help the developer if
+        they need log anything when debugging their app. It outputs the log in <code>HTML</code></p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody><tr>
+            <td><code>$Header</code></td>
+            <td><em>public</em> <em>static</em> <em>string</em> Log heading</td>
+        </tr>
+        <tr>
+            <td><code>$LogBody</code></td>
+            <td><em>public</em> <em>static</em> <em>string</em> Log body</td>
+        </tr>
+        <tr>
+            <td><code>SetLogHeader($header)</code></td>
+            <td><em>public</em> <em>static</em> Sets the log header</td>
+        </tr>
+        <tr>
+            <td><code>AddToLog($text)</code></td>
+            <td><em>public</em> <em>static</em> Appends text to the log</td>
+        </tr>
+        <tr>
+            <td><code>ShowLog()</code></td>
+            <td><em>public</em> <em>static</em> Shows the current log</td>
+        </tr>
+        <tr>
+            <td><code>Log($header, $text)</code></td>
+            <td><em>public</em> <em>static</em> Quick logging method, sets variables and shows log</td>
+        </tr>
+        </tbody></table>
+
+
+
+
+    <h2 id="credits">Credits <a id="credits"></a></h2>
+
+    <p><strong>Untitled</strong> <br>
+        Developed by <a href="https://columferry.co.uk">Colum Ferry</a>. <br>
+        Copyright © 2017 Colum Ferry <br>
+        Released under the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD-3-Clause License</a></p>
+
+    <p><strong><a href="http://twig.sensiolabs.org/">Twig</a></strong> <br>
+        Copyright © 2017 SensioLabs <br>
+        Released under the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD-3-Clause License</a> <br>
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+</div>
+{% endblock %}

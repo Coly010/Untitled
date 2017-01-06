@@ -1,0 +1,25 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Colum
+ * Date: 02/01/2017
+ * Time: 20:37
+ */
+
+namespace Application\Config;
+
+
+class Twig_Config
+{
+
+    /**
+     * @var string Path to the templates
+     */
+    public static $TEMPLATE_PATH = "Application/Views";
+
+    /**
+     * @var string Path to the cache directory
+     */
+    public static $CACHE_PATH = "Application/Cache";
+
+}
