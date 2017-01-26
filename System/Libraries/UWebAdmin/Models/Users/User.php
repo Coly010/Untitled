@@ -34,6 +34,11 @@ class User implements ISaveable
     public $Username;
 
     /**
+     * @var string User's password - NOTE:: STORE IT ENCRYPTED!
+     */
+    public $Password;
+
+    /**
      * @var string User's email
      */
     public $Email;
@@ -119,6 +124,7 @@ class User implements ISaveable
         $db->Run("UPDATE ". UWA_Config::$USERS_TABLE ." SET 
             name = :name,
             username = :username,
+            password = :password,
             email = :email,
             ip = :ip,
             last_action = :last_action,
@@ -148,10 +154,11 @@ class User implements ISaveable
         $db->Connect();
 
         $db->Run("INSERT INTO". UWA_Config::$USERS_TABLE ."( 
-            name, username, email, ip, last_action, display_name, display_pic
-            VALUES(:name, :usernanme, :email, :ip, :last_action, :display_name, :display_pic)",
+            name, username, password, email, ip, last_action, display_name, display_pic
+            VALUES(:name, :usernanme, :password, :email, :ip, :last_action, :display_name, :display_pic)",
             [":name" => $this->Name,
                 ":username" => $this->Username,
+                ":password" => $this->Password,
                 ":email" => $this->Email,
                 ":ip" => $this->Ip,
                 ":last_action" => $this->LastAction,
