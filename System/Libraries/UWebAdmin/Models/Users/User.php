@@ -10,10 +10,11 @@ namespace System\Libraries\UWebAdmin\Models\Users;
 
 
 use System\Libraries\UWebAdmin\Config\UWA_Config;
+use System\Libraries\UWebAdmin\Models\Interfaces\IDeletable;
 use System\Libraries\UWebAdmin\Models\Interfaces\ISaveable;
 use Untitled\Database\Database;
 
-class User implements ISaveable
+class User implements ISaveable, IDeletable
 {
 
     //region Properties
@@ -99,6 +100,7 @@ class User implements ISaveable
 
             $this->Name = $user['name'];
             $this->Username = $user['username'];
+            $this->Password = $user['password'];
             $this->Email = $user['email'];
             $this->PhoneNumber = new UserPhoneNumber($this->Id);
             $this->Address = new UserAddress($this->Id);
@@ -112,7 +114,7 @@ class User implements ISaveable
 
     //endregion
 
-    //region ISaveable Methods
+    //region ISaveable, IDeletable Methods
 
     /**
      * Save any changes to the database
@@ -173,6 +175,20 @@ class User implements ISaveable
         $this->PhoneNumber->Insert();
         $this->Address->Insert();
         $this->Role->Insert();
+    }
+
+    /**
+     * Delete record from the database
+     */
+    public function Delete(){
+        $db = new Database();
+        $db->Connect();
+
+        $this->PhoneNumber->Delete();
+        $this->Address->Delete();
+        $this->Role->Delete();
+
+        $db->Run("DELETE FROM ". UWA_Config::$USERS_TABLE ." WHERE id = :id", [":id" => $this->Id]);
     }
 
     //endregion

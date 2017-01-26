@@ -10,10 +10,11 @@ namespace System\Libraries\UWebAdmin\Models\Users;
 
 
 use System\Libraries\UWebAdmin\Config\UWA_Config;
+use System\Libraries\UWebAdmin\Models\Interfaces\IDeletable;
 use System\Libraries\UWebAdmin\Models\Interfaces\ISaveable;
 use Untitled\Database\Database;
 
-class UserRole implements ISaveable
+class UserRole implements ISaveable, IDeletable
 {
 
     //region Properties
@@ -52,7 +53,7 @@ class UserRole implements ISaveable
 
     //endregion
 
-    //region ISaveable
+    //region ISaveable, IDeletable Methods
     /**
      * Save any changes to the database
      */
@@ -71,6 +72,16 @@ class UserRole implements ISaveable
 
         $db->Run("INSERT INTO ". UWA_Config::$USER_ROLES_TABLE ."(user_id, role_id) VALUES(:userid, :role)",
             [":userid" => $this->Id, ":role" => $this->Role->Id]);
+    }
+
+    /**
+     * Delete record from the database
+     */
+    public function Delete(){
+        $db = new Database();
+        $db->Connect();
+
+        $db->Run("DELETE FROM ". UWA_Config::$USER_ROLES_TABLE ." WHERE id = :id", [":id" => $this->Id]);
     }
 
     //endregion
