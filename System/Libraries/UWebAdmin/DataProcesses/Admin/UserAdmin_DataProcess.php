@@ -24,10 +24,11 @@ class UserAdmin_DataProcess extends DataProcess
     }
 
     public function DeleteUser($User){
+        $User->Delete();
     }
 
     public function ChangeRole($UserRole){
-
+        $UserRole->Save();
     }
 
 }

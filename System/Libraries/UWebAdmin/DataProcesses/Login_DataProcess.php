@@ -14,6 +14,20 @@ use Untitled\PageBuilder\DataProcess;
 class Login_DataProcess extends DataProcess
 {
 
+    public function VerifyUsername($username){
 
+    }
+
+    public function VerifyPassword($username, $password){
+
+    }
+
+    public function SetupSession($id){
+
+    }
+
+    public function Login(){
+
+    }
 
 }

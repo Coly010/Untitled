@@ -14,4 +14,20 @@ use Untitled\PageBuilder\DataProcess;
 class Register_DataProcess extends DataProcess
 {
 
+    public function CheckUsernameExists($username){
+
+    }
+
+    public function CheckPasswordsMatch($password, $cpassword){
+
+    }
+
+    public function SetupUser(){
+
+    }
+
+    public function Register(){
+
+    }
+
 }
