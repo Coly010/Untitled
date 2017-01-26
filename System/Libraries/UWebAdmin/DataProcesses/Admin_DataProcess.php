@@ -14,4 +14,9 @@ use System\Libraries\UWebAdmin\DataProcesses\Admin\UserAdmin_DataProcess;
 class Admin_DataProcess extends UserAdmin_DataProcess
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
 }
