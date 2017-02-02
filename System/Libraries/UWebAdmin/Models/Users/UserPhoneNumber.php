@@ -52,7 +52,7 @@ class UserPhoneNumber implements ISaveable, IDeletable
             $db->Run("SELECT * FROM ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ." WHERE id = :id", [":id" => $this->Id]);
             $number = $db->Fetch(\PDO::FETCH_ASSOC);
 
-            $this->UserId = $number['userid'];
+            $this->UserId = $number['user_id'];
             $this->Number = $number['phone_number'];
         }
     }
