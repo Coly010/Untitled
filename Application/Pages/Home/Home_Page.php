@@ -20,7 +20,6 @@ class Home_Page extends Page
         parent::__construct();
 
         $this->AddRoute(new Homepage_Route());
-        $this->AddRoute(new HomepageComplex_Route());
     }
 
 }
