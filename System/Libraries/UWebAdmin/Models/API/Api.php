@@ -22,7 +22,7 @@ class Api
      */
     public static function GetRoles(){
         $Roles = [];
-        $db = new Database();
+        $db = new Database(true);
 
         $db->Run("SELECT id FROM ". UWA_Config::$ROLES_TABLE, []);
         foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $role){

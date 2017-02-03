@@ -10,6 +10,7 @@ namespace System\Libraries\UWebAdmin\Pages\Register\Routes;
 
 
 use System\Libraries\UWebAdmin\DataProcesses\Register_DataProcess;
+use System\Libraries\UWebAdmin\Models\API\Api;
 use Untitled\PageBuilder\Route;
 
 class RegisterHome_Route extends Route
@@ -33,7 +34,11 @@ class RegisterHome_Route extends Route
      */
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $Roles = [];
+        foreach(Api::GetRoles() as $role){
+            $Roles[] = get_object_vars($role);
+        }
+        $this->ViewData = ["roles" => $Roles];
     }
 
 }

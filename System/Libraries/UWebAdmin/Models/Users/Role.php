@@ -10,9 +10,10 @@ namespace System\Libraries\UWebAdmin\Models\Users;
 
 
 use System\Libraries\UWebAdmin\Config\UWA_Config;
+use System\Libraries\UWebAdmin\Models\Interfaces\IObjArray;
 use Untitled\Database\Database;
 
-class Role
+class Role implements IObjArray
 {
 
     /**
@@ -47,6 +48,14 @@ class Role
         $this->Name = $role['name'];
         $this->Description = $role['description'];
 
+    }
+
+    /**
+     * @return array Object as array
+     */
+    public function ToArray()
+    {
+        return get_object_vars($this);
     }
 
 }

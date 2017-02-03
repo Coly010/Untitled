@@ -11,10 +11,11 @@ namespace System\Libraries\UWebAdmin\Models\Users;
 
 use System\Libraries\UWebAdmin\Config\UWA_Config;
 use System\Libraries\UWebAdmin\Models\Interfaces\IDeletable;
+use System\Libraries\UWebAdmin\Models\Interfaces\IObjArray;
 use System\Libraries\UWebAdmin\Models\Interfaces\ISaveable;
 use Untitled\Database\Database;
 
-class UserPhoneNumber implements ISaveable, IDeletable
+class UserPhoneNumber implements ISaveable, IDeletable, IObjArray
 {
     //region Properties
 
@@ -59,7 +60,7 @@ class UserPhoneNumber implements ISaveable, IDeletable
 
     //endregion
 
-    //region ISaveable, IDeletable Methods
+    //region ISaveable, IDeletable, IObjArray Methods
 
     /**
      * Save any changes to the database
@@ -99,6 +100,14 @@ class UserPhoneNumber implements ISaveable, IDeletable
         $db->Connect();
 
         $db->Run("DELETE FROM ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ." WHERE id = :id", [":id" => $this->Id]);
+    }
+
+    /**
+     * @return array Object as array
+     */
+    public function ToArray()
+    {
+        return get_object_vars($this);
     }
 
     //endregion
