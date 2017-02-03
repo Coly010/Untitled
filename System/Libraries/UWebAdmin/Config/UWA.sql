@@ -11,6 +11,10 @@ CREATE TABLE uwa_roles (
 
 )ENGINE=InnoDb;
 
+INSERT INTO uwa_roles(name, description) VALUES
+  ('Admin', 'Web Administrator for the website.'),
+  ('Moderator', 'Can moderate certain aspects of the website.');
+
 
 DROP TABLE IF EXISTS uwa_users;
 
