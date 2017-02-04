@@ -10,6 +10,8 @@ namespace System\Libraries\UWebAdmin\Pages\Dashboard\Routes;
 
 
 use System\Libraries\UWebAdmin\DataProcesses\Admin_DataProcess;
+use System\PageBuilder\RouteGuard;
+use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
 
 class DashboardHome_Route extends Route
@@ -26,6 +28,16 @@ class DashboardHome_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "UWA/Dashboard/index.html";
         $this->DataProcess = new Admin_DataProcess();
+
+        $this->RouteGuard = new RouteGuard();
+        $this->RouteGuard->DenyRequestString = "/login";
+        $this->RouteGuard->GuardFunction = function() {
+            Session::Start();
+            if(!Session::Get("user")){
+                return false;
+            }
+            return true;
+        };
     }
 
     /**

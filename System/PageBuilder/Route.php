@@ -9,6 +9,8 @@
 namespace Untitled\PageBuilder;
 
 
+use System\PageBuilder\RouteGuard;
+
 abstract class Route
 {
 
@@ -48,6 +50,11 @@ abstract class Route
     public $ViewData = [];
 
     /**
+     * @var RouteGuard Check to see if route is accessible to user
+     */
+    public $RouteGuard = null;
+
+    /**
      * Route constructor.
      */
     public function __construct(){
@@ -63,8 +70,19 @@ abstract class Route
      * @return array - return true when finished
      */
     public function ProcessRoute() {
-        $this->RunDataProcess();
-        return true;
+        if(!is_null($this->RouteGuard)){
+
+            if($this->RouteGuard->Guard()){
+                $this->RunDataProcess();
+                return true;
+            } else {
+                header("Location: ". $this->RouteGuard->DenyRequestString);
+            }
+
+        } else {
+            $this->RunDataProcess();
+            return true;
+        }
     }
 
     /**
