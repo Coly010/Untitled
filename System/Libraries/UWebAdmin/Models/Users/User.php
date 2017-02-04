@@ -136,6 +136,7 @@ class User implements ISaveable, IDeletable, IObjArray
             WHERE id = :id",
             [":name" => $this->Name,
             ":username" => $this->Username,
+            ":password" => $this->Password,
             ":email" => $this->Email,
             ":ip" => $this->Ip,
             ":last_action" => $this->LastAction,
@@ -156,10 +157,10 @@ class User implements ISaveable, IDeletable, IObjArray
         $db = new Database();
         $db->Connect();
 
-        $db->Run("INSERT INTO". UWA_Config::$USERS_TABLE ."( 
-            name, username, password, email, ip, last_action, display_name, display_pic
-            VALUES(:name, :usernanme, :password, :email, :ip, :last_action, :display_name, :display_pic)",
-            [":name" => $this->Name,
+        $db->Run("INSERT INTO ". UWA_Config::$USERS_TABLE ."( 
+             name, username, password, email, ip, last_action, display_name, display_pic)
+            VALUES(:uname, :username, :password, :email, :ip, :last_action, :display_name, :display_pic)",
+            [":uname" => $this->Name,
                 ":username" => $this->Username,
                 ":password" => $this->Password,
                 ":email" => $this->Email,
@@ -167,10 +168,11 @@ class User implements ISaveable, IDeletable, IObjArray
                 ":last_action" => $this->LastAction,
                 ":display_name" => $this->DisplayName,
                 ":display_pic" => $this->DisplayPic]);
+
         $this->Id = $db->InsertId();
 
-        $this->Address->Id = $this->Id;
-        $this->Role->Id = $this->Id;
+        $this->Address->UserId = $this->Id;
+        $this->Role->UserId = $this->Id;
         $this->PhoneNumber->UserId = $this->Id;
 
         $this->PhoneNumber->Insert();

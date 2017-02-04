@@ -32,4 +32,16 @@ class Api
         return $Roles;
     }
 
+    /**
+     * @return array Menu links associative array
+     * Turn the menu links into an associative array
+     */
+    public static function GetMenuLinks(){
+        $Menu = [];
+        foreach(UWA_Config::$MENU_LINKS as $link){
+            $Menu[] = ["link" => $link[0], "url" => $link[1]];
+        }
+        return $Menu;
+    }
+
 }

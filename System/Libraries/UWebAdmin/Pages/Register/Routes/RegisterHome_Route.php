@@ -34,11 +34,11 @@ class RegisterHome_Route extends Route
      */
     public function RunDataProcess()
     {
-        $Roles = [];
-        foreach(Api::GetRoles() as $role){
-            $Roles[] = get_object_vars($role);
-        }
-        $this->ViewData = ["roles" => $Roles];
+//        $Roles = [];
+//        foreach(Api::GetRoles() as $role){
+//            $Roles[] = $role->ToArray();
+//        }
+//        $this->ViewData = ["roles" => $Roles];
     }
 
 }

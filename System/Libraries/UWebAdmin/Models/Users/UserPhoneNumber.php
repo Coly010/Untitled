@@ -17,6 +17,7 @@ use Untitled\Database\Database;
 
 class UserPhoneNumber implements ISaveable, IDeletable, IObjArray
 {
+
     //region Properties
 
     /**
@@ -71,10 +72,10 @@ class UserPhoneNumber implements ISaveable, IDeletable, IObjArray
 
         $db->Run("UPDATE ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ." SET
             userid = :userid,
-            phone_number = :number
+            phone_number = :phone_number
             WHERE id = :id",
             [":userid" => $this->UserId,
-                ":number" => $this->Number,
+                ":phone_number" => $this->Number,
                 ":id" => $this->Id
             ]);
     }
@@ -87,8 +88,9 @@ class UserPhoneNumber implements ISaveable, IDeletable, IObjArray
         $db = new Database();
         $db->Connect();
 
-        $db->Run("INSERT INTO ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ."(userid, phone_number) VALUES(:userid, :number)",
-            [":userid" => $this->UserId, ":number" => $this->Number]);
+        $db->Run("INSERT INTO ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ."(user_id, phone_number) 
+                    VALUES(:userid, :phone_number)",
+            [":userid" => $this->UserId, ":phone_number" => $this->Number]);
     }
 
     /**

@@ -21,9 +21,14 @@ class UserAddress implements ISaveable, IDeletable, IObjArray
     //region Properties
 
     /**
-     * @var number Id - Id of user
+     * @var number Id - Id of address
      */
     public $Id;
+
+    /**
+     * @var number Id - Id of user
+     */
+    public $UserId;
 
     /**
      * @var string  Line1 - line1 of address
@@ -89,13 +94,15 @@ class UserAddress implements ISaveable, IDeletable, IObjArray
         $db->Connect();
 
         $db->Run("UPDATE ". UWA_Config::$USER_ADDRESSES_TABLE ." SET
+            user_id = :userid,
             line1 = :line1,
             line2 = :line2,
             city = :city,
             country = :country,
             zip = :zip
             WHERE id = :id",
-            [":line1" => $this->Line1,
+            [":userid" => $this->UserId,
+                ":line1" => $this->Line1,
                 ":line2" => $this->Line2,
                 ":city" => $this->City,
                 ":country" => $this->Country,
@@ -113,9 +120,10 @@ class UserAddress implements ISaveable, IDeletable, IObjArray
         $db->Connect();
 
         $db->Run("INSERT INTO ". UWA_Config::$USER_ADDRESSES_TABLE ."(
-            line1, line2, city, country, zip)
-            VALUES(:line1, :line2, :city, :country, :zip)",
-            [":line1" => $this->Line1,
+            user_id, line1, line2, city, country, zip)
+            VALUES(:userid, :line1, :line2, :city, :country, :zip)",
+            [":userid" => $this->UserId,
+                ":line1" => $this->Line1,
                 ":line2" => $this->Line2,
                 ":city" => $this->City,
                 ":country" => $this->Country,

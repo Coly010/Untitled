@@ -11,50 +11,55 @@
                     <form role="form" method="post" action="/register/do">
                         <div class="form-group">
                             <label class="sr-only" for="username">Username:</label>
-                            <input type="text" name="username" id="username" placeholder="Username" />
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" />
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="password">Password:</label>
-                            <input type="password" name="password" id="password" placeholder="Password" />
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="cpassword">Confirm Password:</label>
-                            <input type="password" name="cpassword" id="cpassword" placeholder="Confirm Password" />
+                            <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Confirm Password" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="name">Name:</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name" />
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="email">Email:</label>
-                            <input type="email" name="email" id="email" placeholder="Email" />
+                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" />
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="phone_number">Phone Number:</label>
-                            <input type="tel" name="phone_number" id="phone_number" placeholder="Phone Number" />
+                            <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="Phone Number" />
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="line1">Address Line 1:</label>
-                            <input type="text" name="line1" id="line1" placeholder="Address Line 1" />
+                            <input type="text" class="form-control" name="line1" id="line1" placeholder="Address Line 1" />
 
                             <label class="sr-only" for="line2">Address Line 2:</label>
-                            <input type="text" name="line2" id="line2" placeholder="Address Line 2" />
+                            <input type="text" class="form-control" name="line2" id="line2" placeholder="Address Line 2" />
 
                             <label class="sr-only" for="city">City:</label>
-                            <input type="text" name="city" id="city" placeholder="City" />
+                            <input type="text" class="form-control" name="city" id="city" placeholder="City" />
 
                             <label class="sr-only" for="country">Country:</label>
-                            <input type="text" name="country" id="country" placeholder="Country" />
+                            <input type="text" class="form-control" name="country" id="country" placeholder="Country" />
 
                             <label class="sr-only" for="zip">Zip:</label>
-                            <input type="text" name="zip" id="zip" placeholder="Zip" />
+                            <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip" />
                         </div>
 
                         <div class="form-group">
                             <label for="role">Role: </label>
-                            <select type="dropdown" name="role" id="role">
-                                {% for role in roles %}
+                            <select type="dropdown" class="form-control" name="role" id="role">
+                                {% for role in uwa_roles %}
                                     <option value="{{role.Id}}">{{role.Name}}</option>
                                 {% endfor %}
                             </select>

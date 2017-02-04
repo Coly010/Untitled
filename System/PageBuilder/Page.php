@@ -155,6 +155,10 @@ class Page
     private function InitialiseTwig(){
         $loader = new \Twig_Loader_FileSystem(Twig_Config::$TEMPLATE_PATH);
         $this->Twig = new \Twig_Environment($loader, ['cache' => Twig_Config::$CACHE_PATH]);
+
+        foreach(Twig_Config::$GLOBAL_DATA as $key=>$value){
+            $this->Twig->addGlobal($key, $value);
+        }
     }
 
 }

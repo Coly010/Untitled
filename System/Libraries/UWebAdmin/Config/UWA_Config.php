@@ -25,4 +25,12 @@ class UWA_Config
      */
     public static $ROLES_TABLE = "uwa_roles";
 
+    /**
+     * MAINMENU
+     */
+    public static $MENU_LINKS = [
+        ["Home", "/dashboard"],
+        ["Edit User", "/dashboard/user/edit"]
+    ];
+
 }

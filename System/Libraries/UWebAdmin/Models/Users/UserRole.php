@@ -20,9 +20,14 @@ class UserRole implements ISaveable, IDeletable, IObjArray
 
     //region Properties
     /**
-     * @var int User Id
+     * @var int Id
      */
     public $Id;
+
+    /**
+     * @var int User Id
+     */
+    public $UserId;
 
     /**
      * @var Role The user's role
@@ -45,7 +50,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
             $db = new Database();
             $db->Connect();
 
-            $db->Run("SELECT * FROM " . UWA_Config::$USER_ROLES_TABLE . " WHERE user_id = :id", [":id" => $this->Id]);
+            $db->Run("SELECT * FROM " . UWA_Config::$USER_ROLES_TABLE . " WHERE user_id = :id", [":id" => $this->UserId]);
             $role = $db->Fetch(\PDO::FETCH_ASSOC);
 
             $this->Role = new Role($role['role_id']);
@@ -54,7 +59,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
 
     //endregion
 
-    //region ISaveable, IDeletable Methods
+    //region ISaveable, IDeletable, IObjArray Methods
     /**
      * Save any changes to the database
      */
@@ -63,7 +68,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
         $db = new Database();
         $db->Connect();
 
-        $db->Run("UPDATE ". UWA_Config::$USER_ROLES_TABLE ." SET role_id = :r_id WHERE user_id = :u_id",
+        $db->Run("UPDATE ". UWA_Config::$USER_ROLES_TABLE ." SET role_id = :r_id WHERE id = :id",
             [":r_id" => $this->Role->Id, ":u_id" => $this->Id]);
     }
 
@@ -72,7 +77,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
         $db->Connect();
 
         $db->Run("INSERT INTO ". UWA_Config::$USER_ROLES_TABLE ."(user_id, role_id) VALUES(:userid, :role)",
-            [":userid" => $this->Id, ":role" => $this->Role->Id]);
+            [":userid" => $this->UserId, ":role" => $this->Role->Id]);
     }
 
     /**

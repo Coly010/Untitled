@@ -9,6 +9,7 @@
 namespace Untitled\Database;
 
 use Application\Config;
+use Untitled\Libraries\ULogger\ULogger;
 
 class Database
 {
