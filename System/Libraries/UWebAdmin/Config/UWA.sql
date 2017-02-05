@@ -34,6 +34,9 @@ CREATE TABLE uwa_users (
 
 )ENGINE=InnoDb;
 
+INSERT INTO uwa_users(username, password, name, email, display_name) VALUES
+  ('admin', '$2y$10$w/h0QJ2pbw.QbkyBNoiKB..xVMg1rAl9BLUWAu/1RpyyoaA4xMvPm', 'Admin', 'admin@untitled.columferry.co.uk', 'Admin');
+
 
 DROP TABLE IF EXISTS uwa_user_roles;
 
@@ -72,6 +75,20 @@ CREATE TABLE uwa_user_addresses (
   city VARCHAR(100) DEFAULT NULL,
   country VARCHAR(100) DEFAULT NULL,
   zip VARCHAR(10) DEFAULT NULL,
+
+  PRIMARY KEY (id)
+
+)ENGINE=InnoDb;
+
+
+DROP TABLE IF EXISTS uwa_latest_activity;
+
+CREATE TABLE uwa_latest_activity (
+
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL,
+  activity LONGTEXT DEFAULT NULL,
+  time VARCHAR(20) DEFAULT NULL,
 
   PRIMARY KEY (id)
 

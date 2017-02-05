@@ -11,6 +11,7 @@ namespace System\Libraries\UWebAdmin\Pages\Register\Routes;
 
 use System\Libraries\UWebAdmin\DataProcesses\Register_DataProcess;
 use System\Libraries\UWebAdmin\Models\API\Api;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class RegisterHome_Route extends Route
@@ -24,9 +25,10 @@ class RegisterHome_Route extends Route
         parent::__construct();
 
         $this->Request = "register";
-        $this->RequestView = true;
+        $this->RenderView = true;
         $this->ViewFilePath = "UWA/Register/index.html";
         $this->DataProcess = new Register_DataProcess();
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     /**
@@ -34,11 +36,7 @@ class RegisterHome_Route extends Route
      */
     public function RunDataProcess()
     {
-//        $Roles = [];
-//        foreach(Api::GetRoles() as $role){
-//            $Roles[] = $role->ToArray();
-//        }
-//        $this->ViewData = ["roles" => $Roles];
+
     }
 
 }

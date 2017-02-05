@@ -10,6 +10,7 @@ namespace System\Libraries\UWebAdmin\Pages\Register\Routes;
 
 
 use System\Libraries\UWebAdmin\DataProcesses\Register_DataProcess;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class DoRegister_Route extends Route
@@ -26,6 +27,7 @@ class DoRegister_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "UWA/Register/index.html";
         $this->DataProcess = new Register_DataProcess();
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     /**
@@ -33,7 +35,13 @@ class DoRegister_Route extends Route
      */
     public function RunDataProcess()
     {
-        $this->DataProcess->Register();
+        $registered_user = $this->DataProcess->Register();
+        if($registered_user != false){
+            $this->ViewData["result"] = true;
+            $this->ViewData["new_user"] = $registered_user->ToArray();
+        } else {
+            $this->ViewData["result"] = false;
+        }
     }
 
 }
