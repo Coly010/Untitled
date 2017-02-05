@@ -23,6 +23,7 @@ class UWA_Config
      * SETTINGS
      */
     public static $ROLES_TABLE = "uwa_roles";
+    public static $LATEST_ACTIVITY_TABLE = "uwa_latest_activity";
 
     /**
      * MAINMENU

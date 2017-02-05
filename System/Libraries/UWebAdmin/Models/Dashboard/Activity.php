@@ -104,5 +104,5 @@ class Activity implements ISaveable, IDeletable, IObjArray
         $this->Id = $db->InsertId();
     }
     //endregion
-    
+
 }
