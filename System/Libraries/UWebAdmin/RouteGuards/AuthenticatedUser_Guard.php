@@ -9,6 +9,7 @@
 namespace System\Libraries\UWebAdmin\RouteGuards;
 
 use System\PageBuilder\RouteGuard;
+use Untitled\Libraries\Session\Session;
 
 class AuthenticatedUser_Guard extends RouteGuard
 {

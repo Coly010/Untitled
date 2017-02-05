@@ -27,6 +27,18 @@ class RouteGuard
      */
     public $GuardFunction;
 
+
+    /**
+     * RouteGuard constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Determine whether the client can access
+     * @return bool
+     */
     public  function Guard(){
         $func = $this->GuardFunction;
         $this->Result = $func();
