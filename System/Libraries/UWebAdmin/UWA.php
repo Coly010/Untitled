@@ -17,7 +17,7 @@ use System\Libraries\UWebAdmin\Models\API\Api;
 use System\Libraries\UWebAdmin\Models\Dashboard\MenuItem;
 use Untitled\Libraries\Session\Session;
 
-class UWA implements IPlugin
+class UWA extends Api implements IPlugin
 {
 
     /**
