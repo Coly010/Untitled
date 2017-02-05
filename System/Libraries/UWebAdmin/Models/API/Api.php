@@ -38,8 +38,8 @@ class Api
      */
     public static function GetMenuLinks(){
         $Menu = [];
-        foreach(UWA_Config::$MENU_LINKS as $link){
-            $Menu[] = ["link" => $link[0], "url" => $link[1]];
+        foreach(UWA_Config::$MENU_LINKS as $item){
+            $Menu[] = $item->ToArray();
         }
         return $Menu;
     }

@@ -8,7 +8,6 @@
 
 namespace System\Libraries\UWebAdmin\Config;
 
-
 class UWA_Config
 {
 
@@ -28,9 +27,6 @@ class UWA_Config
     /**
      * MAINMENU
      */
-    public static $MENU_LINKS = [
-        ["Home", "/dashboard"],
-        ["Edit User", "/dashboard/user/edit"]
-    ];
+    public static $MENU_LINKS = [];
 
 }

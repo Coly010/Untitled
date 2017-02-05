@@ -22,4 +22,6 @@ class Application_Config
       UWA::class
     ];
 
+    public static $ENV = "Development";
+
 }

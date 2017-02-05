@@ -1,0 +1,66 @@
+@import "variables";
+
+body {
+  padding-top: 70px;
+  background-color: darken(@white, 10%);
+}
+
+.uwa-nav {
+  background-color: lighten(@black, 5%);
+
+  .menu-header {
+    padding: 6px;
+    font-size: 1.25em;
+    margin-bottom: 6px;
+
+
+    color: lighten(@brand-primary, 10%);
+    border-bottom: 1px solid @brand-primary;
+  }
+
+}
+
+.uwa-content {
+  padding-left: 40px;
+}
+
+.uwa-menu {
+  background-color: lighten(@black, 5%);
+
+  height: ~"calc(100vh - 70px)";
+
+  position: relative;
+  top: -20px;
+
+  .menu-header {
+    padding: 6px;
+    font-size: 1.25em;
+    margin-bottom: 6px;
+
+
+    color: lighten(@brand-primary, 10%);
+    border-bottom: 1px solid @brand-primary;
+  }
+
+  .nav {
+    li {
+      a {
+        padding: 5px 7.5px;
+        color: lighten(@white, 10%);
+
+        &:hover {
+          background-color: @brand-primary;
+        }
+      }
+    }
+  }
+
+  .nav-pills {
+    li {
+      a {
+        .border-radius(0px);
+      }
+    }
+  }
+
+}

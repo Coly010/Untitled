@@ -75,7 +75,7 @@ class Login_DataProcess extends DataProcess
      */
     public function SetupSession(){
         Session::Start();
-        Session::Add("user", $this->User);
+        Session::Add("user", $this->User->ToArray());
         return true;
     }
 
