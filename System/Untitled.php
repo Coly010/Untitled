@@ -41,7 +41,7 @@ class Untitled
         foreach($FilesInPagesDirectory as $Directory => $FileArray){
             foreach($FileArray as $File) {
                 if (!is_array($File) && strpos($File, "_Page") !== false) {
-                    $FilePath = Application_Config::$PAGES_DIR . "/" . $Directory . "/" . $File;
+                    $FilePath = Application_Config::$PAGES_DIR . DIRECTORY_SEPARATOR . $Directory . DIRECTORY_SEPARATOR . $File;
                     require $FilePath;
 
                     $Class = "Application\\Pages\\" .$Directory. "\\" . explode(".", $File)[0];
