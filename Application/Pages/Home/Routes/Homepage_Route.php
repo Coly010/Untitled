@@ -15,6 +15,9 @@ use Untitled\PageBuilder\Route;
 class Homepage_Route extends Route
 {
 
+    /**
+     * Homepage_Route constructor.
+     */
     public function __construct() {
         parent::__construct();
 
@@ -24,6 +27,9 @@ class Homepage_Route extends Route
         $this->DataProcess = new DatabaseTest();
     }
 
+    /**
+     * Run the data process
+     */
     public function RunDataProcess()
     {
         if($post = Input::Post("test")){

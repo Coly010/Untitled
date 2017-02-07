@@ -1,1 +1,4 @@
 .idea/
+Application/Config/Database_Config.php
+
+Application/Config/Database_Config.tmp.php

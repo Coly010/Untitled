@@ -12,12 +12,17 @@ namespace Untitled\Libraries\Session;
 class Session
 {
 
+    public static $SESSION_STARTED = false;
+
     /**
      * Session constructor.
      */
     public static function Start()
     {
-        session_start();
+        if(!self::$SESSION_STARTED){
+            session_start();
+            self::$SESSION_STARTED = true;
+        }
     }
 
     /**

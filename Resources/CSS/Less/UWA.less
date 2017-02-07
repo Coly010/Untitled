@@ -1,0 +1,77 @@
+@import "variables";
+
+body {
+  padding-top: 70px;
+  background-color: darken(@white, 10%);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  border-bottom: @brand-primary solid 2px;
+}
+
+.uwa-nav {
+  background-color: lighten(@black, 5%);
+
+  .menu-header {
+    padding: 6px;
+    font-size: 1.25em;
+    margin-bottom: 6px;
+
+
+    color: lighten(@brand-primary, 10%);
+    border-bottom: 1px solid @brand-primary;
+  }
+
+}
+
+.div-table-heading {
+  background-color: @brand-primary;
+  padding: 4px;
+
+  color: @white;
+  font-size: 1.2em;
+  font-weight: bold;
+
+  .border-radius(4px);
+}
+
+.uwa-menu {
+  background-color: lighten(@black, 5%);
+
+  height: ~"calc(100vh - 70px)";
+
+  position: relative;
+  top: -20px;
+
+  .menu-header {
+    padding: 6px;
+    font-size: 1.25em;
+    margin-bottom: 6px;
+
+
+    color: lighten(@brand-primary, 10%);
+    border-bottom: 1px solid @brand-primary;
+  }
+
+  .nav {
+    li {
+      a {
+        padding: 5px 7.5px;
+        color: lighten(@white, 10%);
+
+        &:hover {
+          background-color: @brand-primary;
+        }
+      }
+    }
+  }
+
+  .nav-pills {
+    li {
+      a {
+        .border-radius(0px);
+      }
+    }
+  }
+
+}

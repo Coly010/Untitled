@@ -1,0 +1,78 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Deleted user {{ deleted_user.Name }}.
+        </div>
+
+        {% endif %}
+
+        <div class="row">
+            <div class="login uCard uCard-Standalone">
+                <h2>Delete User</h2>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <form role="form" method="post" id="deleteUserForm">
+                            <div class="form-group">
+                                <label for="selected-user">Select User:</label>
+                                <select class="form-control" id="selected-user" name="selected-user" type="dropdown">
+                                    <option value="">Select User</option>
+                                    {% for u in all_users %}
+                                    <option value="{{ u.Id }}">{{ u.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <button class="btn btn-danger" type="button" onclick="deleteOnSubmit()">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function deleteOnSubmit() {
+        console.log("Delete form");
+        var currentForm = $("#deleteUserForm");
+        BootboxConfirm("Confirm Delete User",
+                "Are you sure you want to delete "+ $("#selected-user").text() +"?",
+                {
+                    label: "<i class='fa fa-times'></i> Cancel",
+                    className: "btn-default"
+                },
+                {
+                    label: "<i class='fa fa-trash'></i> Confirm",
+                    className: "btn-danger"
+                },
+                function(result) {
+                    if(result){
+                        currentForm.attr("action", "/user/delete/do");
+                        currentForm.submit();
+                    }
+                }
+        );
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

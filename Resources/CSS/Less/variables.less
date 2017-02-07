@@ -1,0 +1,28 @@
+/* Primary Colours */
+
+@white: #ffffff;
+@black: #000000;
+
+
+/* Brand Colours */
+
+@brand-primary: #0099cc;
+@brand-secondary: #cc3300;
+@brand-tertiary: #0033cc;
+
+/* Helpful Mixins */
+
+.border-radius(@radius){
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+.border-color(@color, @size){
+  border: @color @size solid;
+}
+
+.drop-shadow(@color, @spread){
+  box-shadow: 0px 0px @spread @color;
+}
+

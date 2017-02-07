@@ -22,4 +22,9 @@ class Twig_Config
      */
     public static $CACHE_PATH = "Application/Cache";
 
+    /**
+     * @var array Global data that is accessible at all times
+     */
+    public static $GLOBAL_DATA = [];
+
 }

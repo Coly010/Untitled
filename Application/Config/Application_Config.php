@@ -9,11 +9,19 @@
 namespace Application\Config;
 
 
+use System\Libraries\UWebAdmin\UWA;
+
 class Application_Config
 {
 
     public static $PAGES_DIR = "Application/Pages";
     public static $DATA_PROCESSES_DIR = "Application/DataProcesses";
     public static $VIEWS_DIR = "Application/Views";
+
+    public static $PLUGINS = [
+      UWA::class
+    ];
+
+    public static $ENV = "Development";
 
 }

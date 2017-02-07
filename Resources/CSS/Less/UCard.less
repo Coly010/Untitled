@@ -1,0 +1,24 @@
+@import "variables";
+
+.uCard {
+
+  background-color: @white;
+  padding: 8px;
+  .border-radius(4px);
+  margin-top: 4px;
+  margin-bottom: 4px;
+
+  h1, h2, h3, h4, h5 h6 {
+    color: darken(@white, 75%);
+  }
+
+}
+
+.uCard-Bordered {
+  .border-color(darken(@white, 25%), 1px);
+}
+
+.uCard-Standalone {
+  .uCard-Bordered;
+  .drop-shadow(darken(@white, 15%), 4px);
+}

@@ -9,6 +9,7 @@
 namespace Untitled\Database;
 
 use Application\Config;
+use Untitled\Libraries\ULogger\ULogger;
 
 class Database
 {
@@ -66,8 +67,10 @@ class Database
     /**
      * Database constructor.
      */
-    public function __construct() {
-
+    public function __construct($coonect = false) {
+        if($coonect){
+            $this->Connect();
+        }
     }
 
     /**
@@ -147,7 +150,7 @@ class Database
             throw new \Exception($ex->getMessage());
         }
 
-        $this->AffectedRows = $this->CurrentStmt->stmt->rowCount();
+        $this->AffectedRows = $this->CurrentStmt->rowCount();
         $this->NumRows = $this->CurrentStmt->rowCount();
 
         $this->InsertId = $this->DB->lastInsertId();

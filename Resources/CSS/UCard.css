@@ -1,0 +1,26 @@
+/* Primary Colours */
+/* Brand Colours */
+/* Helpful Mixins */
+.uCard {
+  background-color: #ffffff;
+  padding: 8px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.uCard h1,
+.uCard h2,
+.uCard h3,
+.uCard h4,
+.uCard h5 h6 {
+  color: #404040;
+}
+.uCard-Bordered {
+  border: #bfbfbf 1px solid;
+}
+.uCard-Standalone {
+  border: #bfbfbf 1px solid;
+  box-shadow: 0px 0px 4px #d9d9d9;
+}

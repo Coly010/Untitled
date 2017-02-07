@@ -8,6 +8,7 @@
 
 namespace Untitled\PageBuilder;
 
+use Application\Config\Application_Config;
 use Application\Config\Twig_Config;
 use Untitled\Libraries\ULogger\ULogger;
 
@@ -154,7 +155,12 @@ class Page
      */
     private function InitialiseTwig(){
         $loader = new \Twig_Loader_FileSystem(Twig_Config::$TEMPLATE_PATH);
-        $this->Twig = new \Twig_Environment($loader, ['cache' => Twig_Config::$CACHE_PATH]);
+        $this->Twig = new \Twig_Environment($loader,
+            ['cache' => Application_Config::$ENV == "Development" ? false : Twig_Config::$CACHE_PATH]);
+
+        foreach(Twig_Config::$GLOBAL_DATA as $key=>$value){
+            $this->Twig->addGlobal($key, $value);
+        }
     }
 
 }

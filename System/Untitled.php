@@ -29,6 +29,7 @@ class Untitled
      */
     public function __construct($RequestString){
         $this->RequestString = $RequestString;
+        $this->ActivatePlugins();
     }
 
     /**
@@ -66,6 +67,12 @@ class Untitled
         $this->FindPage();
 
         $this->Page->ProcessFoundRoute();
+    }
+
+    private function ActivatePlugins(){
+        foreach(Application_Config::$PLUGINS as $plugin){
+            $plugin::Start();
+        }
     }
 
     /**

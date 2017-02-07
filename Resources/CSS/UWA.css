@@ -1,0 +1,60 @@
+/* Primary Colours */
+/* Brand Colours */
+/* Helpful Mixins */
+body {
+  padding-top: 70px;
+  background-color: #e6e6e6;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  border-bottom: #0099cc solid 2px;
+}
+.uwa-nav {
+  background-color: #0d0d0d;
+}
+.uwa-nav .menu-header {
+  padding: 6px;
+  font-size: 1.25em;
+  margin-bottom: 6px;
+  color: #00bfff;
+  border-bottom: 1px solid #0099cc;
+}
+.div-table-heading {
+  background-color: #0099cc;
+  padding: 4px;
+  color: #ffffff;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+.uwa-menu {
+  background-color: #0d0d0d;
+  height: calc(100vh - 70px);
+  position: relative;
+  top: -20px;
+}
+.uwa-menu .menu-header {
+  padding: 6px;
+  font-size: 1.25em;
+  margin-bottom: 6px;
+  color: #00bfff;
+  border-bottom: 1px solid #0099cc;
+}
+.uwa-menu .nav li a {
+  padding: 5px 7.5px;
+  color: #ffffff;
+}
+.uwa-menu .nav li a:hover {
+  background-color: #0099cc;
+}
+.uwa-menu .nav-pills li a {
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+}
