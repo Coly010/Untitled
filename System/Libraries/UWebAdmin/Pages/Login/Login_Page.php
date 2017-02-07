@@ -11,6 +11,7 @@ namespace System\Libraries\UWebAdmin\Pages\Login;
 
 use System\Libraries\UWebAdmin\Pages\Login\Routes\DoLogin_Route;
 use System\Libraries\UWebAdmin\Pages\Login\Routes\LoginHome_Route;
+use System\Libraries\UWebAdmin\Pages\Login\Routes\Logout_Route;
 use Untitled\PageBuilder\Page;
 
 class Login_Page extends Page
@@ -22,6 +23,7 @@ class Login_Page extends Page
 
         $this->AddRoute(new LoginHome_Route());
         $this->AddRoute(new DoLogin_Route());
+        $this->AddRoute(new Logout_Route());
     }
 
 }
