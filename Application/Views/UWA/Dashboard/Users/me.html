@@ -1,0 +1,119 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Edited user {{ edited_user.Name }}.
+        </div>
+
+        {% endif %}
+
+        <div class="row">
+            <div class="uCard uCard-Standalone">
+                <h2>My Account</h2>
+
+                <div id="my-account">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <form role="form" method="post" action="/user/me/account/update">
+                                <input type="hidden" name="ID" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="username">Username:</label>
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="{{ uwa_user.Username }}" />
+
+                                            <label class="sr-only" for="name">Name:</label>
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="{{ user.Name }}" />
+
+                                            <label class="sr-only" for="name">Display Name:</label>
+                                            <input type="text" class="form-control" name="name" id="display_name" placeholder="Display Name" value="{{ uwa_user.DisplayName }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Change Password? <small>Leave blank to keep the same</small></label>
+                                            <label class="sr-only" for="password">Password:</label>
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
+
+                                            <label class="sr-only" for="cpassword">Confirm Password:</label>
+                                            <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Confirm Password" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="email">Email:</label>
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ uwa_user.Email }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="phone_number">Phone Number:</label>
+                                            <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="Phone Number" value="{{ uwa_user.PhoneNumber.Number }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="line1">Address Line 1:</label>
+                                            <input type="text" class="form-control" name="line1" id="line1" placeholder="Address Line 1" value="{{ uwa_user.Address.Line1 }}" />
+
+                                            <label class="sr-only" for="line2">Address Line 2:</label>
+                                            <input type="text" class="form-control" name="line2" id="line2" placeholder="Address Line 2" value="{{ uwa_user.Address.Line2 }}" />
+
+                                            <label class="sr-only" for="zip">Zip:</label>
+                                            <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip" value="{{ uwa_user.Address.Zip }}" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="city">City:</label>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" value="{{ uwa_user.Address.City }}" />
+
+                                            <label class="sr-only" for="country">Country:</label>
+                                            <input type="text" class="form-control" name="country" id="country" placeholder="Country" value="{{ uwa_user.Address.Country }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if uwa_user.Role.Role.Name == "Admin" %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="role">Role: </label>
+                                            <select type="dropdown" class="form-control" name="role" id="role">
+                                                {% for role in uwa_roles %}
+                                                <option value="{{role.Id}}">{{role.Name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-default">Edit</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

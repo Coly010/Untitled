@@ -50,6 +50,8 @@ CREATE TABLE uwa_user_roles (
 
 )ENGINE=InnoDb;
 
+INSERT INTO uwa_user_roles(user_id, role_id) VALUES(1, 1);
+
 
 DROP TABLE IF EXISTS uwa_user_phone_numbers;
 
@@ -62,6 +64,8 @@ CREATE TABLE uwa_user_phone_numbers (
   PRIMARY KEY (id)
 
 )ENGINE=InnoDb;
+
+INSERT INTO uwa_user_phone_numbers(user_id, phone_number) VALUES(1, '07754321232');
 
 
 DROP TABLE IF EXISTS uwa_user_addresses;
@@ -79,6 +83,10 @@ CREATE TABLE uwa_user_addresses (
   PRIMARY KEY (id)
 
 )ENGINE=InnoDb;
+
+INSERT INTO uwa_user_addresses(user_id, line1, line2, city, country, zip) VALUES(
+  1, 'Line 1', 'Line 2', 'City', 'Country', 'ZP10 01PZ'
+);
 
 
 DROP TABLE IF EXISTS uwa_latest_activity;

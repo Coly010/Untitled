@@ -1,0 +1,165 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Edited user {{ edited_user.Name }}.
+        </div>
+
+        {% endif %}
+
+        <div class="row">
+            <div class="login uCard uCard-Standalone">
+                <h2>Edit User</h2>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="selected-user">Select User:</label>
+                        <select class="form-control" id="selected-user" name="selected-user" type="dropdown" onchange="onSelectUser()">
+                            <option value="">Select User</option>
+                            {% for u in all_users %}
+                            <option value="{{ u.Id }}">{{ u.Name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <br />
+
+                <div id="hidden-select-user" class="hidden">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <form role="form" method="post" action="/user/edit/do">
+                                <input type="hidden" name="ID" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="username">Username:</label>
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" />
+
+                                            <label class="sr-only" for="name">Name:</label>
+                                            <input type="text" class="form-control" name="name" id="name" placeholder="Name" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="password">Password:</label>
+                                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
+
+                                            <label class="sr-only" for="cpassword">Confirm Password:</label>
+                                            <input type="password" class="form-control" name="cpassword" id="cpassword" placeholder="Confirm Password" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="email">Email:</label>
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="phone_number">Phone Number:</label>
+                                            <input type="tel" class="form-control" name="phone_number" id="phone_number" placeholder="Phone Number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="line1">Address Line 1:</label>
+                                            <input type="text" class="form-control" name="line1" id="line1" placeholder="Address Line 1" />
+
+                                            <label class="sr-only" for="line2">Address Line 2:</label>
+                                            <input type="text" class="form-control" name="line2" id="line2" placeholder="Address Line 2" />
+
+                                            <label class="sr-only" for="zip">Zip:</label>
+                                            <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="city">City:</label>
+                                            <input type="text" class="form-control" name="city" id="city" placeholder="City" />
+
+                                            <label class="sr-only" for="country">Country:</label>
+                                            <input type="text" class="form-control" name="country" id="country" placeholder="Country" />
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if uwa_user.Role.Role.Name == "Admin" %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="role">Role: </label>
+                                            <select type="dropdown" class="form-control" name="role" id="role">
+                                                {% for role in uwa_roles %}
+                                                <option value="{{role.Id}}">{{role.Name}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-default">Edit</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onSelectUser(){
+        // Get the details of the selected user
+        $.post("/user/get", {user_id: $("#selected-user").val()}, function(data){
+            data = JSON.parse(data);
+            var user = data.found_user;
+            console.log(user);
+            $("input[name='ID']").val(user.Id);
+            $("input[name='username']").val(user.Username);
+            $("input[name='name']").val(user.Name);
+            $("input[name='email']").val(user.Email);
+            $("input[name='phone_number']").val(user.PhoneNumber.Number);
+            $("input[name='line1']").val(user.Address.Line1);
+            $("input[name='line2']").val(user.Address.Line2);
+            $("input[name='city']").val(user.Address.City);
+            $("input[name='country']").val(user.Address.Country);
+            $("input[name='zip']").val(user.Address.Zip);
+            $("select[name='role']").val(user.Role.Role.Id);
+
+            $("#hidden-select-user").removeClass("hidden");
+        });
+
+
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

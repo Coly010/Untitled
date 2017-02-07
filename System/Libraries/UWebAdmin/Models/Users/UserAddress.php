@@ -66,14 +66,15 @@ class UserAddress implements ISaveable, IDeletable, IObjArray
     public function __construct($id = null)
     {
         if(!is_null($id)) {
-            $this->Id = $id;
+            $this->UserId = $id;
 
             $db = new Database();
             $db->Connect();
 
-            $db->Run("SELECT * FROM " . UWA_Config::$USER_ADDRESSES_TABLE . " WHERE id = :id", [":id" => $this->Id]);
+            $db->Run("SELECT * FROM " . UWA_Config::$USER_ADDRESSES_TABLE . " WHERE user_id = :id", [":id" => $this->UserId]);
             $address = $db->Fetch(\PDO::FETCH_ASSOC);
 
+            $this->Id = $address['id'];
             $this->Line1 = $address['line1'];
             $this->Line2 = $address['line2'];
             $this->City = $address['city'];

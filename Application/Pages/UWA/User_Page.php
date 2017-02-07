@@ -9,17 +9,12 @@
 namespace Application\Pages\UWA;
 
 
-use Application\Pages\UWA\Routes\Users\AddUser_Route;
-use Untitled\PageBuilder\Page;
-
-class User_Page extends Page
+class User_Page extends \System\Libraries\UWebAdmin\Pages\Users\User_Page
 {
 
     public function __construct()
     {
         parent::__construct();
-
-        $this->AddRoute(new AddUser_Route());
     }
 
 }

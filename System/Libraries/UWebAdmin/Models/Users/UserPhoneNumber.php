@@ -46,15 +46,15 @@ class UserPhoneNumber implements ISaveable, IDeletable, IObjArray
     public function __construct($id = null)
     {
         if(!is_null($id)){
-            $this->Id = $id;
+            $this->UserId = $id;
 
             $db = new Database();
             $db->Connect();
 
-            $db->Run("SELECT * FROM ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ." WHERE id = :id", [":id" => $this->Id]);
+            $db->Run("SELECT * FROM ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ." WHERE user_id = :id", [":id" => $this->UserId]);
             $number = $db->Fetch(\PDO::FETCH_ASSOC);
 
-            $this->UserId = $number['user_id'];
+            $this->Id = $number['id'];
             $this->Number = $number['phone_number'];
         }
     }
@@ -71,7 +71,7 @@ class UserPhoneNumber implements ISaveable, IDeletable, IObjArray
         $db->Connect();
 
         $db->Run("UPDATE ". UWA_Config::$USER_PHONE_NUMBERS_TABLE ." SET
-            userid = :userid,
+            user_id = :userid,
             phone_number = :phone_number
             WHERE id = :id",
             [":userid" => $this->UserId,

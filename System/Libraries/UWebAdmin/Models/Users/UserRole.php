@@ -45,7 +45,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
     public function __construct($id = null)
     {
         if(!is_null($id)) {
-            $this->Id = $id;
+            $this->UserId = $id;
 
             $db = new Database();
             $db->Connect();
@@ -54,6 +54,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
             $role = $db->Fetch(\PDO::FETCH_ASSOC);
 
             $this->Role = new Role($role['role_id']);
+            $this->Id = $role['id'];
         }
     }
 
@@ -69,7 +70,7 @@ class UserRole implements ISaveable, IDeletable, IObjArray
         $db->Connect();
 
         $db->Run("UPDATE ". UWA_Config::$USER_ROLES_TABLE ." SET role_id = :r_id WHERE id = :id",
-            [":r_id" => $this->Role->Id, ":u_id" => $this->Id]);
+            [":r_id" => $this->Role->Id, ":id" => $this->Id]);
     }
 
     public function Insert(){

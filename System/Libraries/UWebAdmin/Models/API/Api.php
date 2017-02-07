@@ -13,29 +13,12 @@ use System\Libraries\UWebAdmin\Config\UWA_Config;
 use System\Libraries\UWebAdmin\Models\Dashboard\Activity;
 use System\Libraries\UWebAdmin\Models\Users\Role;
 use System\Libraries\UWebAdmin\Models\Users\User;
-use System\Libraries\UWebAdmin\UWA;
 use Untitled\Database\Database;
 
 class Api
 {
 
-    //region General API
-
-    /**
-     * @return array Roles objects
-     * Get the roles that are in the application
-     */
-    public static function GetRoles(){
-        $Roles = [];
-        $db = new Database(true);
-
-        $db->Run("SELECT id FROM ". UWA_Config::$ROLES_TABLE, []);
-        foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $role){
-            $Roles[] = new Role($role['id']);
-        }
-
-        return $Roles;
-    }
+    //region Dashboard API
 
     /**
      * @return array Menu links associative array
@@ -67,6 +50,30 @@ class Api
         }
 
         return $Users;
+    }
+
+    /**
+     * Get a registered user
+     * @return User object
+     */
+    public static function GetUser($id){
+        return new User($id);
+    }
+
+    /**
+     * @return array Roles objects
+     * Get the roles that are in the application
+     */
+    public static function GetRoles(){
+        $Roles = [];
+        $db = new Database(true);
+
+        $db->Run("SELECT id FROM ". UWA_Config::$ROLES_TABLE, []);
+        foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $role){
+            $Roles[] = new Role($role['id']);
+        }
+
+        return $Roles;
     }
 
     //endregion

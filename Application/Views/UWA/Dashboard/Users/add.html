@@ -2,8 +2,26 @@
 
 {% block content %}
 
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page
+</div>
+
+{% else %}
+
 <div class="row">
     <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Added new user {{ new_user.Name }}.
+        </div>
+
+        {% endif %}
+
         <div class="row">
             <div class="login uCard uCard-Standalone">
                 <h2>Add User</h2>
@@ -11,7 +29,7 @@
                 <div class="row">
                     <div class="col-sm-6">
 
-                        <form role="form" method="post" action="/register/do">
+                        <form role="form" method="post" action="/user/add/do">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -95,5 +113,7 @@
         </div>
     </div>
 </div>
+
+{% endif %}
 
 {% endblock %}

@@ -4,10 +4,48 @@
 
 <div class="row">
 
-    <h2>Welcome back {{ uwa_user.Name }}</h2>
+    <div class="col-sm-12">
+        <h2>Welcome back {{ uwa_user.Name }}</h2>
 
-    <div class="row">
+        <div class="uCard uCard-Standalone">
+            <h3>Latest Activity</h3>
 
+            {% if latest_activity %}
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-sm-2 div-table-heading">
+                            <span>Time</span>
+                        </div>
+                        <div class="col-sm-9 col-sm-offset-1 div-table-heading">
+                            <span>Activity</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% for activity in latest_activity %}
+
+            <div class="row">
+                <div class="col-sm-2">
+                    {{ activity.time }}
+                </div>
+                <div class="col-sm-10">
+                    {{ activity.activity }}
+                </div>
+            </div>
+
+            {% else %}
+
+            <div class="row">
+                <div class="col-sm-12">
+                    No activity to show yet.
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
     </div>
 
 </div>

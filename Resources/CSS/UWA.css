@@ -23,8 +23,15 @@ h6 {
   color: #00bfff;
   border-bottom: 1px solid #0099cc;
 }
-.uwa-content {
-  padding-left: 40px;
+.div-table-heading {
+  background-color: #0099cc;
+  padding: 4px;
+  color: #ffffff;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
 }
 .uwa-menu {
   background-color: #0d0d0d;

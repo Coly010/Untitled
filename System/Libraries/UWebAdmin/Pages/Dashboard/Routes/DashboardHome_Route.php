@@ -9,8 +9,10 @@
 namespace System\Libraries\UWebAdmin\Pages\Dashboard\Routes;
 
 
+use System\Helpers\DateTime\DateTime_Helper;
 use System\Libraries\UWebAdmin\DataProcesses\Admin_DataProcess;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use System\Libraries\UWebAdmin\UWA;
 use System\PageBuilder\RouteGuard;
 use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
@@ -38,7 +40,12 @@ class DashboardHome_Route extends Route
      */
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $latest_activity = UWA::GetLatestActivity(10);
+        foreach($latest_activity as $la){
+            $la = $la->ToArray();
+            $la["time"] = DateTime_Helper::ConvertTimeFullDateWithTime($la['time']);
+            $this->ViewData["latest_activity"][] = $la;
+        }
     }
 
 }

@@ -26,6 +26,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script src="https://use.fontawesome.com/5318d08ea2.js"></script>
 </head>
 <body>
 
@@ -61,7 +63,9 @@
             </ul>
         </div>
         <div class="col-sm-10 uwa-content">
-            {% block content %}{% endblock %}
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
         </div>
 
     </div>
@@ -72,6 +76,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script>
+   function BootboxConfirm(title, msg, cancelBtn, confirmBtn, callback){
+       bootbox.confirm({
+           title: title,
+           message: msg,
+           buttons: {
+               confirm: confirmBtn,
+               cancel: cancelBtn
+           },
+           callback: callback
+       });
+   }
+</script>
 
 </body>
 </html>
