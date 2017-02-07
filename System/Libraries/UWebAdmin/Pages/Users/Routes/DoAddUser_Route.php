@@ -20,6 +20,8 @@ class DoAddUser_Route extends DoRegister_Route
 
         $this->Request = "user/add/do";
         $this->ViewFilePath = "UWA/Dashboard/Users/add.html";
+
+        $this->ViewData['page_name'] = "Add User";
     }
 
 }

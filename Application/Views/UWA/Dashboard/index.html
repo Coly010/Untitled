@@ -28,12 +28,17 @@
             {% for activity in latest_activity %}
 
             <div class="row">
-                <div class="col-sm-2">
-                    {{ activity.time }}
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ activity.Time }}
+                        </div>
+                        <div class="col-sm-9 col-sm-offset-1">
+                            {{ activity.Activity }}
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10">
-                    {{ activity.activity }}
-                </div>
+
             </div>
 
             {% else %}

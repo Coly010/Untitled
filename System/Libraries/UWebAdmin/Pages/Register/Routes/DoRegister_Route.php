@@ -10,7 +10,10 @@ namespace System\Libraries\UWebAdmin\Pages\Register\Routes;
 
 
 use System\Libraries\UWebAdmin\DataProcesses\Register_DataProcess;
+use System\Libraries\UWebAdmin\Models\Users\User;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use System\Libraries\UWebAdmin\UWA;
+use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
 
 class DoRegister_Route extends Route
@@ -42,6 +45,9 @@ class DoRegister_Route extends Route
         } else {
             $this->ViewData["result"] = false;
         }
+
+        $Me = new User(Session::Get("user")['Id']);
+        UWA::NewActivity($Me, $Me->Name." added new user ".$registered_user->Name.".", time());
     }
 
 }

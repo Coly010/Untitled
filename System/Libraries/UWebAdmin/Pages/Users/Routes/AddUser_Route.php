@@ -19,6 +19,8 @@ class AddUser_Route extends RegisterHome_Route
 
         $this->Request = "user/add";
         $this->ViewFilePath = "UWA/Dashboard/Users/add.html";
+
+        $this->ViewData['page_name'] = "Add User";
     }
 
 }

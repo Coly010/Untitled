@@ -29,6 +29,8 @@ class EditUser_Route extends Route
         $this->ViewFilePath = "UWA/Dashboard/Users/edit.html";
         $this->DataProcess = new Admin_DataProcess();
         $this->RouteGuard = new AuthenticatedUser_Guard();
+
+        $this->ViewData['page_name'] = "Edit User";
     }
 
     /**

@@ -25,6 +25,9 @@ class UpdateMyAccount_Route extends Route
         $this->ViewFilePath = "UWA/Dashboard/Users/me.html";
         $this->DataProcess = new Admin_DataProcess();
         $this->RouteGuard = new AuthenticatedUser_Guard();
+
+
+        $this->ViewData['page_name'] = "My Account";
     }
 
     public function RunDataProcess()

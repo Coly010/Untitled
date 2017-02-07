@@ -26,6 +26,7 @@ class DeleteUser_Route extends Route
         $this->ViewFilePath = "UWA/Dashboard/Users/delete.html";
         $this->DataProcess = new Admin_DataProcess();
         $this->RouteGuard = new AuthenticatedUser_Guard();
+        $this->ViewData['page_name'] = "Delete User";
     }
 
     public function RunDataProcess()

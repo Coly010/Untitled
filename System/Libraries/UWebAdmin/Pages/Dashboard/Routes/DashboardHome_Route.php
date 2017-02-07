@@ -33,6 +33,7 @@ class DashboardHome_Route extends Route
         $this->DataProcess = new Admin_DataProcess();
 
         $this->RouteGuard = new AuthenticatedUser_Guard();
+        $this->ViewData['page_name'] = "Dashboard";
     }
 
     /**
@@ -43,7 +44,7 @@ class DashboardHome_Route extends Route
         $latest_activity = UWA::GetLatestActivity(10);
         foreach($latest_activity as $la){
             $la = $la->ToArray();
-            $la["time"] = DateTime_Helper::ConvertTimeFullDateWithTime($la['time']);
+            $la["Time"] = DateTime_Helper::ConvertTimeFullDateWithTime($la['Time']);
             $this->ViewData["latest_activity"][] = $la;
         }
     }

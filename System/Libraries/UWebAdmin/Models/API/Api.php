@@ -89,7 +89,7 @@ class Api
 
         $sql = "SELECT * FROM ".
             UWA_Config::$LATEST_ACTIVITY_TABLE .
-            !is_null($limit) ? " LIMIT" . $limit : "" .
+            (!is_null($limit) ? " LIMIT" . $limit : "") .
             " ORDER BY time DESC";
 
         $db = new Database(true);
