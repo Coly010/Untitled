@@ -10,7 +10,9 @@ namespace System\Libraries\UWebAdmin\Pages\Users\Routes;
 
 
 use System\Libraries\UWebAdmin\DataProcesses\Admin_DataProcess;
+use System\Libraries\UWebAdmin\Models\Users\User;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
 
 class MyAccount_Route extends Route
@@ -29,7 +31,7 @@ class MyAccount_Route extends Route
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['me'] = new User(Session::Get("user")['Id']);
     }
 
 

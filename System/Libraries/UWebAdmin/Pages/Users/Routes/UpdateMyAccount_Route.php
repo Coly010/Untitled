@@ -20,7 +20,7 @@ class UpdateMyAccount_Route extends Route
     {
         parent::__construct();
 
-        $this->Request = "user/me/account";
+        $this->Request = "user/me/account/update";
         $this->RenderView = true;
         $this->ViewFilePath = "UWA/Dashboard/Users/me.html";
         $this->DataProcess = new Admin_DataProcess();
@@ -29,7 +29,9 @@ class UpdateMyAccount_Route extends Route
 
     public function RunDataProcess()
     {
-        
+        if($this->DataProcess->UpdateMyAccount()){
+            $this->ViewData['result'] = true;
+        }
     }
 
 
