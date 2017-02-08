@@ -20,6 +20,9 @@ use Untitled\Database\Database;
 class UBlog extends Api implements IPlugin
 {
 
+    /**
+     * Start the plugin
+     */
     public static function Start()
     {
         self::AddMenuLinks();
@@ -27,25 +30,33 @@ class UBlog extends Api implements IPlugin
 
     }
 
+    /**
+     * Add the standard menu links
+     */
     private static function AddMenuLinks(){
         UWA_Config::$MENU_LINKS[] = new MenuItem("Blog Settings", null, true);
 
         UWA_Config::$MENU_LINKS[] = new MenuItem("Add Blog", UBlog_RouteStrings::$ADD_BLOG);
         UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Blog", UBlog_RouteStrings::$EDIT_BLOG);
         UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Blog", UBlog_RouteStrings::$DELETE_BLOG);
-
     }
 
+    /**
+     * Add the additional dynamic menu links based on the blogs in the app
+     */
     private static function GetDynamicLinks(){
         $db = new Database(true);
         $db->Run("SELECT * FROM ". UBlog_Config::$BLOGS_TABLES, []);
 
-        foreach($db->FetchAll() as $blog){
-            UWA_Config::$MENU_LINKS[] = new MenuItem($blog['name'], null, true);
-            UWA_Config::$MENU_LINKS[] = new MenuItem("New Post", "dashboard/blog/".$blog['id']."/post/new");
-            UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Post", "dashboard/blog/".$blog['id']."/post/edit");
-            UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Post", "dashboard/blog/".$blog['id']."/post/delete");
+        if($db->NumRows()){
+            foreach($db->FetchAll() as $blog){
+                UWA_Config::$MENU_LINKS[] = new MenuItem($blog['name'], null, true);
+                UWA_Config::$MENU_LINKS[] = new MenuItem("New Post", "dashboard/blog/".$blog['id']."/post/new");
+                UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Post", "dashboard/blog/".$blog['id']."/post/edit");
+                UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Post", "dashboard/blog/".$blog['id']."/post/delete");
+            }
         }
+
     }
 
 }

@@ -9,6 +9,7 @@
 namespace Application\Config;
 
 
+use System\Libraries\UBlog\UBlog;
 use System\Libraries\UWebAdmin\UWA;
 
 class Application_Config
@@ -19,7 +20,8 @@ class Application_Config
     public static $VIEWS_DIR = "Application/Views";
 
     public static $PLUGINS = [
-      UWA::class
+        UWA::class,
+        UBlog::class
     ];
 
     public static $ENV = "Development";
