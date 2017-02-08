@@ -10,13 +10,42 @@ namespace System\Libraries\UBlog;
 
 
 use System\Libraries\Interfaces\IPlugin;
+use System\Libraries\UBlog\Config\UBlog_Config;
+use System\Libraries\UBlog\Config\UBlog_RouteStrings;
+use System\Libraries\UBlog\Models\Api\Api;
+use System\Libraries\UWebAdmin\Config\UWA_Config;
+use System\Libraries\UWebAdmin\Models\Dashboard\MenuItem;
+use Untitled\Database\Database;
 
-class UBlog implements IPlugin
+class UBlog extends Api implements IPlugin
 {
 
     public static function Start()
     {
+        self::AddMenuLinks();
+        self::GetDynamicLinks();
 
+    }
+
+    private static function AddMenuLinks(){
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Blog Settings", null, true);
+
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Blog", UBlog_RouteStrings::$ADD_BLOG);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Blog", UBlog_RouteStrings::$EDIT_BLOG);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Blog", UBlog_RouteStrings::$DELETE_BLOG);
+
+    }
+
+    private static function GetDynamicLinks(){
+        $db = new Database(true);
+        $db->Run("SELECT * FROM ". UBlog_Config::$BLOGS_TABLES, []);
+
+        foreach($db->FetchAll() as $blog){
+            UWA_Config::$MENU_LINKS[] = new MenuItem($blog['name'], null, true);
+            UWA_Config::$MENU_LINKS[] = new MenuItem("New Post", "dashboard/blog/".$blog['id']."/post/new");
+            UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Post", "dashboard/blog/".$blog['id']."/post/edit");
+            UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Post", "dashboard/blog/".$blog['id']."/post/delete");
+        }
     }
 
 }

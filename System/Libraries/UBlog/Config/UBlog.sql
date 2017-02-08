@@ -44,3 +44,9 @@ CREATE TABLE ub_blog_comments (
   PRIMARY KEY (id)
 
 )ENGINE=InnoDb;
+
+
+INSERT INTO uwa_roles(name, description) VALUES
+  ('Blog Admin', 'Blog Administrator for the blog.'),
+  ('Blog Editor', 'Guest editor that can post on the blog.'),
+  ('Blog Follower', 'Normal users that can get updates from the blog');
