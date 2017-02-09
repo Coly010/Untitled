@@ -24,6 +24,7 @@ class DeletePost_Route extends Route
         $this->Request = "dashboard/blog/%VAR%/post/delete";
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Posts/delete.html";
+        $this->ComplexRoute = true;
     }
 
     public function RunDataProcess()

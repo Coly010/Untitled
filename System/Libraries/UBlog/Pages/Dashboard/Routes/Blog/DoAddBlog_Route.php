@@ -27,11 +27,16 @@ class DoAddBlog_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Blogs/add.html";
         $this->DataProcess = new UBlog_DataProcess();
+        $this->ViewData['page_name'] = "Add Blog";
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+       $blog = $this->DataProcess->BLOG->AddBlog();
+        if($blog != false){
+            $this->ViewData['result'] = true;
+            $this->ViewData['blog'] = $blog;
+        }
     }
 
 

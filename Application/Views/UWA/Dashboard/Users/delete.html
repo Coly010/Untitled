@@ -53,7 +53,7 @@
     function deleteOnSubmit() {
         var currentForm = $("#deleteUserForm");
         BootboxConfirm("Confirm Delete User",
-                "Are you sure you want to delete "+ $("#selected-user").text() +"?",
+                "Are you sure you want to delete "+ $("#selected-user option:selected").text() +"?",
                 {
                     label: "<i class='fa fa-times'></i> Cancel",
                     className: "btn-default"

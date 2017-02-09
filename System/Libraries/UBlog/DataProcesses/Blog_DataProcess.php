@@ -9,7 +9,11 @@
 namespace System\Libraries\UBlog\DataProcesses;
 
 
+use Application\Config\Twig_Config;
 use System\Libraries\UBlog\Models\Blogs\Blog;
+use System\Libraries\UBlog\UBlog;
+use System\Libraries\UWebAdmin\Config\UWA_Config;
+use System\Libraries\UWebAdmin\UWA;
 use Untitled\Libraries\Input\Input;
 use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 use Untitled\PageBuilder\DataProcess;
@@ -32,6 +36,12 @@ class Blog_DataProcess extends DataProcess
         }
 
         $blog->Insert();
+
+        UWA_Config::$MENU_LINKS = [];
+        UWA::Start();
+        UBlog::Start();
+        UWA::ConvertGlobalDataToTwigGlobals();
+
         return $blog;
     }
 
@@ -50,6 +60,12 @@ class Blog_DataProcess extends DataProcess
         }
 
         $blog->Save();
+
+        UWA_Config::$MENU_LINKS = [];
+        UWA::Start();
+        UBlog::Start();
+        UWA::ConvertGlobalDataToTwigGlobals();
+
         return $blog;
     }
 
@@ -59,10 +75,17 @@ class Blog_DataProcess extends DataProcess
      */
     public function DeleteBlog($blog = null){
         if(is_null($blog)){
-            $blog = new Blog(Sanitiser::Int(Input::Post("ID")));
+            $blog = new Blog(Sanitiser::Int(Input::Post("selected_blog")));
         }
 
         $blog->Delete();
+
+        UWA_Config::$MENU_LINKS = [];
+        Twig_Config::$GLOBAL_DATA['uwa_dashboard_menu'] = [];
+        UWA::Start();
+        UBlog::Start();
+        UWA::ConvertGlobalDataToTwigGlobals();
+
         return $blog;
     }
 

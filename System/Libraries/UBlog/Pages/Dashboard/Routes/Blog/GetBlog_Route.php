@@ -10,6 +10,9 @@ namespace System\Libraries\UBlog\Pages\Dashboard\Routes\Blog;
 
 
 use System\Libraries\UBlog\Config\UBlog_RouteStrings;
+use System\Libraries\UBlog\Models\Blogs\Blog;
+use Untitled\Libraries\Input\Input;
+use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 use Untitled\PageBuilder\Route;
 
 class GetBlog_Route extends Route
@@ -28,7 +31,7 @@ class GetBlog_Route extends Route
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['found_blog'] = new Blog(Sanitiser::Int(Input::Post("blog_id")));
     }
 
 

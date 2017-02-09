@@ -10,6 +10,8 @@ namespace System\Libraries\UBlog\Pages\Dashboard\Routes\Blog;
 
 
 use System\Libraries\UBlog\Config\UBlog_RouteStrings;
+use System\Libraries\UBlog\DataProcesses\UBlog_DataProcess;
+use System\Libraries\UBlog\UBlog;
 use Untitled\PageBuilder\Route;
 
 class DoEditBlog_Route extends Route
@@ -25,11 +27,19 @@ class DoEditBlog_Route extends Route
         $this->Request = UBlog_RouteStrings::$EDIT_BLOG."/do";
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Blogs/edit.html";
+        $this->DataProcess = new UBlog_DataProcess();
+        $this->ViewData['page_name'] = "Edit Blog";
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $blog = $this->DataProcess->BLOG->EditBlog();
+        if($blog != false){
+            $this->ViewData['result'] = true;
+            $this->ViewData['blog'] = $blog;
+        }
+
+        $this->ViewData['all_blogs'] = UBlog::GetBlogs();
     }
 
 

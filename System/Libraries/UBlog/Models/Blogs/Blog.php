@@ -104,7 +104,7 @@ class Blog implements ISaveable, IDeletable, IObjArray
         $db = new Database(true);
 
         $db->Run("UPDATE ". UBlog_Config::$BLOGS_TABLES ." SET name = :name, description = :desc WHERE id = :id",
-            [":name" => $this->Name, ":desc" => $this->Description]);
+            [":name" => $this->Name, ":desc" => $this->Description, ":id" => $this->Id]);
     }
 
     /**

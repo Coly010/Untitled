@@ -51,7 +51,7 @@
     function deletePostOnSubmit() {
         var currentForm = $("#deletePostForm");
         BootboxConfirm("Confirm Delete Post",
-                "Are you sure you want to delete "+ $("#selected-post").text() +"?",
+                "Are you sure you want to delete "+ $("#selected-post option:selected").text() +"?",
                 {
                     label: "<i class='fa fa-times'></i> Cancel",
                     className: "btn-default"

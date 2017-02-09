@@ -25,11 +25,11 @@ class AddBlog_Route extends Route
         $this->Request = UBlog_RouteStrings::$ADD_BLOG;
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Blogs/add.html";
+        $this->ViewData['page_name'] = "Add Blog";
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
     }
 
 

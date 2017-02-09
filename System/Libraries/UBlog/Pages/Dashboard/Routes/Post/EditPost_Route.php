@@ -24,6 +24,7 @@ class EditPost_Route extends Route
         $this->Request = "dashboard/blog/%VAR%/post/edit";
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Posts/edit.html";
+        $this->ComplexRoute = true;
     }
 
     public function RunDataProcess()

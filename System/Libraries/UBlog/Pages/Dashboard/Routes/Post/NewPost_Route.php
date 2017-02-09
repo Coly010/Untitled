@@ -24,11 +24,12 @@ class NewPost_Route extends Route
         $this->Request = "dashboard/blog/%VAR%/post/new";
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Posts/add.html";
+        $this->ComplexRoute = true;
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['blog'] = $this->Params[0];
     }
 
 

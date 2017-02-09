@@ -30,7 +30,7 @@
                     <form role="form" method="post" id="deleteBlogForm">
                         <div class="form-group">
                             <label for="selected-blog">Select Blog:</label>
-                            <select class="form-control" id="selected-blog" name="selected-blog" type="dropdown">
+                            <select class="form-control" id="selected-blog" name="selected_blog" type="dropdown">
                                 <option value="">Select Blog</option>
                                 {% for b in all_blogs %}
                                 <option value="{{ b.Id }}">{{ b.Name }}</option>
@@ -51,7 +51,7 @@
     function deleteBlogOnSubmit() {
         var currentForm = $("#deleteBlogForm");
         BootboxConfirm("Confirm Delete Blog",
-                "Are you sure you want to delete "+ $("#selected-blog").text() +"?",
+                "Are you sure you want to delete "+ $("#selected-blog option:selected").text() +"?",
                 {
                     label: "<i class='fa fa-times'></i> Cancel",
                     className: "btn-default"

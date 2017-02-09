@@ -10,6 +10,7 @@ namespace System\Libraries\UBlog\Pages\Dashboard\Routes\Blog;
 
 
 use System\Libraries\UBlog\Config\UBlog_RouteStrings;
+use System\Libraries\UBlog\UBlog;
 use Untitled\PageBuilder\Route;
 
 class EditBlog_Route extends Route
@@ -25,11 +26,12 @@ class EditBlog_Route extends Route
         $this->Request = UBlog_RouteStrings::$EDIT_BLOG;
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Blogs/edit.html";
+        $this->ViewData['page_name'] = "Edit Blog";
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['all_blogs'] = UBlog::GetBlogs();
     }
 
 

@@ -142,6 +142,12 @@ class Page
         if(isset($this->FoundRoute) && $this->FoundRoute != null){
             if($this->FoundRoute->ProcessRoute()){
                 if($this->FoundRoute->isRenderView()){
+
+                    foreach(Twig_Config::$GLOBAL_DATA as $key=>$value){
+                        $this->Twig->addGlobal($key, $value);
+                    }
+
+
                     $this->Twig->display($this->FoundRoute->getViewFilePath(), $this->FoundRoute->getViewData());
                 } else {
                     echo json_encode($this->FoundRoute->getViewData());
@@ -157,10 +163,6 @@ class Page
         $loader = new \Twig_Loader_FileSystem(Twig_Config::$TEMPLATE_PATH);
         $this->Twig = new \Twig_Environment($loader,
             ['cache' => Application_Config::$ENV == "Development" ? false : Twig_Config::$CACHE_PATH]);
-
-        foreach(Twig_Config::$GLOBAL_DATA as $key=>$value){
-            $this->Twig->addGlobal($key, $value);
-        }
     }
 
 }

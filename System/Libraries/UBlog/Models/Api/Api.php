@@ -24,7 +24,7 @@ class Api
         $db = new Database(true);
         $db->Run("SELECT id FROM ". UBlog_Config::$BLOGS_TABLES, []);
 
-        if($db->NumRows()){
+        if(!$db->NumRows()){
             return false;
         }
 
@@ -44,7 +44,7 @@ class Api
         $db = new Database(true);
         $db->Run("SELECT id FROM ". UBlog_Config::$BLOG_POSTS_TABLE ." WHERE blog = :blog", [":blog" => $blog]);
 
-        if($db->NumRows()){
+        if(!$db->NumRows()){
             return false;
         }
 
