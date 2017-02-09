@@ -1,0 +1,75 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" and uwa_user.Role.Role.Name != "Blog Admin" and uwa_user.Role.Role.Name != "Blog Editor" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Deleted article {{ post.title }}.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+            <h2>Delete Post</h2>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <form role="form" method="post" id="deletePostForm">
+                        <div class="form-group">
+                            <label for="selected-post">Select Post:</label>
+                            <select class="form-control" id="selected-post" name="selected-post" type="dropdown">
+                                <option value="">Select Post</option>
+                                {% for p in all_posts %}
+                                <option value="{{ p.Id }}">{{ p.Title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button class="btn btn-danger" type="button" onclick="deletePostOnSubmit()">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function deletePostOnSubmit() {
+        var currentForm = $("#deletePostForm");
+        BootboxConfirm("Confirm Delete Post",
+                "Are you sure you want to delete "+ $("#selected-post").text() +"?",
+                {
+                    label: "<i class='fa fa-times'></i> Cancel",
+                    className: "btn-default"
+                },
+                {
+                    label: "<i class='fa fa-trash'></i> Confirm",
+                    className: "btn-danger"
+                },
+                function(result) {
+                    if(result){
+                        currentForm.attr("action", "/dashboard/blog/{{blog}}/post/delete/do");
+                        currentForm.submit();
+                    }
+                }
+        );
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

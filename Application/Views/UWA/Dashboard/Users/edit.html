@@ -140,7 +140,6 @@
         $.post("/user/get", {user_id: $("#selected-user").val()}, function(data){
             data = JSON.parse(data);
             var user = data.found_user;
-            console.log(user);
             $("input[name='ID']").val(user.Id);
             $("input[name='username']").val(user.Username);
             $("input[name='name']").val(user.Name);

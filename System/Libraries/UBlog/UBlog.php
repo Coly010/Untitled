@@ -36,9 +36,9 @@ class UBlog extends Api implements IPlugin
     private static function AddMenuLinks(){
         UWA_Config::$MENU_LINKS[] = new MenuItem("Blog Settings", null, true);
 
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Blog", UBlog_RouteStrings::$ADD_BLOG);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Blog", UBlog_RouteStrings::$EDIT_BLOG);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Blog", UBlog_RouteStrings::$DELETE_BLOG);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Blog", DIRECTORY_SEPARATOR.UBlog_RouteStrings::$ADD_BLOG);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Blog", DIRECTORY_SEPARATOR.UBlog_RouteStrings::$EDIT_BLOG);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Blog", DIRECTORY_SEPARATOR.UBlog_RouteStrings::$DELETE_BLOG);
     }
 
     /**
@@ -51,9 +51,9 @@ class UBlog extends Api implements IPlugin
         if($db->NumRows()){
             foreach($db->FetchAll() as $blog){
                 UWA_Config::$MENU_LINKS[] = new MenuItem($blog['name'], null, true);
-                UWA_Config::$MENU_LINKS[] = new MenuItem("New Post", "dashboard/blog/".$blog['id']."/post/new");
-                UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Post", "dashboard/blog/".$blog['id']."/post/edit");
-                UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Post", "dashboard/blog/".$blog['id']."/post/delete");
+                UWA_Config::$MENU_LINKS[] = new MenuItem("New Post", DIRECTORY_SEPARATOR."dashboard/blog/".$blog['id']."/post/new");
+                UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Post", DIRECTORY_SEPARATOR."dashboard/blog/".$blog['id']."/post/edit");
+                UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Post", DIRECTORY_SEPARATOR."dashboard/blog/".$blog['id']."/post/delete");
             }
         }
 

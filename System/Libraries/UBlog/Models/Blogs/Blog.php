@@ -49,7 +49,7 @@ class Blog implements ISaveable, IDeletable, IObjArray
      * Blog constructor.
      * @param integer $id id of blog
      */
-    public function __construct($id = null)
+    public function __construct($id = null, $get_posts = true)
     {
         if(!is_null($id)){
             $this->Id = $id;
@@ -62,19 +62,22 @@ class Blog implements ISaveable, IDeletable, IObjArray
             $this->Name = $blog['name'];
             $this->Description = $blog['description'];
 
-            $db->Run("SELECT * FROM ". UBlog_Config::$BLOG_POSTS_TABLE ." WHERE blog = :blog", [":blog" => $this->Id]);
-            $posts = $db->FetchAll(\PDO::FETCH_ASSOC);
+            if($get_posts){
 
-            foreach($posts as $post){
-                $Post = new Post();
-                $Post->Id = $post['id'];
-                $Post->Blog = $this;
-                $Post->User = new User($post['id']);
-                $Post->Title = $post['title'];
-                $Post->Content = $post['content'];
-                $Post->SetLikes($post['likes']);
-                $Post->Visible = $post['visible'] == 1 ? true : false;
-                $this->Posts[] = $Post;
+                $db->Run("SELECT * FROM ". UBlog_Config::$BLOG_POSTS_TABLE ." WHERE blog = :blog", [":blog" => $this->Id]);
+                $posts = $db->FetchAll(\PDO::FETCH_ASSOC);
+
+                foreach($posts as $post){
+                    $Post = new Post();
+                    $Post->Id = $post['id'];
+                    $Post->Blog = $this;
+                    $Post->User = new User($post['id']);
+                    $Post->Title = $post['title'];
+                    $Post->Content = $post['content'];
+                    $Post->SetLikes($post['likes']);
+                    $Post->Visible = $post['visible'] == 1 ? true : false;
+                    $this->Posts[] = $Post;
+                }
             }
         }
     }

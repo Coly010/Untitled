@@ -15,6 +15,7 @@ class UBlog_RouteStrings
     public static $ADD_BLOG = "dashboard/blog/add";
     public static $EDIT_BLOG = "dashboard/blog/edit";
     public static $DELETE_BLOG = "dashboard/blog/delete";
+    public static $GET_BLOG = "dashboard/blog/get";
 
 
 }
