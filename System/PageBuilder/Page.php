@@ -97,26 +97,11 @@ class Page
                 $Matchable = explode("/", $R->Request);
                 $RequestParts = explode("/", $Request);
 
-                echo "<hr />Matchable: ";
-                print_r($Matchable);
-                echo "<br />";
-                echo "<hr />Request Parts: ";
-                print_r($RequestParts);
-                echo "<br /><hr />";
-
                 $indexes = [];
                 $PartsToMatch = 0;
                 $MatchedParts = 0;
                 $Variables = 0;
                 $Params = [];
-
-                echo "Indexes";
-                print_r($indexes);
-                echo "<br />Parts to match: ".$PartsToMatch;
-                echo "<br />MatchedParts ".$MatchedParts;
-                echo "<br />Params";
-                print_r($Params);
-                echo "<hr /><hr />";
 
                 for($i = 0; $i < count($Matchable); $i++){
                     if($Matchable[$i] != "%VAR%"){
@@ -132,27 +117,11 @@ class Page
 
                 $PartsToMatch -= $Variables;
 
-                echo "Indexes";
-                print_r($indexes);
-                echo "<br />Parts to match: ".$PartsToMatch;
-                echo "<br />MatchedParts ".$MatchedParts;
-                echo "<br />Params";
-                print_r($Params);
-                echo "<hr /><hr />";
-
                 foreach($indexes as $i){
                     if(isset($RequestParts[$i]) && $RequestParts[$i] == $Matchable[$i]){
                         $MatchedParts++;
                     }
                 }
-
-                echo "Indexes";
-                print_r($indexes);
-                echo "<br />Parts to match: ".$PartsToMatch;
-                echo "<br />MatchedParts ".$MatchedParts;
-                echo "<br />Params";
-                print_r($Params);
-                echo "<hr /><hr />";
 
                 if($PartsToMatch == $MatchedParts){
                     for($i = 0; $i < count($RequestParts); $i++){
@@ -162,16 +131,6 @@ class Page
                     }
                     $R->Params = $Params;
                     $this->FoundRoute = $R;
-
-                    echo "Indexes";
-                    print_r($indexes);
-                    echo "<br />Parts to match: ".$PartsToMatch;
-                    echo "<br />MatchedParts ".$MatchedParts;
-                    echo "<br />Params";
-                    print_r($Params);
-                    echo "<hr /><hr />";
-
-                    echo "Request : ". get_class($R);
 
                     return true;
                 }
