@@ -100,6 +100,7 @@
             plugins: 'bbcode',
             toolbarExclude: "subscript,superscript,cut,copy,paste,pastetext,email,youtube,print",
             emoticonsRoot: "/Resources/JS/SCE/",
+            bbcodeTrim: true,
             style: 'Resources/JS/SCE/minified/jquery.sceditor.default.min.css'
         });
     });

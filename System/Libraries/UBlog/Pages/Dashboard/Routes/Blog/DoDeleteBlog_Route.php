@@ -12,6 +12,9 @@ namespace System\Libraries\UBlog\Pages\Dashboard\Routes\Blog;
 use System\Libraries\UBlog\Config\UBlog_RouteStrings;
 use System\Libraries\UBlog\DataProcesses\UBlog_DataProcess;
 use System\Libraries\UBlog\UBlog;
+use System\Libraries\UWebAdmin\Models\Users\User;
+use System\Libraries\UWebAdmin\UWA;
+use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
 
 class DoDeleteBlog_Route extends Route
@@ -37,6 +40,8 @@ class DoDeleteBlog_Route extends Route
         if($blog != false){
             $this->ViewData['result'] = true;
             $this->ViewData['blog'] = $blog;
+
+            UWA::NewActivity(new User(Session::Get("user")['Id']), Session::Get("user")['Name']. " edited blog ". $blog->Name. ".", time());
         }
 
         $this->ViewData['all_blogs'] = UBlog::GetBlogs();

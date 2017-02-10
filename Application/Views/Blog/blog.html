@@ -1,0 +1,44 @@
+{% extends "Template/website.tpl" %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-sm-7">
+        <h3>Latest News</h3>
+
+        {% for post in all_posts %}
+        <div class="uCard uCard-holder uCard-Standalone">
+            <h3>{{ post.Title }} <br />
+                <small>{{ post.Time }}</small>
+            </h3>
+            <div id="post-bbcode">
+                {{ post.Content }}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function (){
+        console.log("doc ready");
+
+
+        $("#sce-fix").sceditor({
+            plugins: 'bbcode',
+            toolbarExclude: "subscript,superscript,cut,copy,paste,pastetext,email,youtube,print",
+            emoticonsRoot: "/Resources/JS/SCE/",
+            bbcodeTrim: true,
+            style: 'Resources/JS/SCE/minified/jquery.sceditor.default.min.css'
+        });
+
+        var html = $("#sce-fix").sceditor('instance').fromBBCode($("#post-bbcode").text(), true);
+
+        $(".sceditor-container").hide();
+        $("#post-bbcode").html(html);
+    });
+</script>
+
+{% endblock %}

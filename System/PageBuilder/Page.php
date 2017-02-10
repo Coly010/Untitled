@@ -97,6 +97,10 @@ class Page
                 $Matchable = explode("/", $R->Request);
                 $RequestParts = explode("/", $Request);
 
+                if(count($Matchable) != count($RequestParts)){
+                    continue;
+                }
+
                 $indexes = [];
                 $PartsToMatch = 0;
                 $MatchedParts = 0;
