@@ -210,7 +210,7 @@ class About_DataProcess extends DataProcess {
 
   public function RetrieveContent(){
     $this->db->Run("SELECT * FROM content WHERE page = :page", [":page" => "about"]);
-    $content = $this-db->Fetch()['content'];
+    $content = $this->db->Fetch()['content'];
     return $content;
   }
 
