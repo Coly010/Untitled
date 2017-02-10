@@ -47,11 +47,9 @@
                             <label for="title" class="sr-only">Title:</label>
                             <input type="text" class="form-control" name="title" id="title" placeholder="Title" />
                         </div>
-                        <div class="form-group">
-                            <label for="content" class="sr-only">Content:</label>
-                            <textarea class="form-class bbcode-editor" name="content" id="content" placeholder="Content"></textarea>
+                        <div class="form-group" id="content-holder">
                         </div>
-                        <button class="btn btn-primary" type="submit">Post</button>
+                        <button class="btn btn-primary" type="submit">Edit</button>
                     </form>
                 </div>
             </div>
@@ -63,14 +61,26 @@
 <script type="text/javascript">
     function onSelectPost(){
         // Get the details of the selected user
-        $.post("/dashboard/blog/post/get", {blog_id: $("#selected-post").val()}, function(data){
+        $.post("/dashboard/blog/{{ blog }}/post/get", {post_id: $("#selected-post").val()}, function(data){
             data = JSON.parse(data);
             var post = data.found_post;
             $("input[name='ID']").val(post.Id);
             $("input[name='title']").val(post.Title);
-            $("textarea[name='content']").val(post.Content);
 
             $("#hidden-select-post").removeClass("hidden");
+
+            $("#content-holder").html(' <label for="content" class="sr-only">Content:</label>' +
+                    '<textarea class="form-control bbcode-editor" rows="10" name="content" id="content" placeholder="Content" style="width: 150%;"></textarea>');
+
+            $("textarea[name='content']").val(post.Content);
+
+            var instance = $('#content').sceditor({
+                plugins: 'bbcode',
+                toolbarExclude: "subscript,superscript,cut,copy,paste,pastetext,email,youtube,print",
+                emoticonsRoot: "/Resources/JS/SCE/",
+                style: 'Resources/JS/SCE/minified/jquery.sceditor.default.min.css'
+            });
+
         });
 
 

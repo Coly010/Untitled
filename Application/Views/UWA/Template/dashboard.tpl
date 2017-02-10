@@ -96,8 +96,10 @@
 <script>
     $(function() {
         // Replace all textarea tags with SCEditor
-        $('.bbcode-editor').sceditor({
+        var instance = $('.bbcode-editor').sceditor({
             plugins: 'bbcode',
+            toolbarExclude: "subscript,superscript,cut,copy,paste,pastetext,email,youtube,print",
+            emoticonsRoot: "/Resources/JS/SCE/",
             style: 'Resources/JS/SCE/minified/jquery.sceditor.default.min.css'
         });
     });

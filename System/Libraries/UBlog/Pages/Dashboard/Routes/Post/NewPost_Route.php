@@ -25,6 +25,7 @@ class NewPost_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Posts/add.html";
         $this->ComplexRoute = true;
+        $this->ViewData['page_name'] = "New Post";
     }
 
     public function RunDataProcess()

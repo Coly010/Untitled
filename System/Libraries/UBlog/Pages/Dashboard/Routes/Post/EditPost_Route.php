@@ -9,6 +9,7 @@
 namespace System\Libraries\UBlog\Pages\Dashboard\Routes\Post;
 
 
+use System\Libraries\UBlog\UBlog;
 use Untitled\PageBuilder\Route;
 
 class EditPost_Route extends Route
@@ -25,11 +26,13 @@ class EditPost_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "UBlog/Dashboard/Posts/edit.html";
         $this->ComplexRoute = true;
+        $this->ViewData['page_name'] = "Edit Post";
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['blog'] = $this->Params[0];
+        $this->ViewData['all_posts'] = UBlog::GetPostsFromBlog($this->Params[0]);
     }
 
 

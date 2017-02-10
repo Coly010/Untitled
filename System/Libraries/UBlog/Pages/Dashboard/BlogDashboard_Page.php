@@ -21,6 +21,7 @@ use System\Libraries\UBlog\Pages\Dashboard\Routes\Post\DoDeletePost_Route;
 use System\Libraries\UBlog\Pages\Dashboard\Routes\Post\DoEditPost_Route;
 use System\Libraries\UBlog\Pages\Dashboard\Routes\Post\DoNewPost_Route;
 use System\Libraries\UBlog\Pages\Dashboard\Routes\Post\EditPost_Route;
+use System\Libraries\UBlog\Pages\Dashboard\Routes\Post\GetPost_Route;
 use System\Libraries\UBlog\Pages\Dashboard\Routes\Post\NewPost_Route;
 use Untitled\PageBuilder\Page;
 
@@ -47,6 +48,7 @@ class BlogDashboard_Page extends Page
         $this->AddRoute(new DoEditPost_Route());
         $this->AddRoute(new DeletePost_Route());
         $this->AddRoute(new DoDeletePost_Route());
+        $this->AddRoute(new GetPost_Route());
 
     }
 

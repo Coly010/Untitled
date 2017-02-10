@@ -84,7 +84,7 @@ class Post implements ISaveable, IDeletable, IObjArray
             $db->Run("SELECT * FROM ". UBlog_Config::$BLOG_POSTS_TABLE ." WHERE id = :id", [":id" => $this->Id]);
 
             $post = $db->Fetch();
-            $this->Blog = new Blog($post['blog']);
+            $this->Blog = new Blog($post['blog'], false);
             $this->User = new User($post['user']);
             $this->Title = $post['title'];
             $this->Content = $post['content'];
@@ -103,8 +103,10 @@ class Post implements ISaveable, IDeletable, IObjArray
      */
     public function SetLikes($likes){
         $likes = unserialize($likes);
-        foreach($likes as $like){
-            $this->Likes[] = new User($like);
+        if($likes) {
+            foreach ($likes as $like) {
+                $this->Likes[] = new User($like);
+            }
         }
     }
 
@@ -113,8 +115,10 @@ class Post implements ISaveable, IDeletable, IObjArray
      */
     public function GetLikes(){
         $Likes = [];
-        foreach($this->Likes as $like){
-            $Likes[] = $like->Id;
+        if(count($this->Likes)){
+            foreach($this->Likes as $like){
+                $Likes[] = $like->Id;
+            }
         }
         return serialize($Likes);
     }
@@ -131,8 +135,10 @@ class Post implements ISaveable, IDeletable, IObjArray
         $db = new Database(true);
         $db->Run("DELETE FROM ". UBlog_Config::$BLOG_POSTS_TABLE ." WHERE id = :id", [":id" => $this->Id]);
 
-        foreach($this->Comments as $comment){
-            $comment->Delete();
+        if(count($this->Comments)){
+            foreach($this->Comments as $comment){
+                $comment->Delete();
+            }
         }
     }
 
