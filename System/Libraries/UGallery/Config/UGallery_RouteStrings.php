@@ -18,10 +18,11 @@ class UGallery_RouteStrings
     public static $EDIT_ALBUM = "/dashboard/album/edit";
     public static $VIEW_ALBUM = "/dashboard/album/view";
     public static $DELETE_ALBUM = "/dashboard/album/delete";
+    public static $GET_ALBUM = "/dashboard/album/get";
 
     //endregion
 
-    //region Photo Links
+    //region Media Links
 
     public static $UPLOAD_MEDIA = "/dashboard/media/upload";
     public static $ADD_MEDIA_ALBUM = "/dashboard/album/media";
