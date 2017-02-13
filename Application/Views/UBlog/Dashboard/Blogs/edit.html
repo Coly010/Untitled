@@ -1,0 +1,82 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" and uwa_user.Role.Role.Name != "Blog Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Edited blog {{ blog.Name }}.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+            <h2>Edit a blog</h2>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="selected-blog">Select Blog:</label>
+                    <select class="form-control" id="selected-blog" name="selected-blog" type="dropdown" onchange="onSelectBlog()">
+                        <option value="">Select Blog</option>
+                        {% for b in all_blogs %}
+                        <option value="{{ b.Id }}">{{ b.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row hidden" id="hidden-select-blog">
+                <div class="col-sm-6">
+                    <form action="/dashboard/blog/edit/do" method="post" role="form">
+                        <input type="hidden" name="ID" />
+                        <div class="form-group">
+                            <label for="name" class="sr-only">Name:</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="Name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="sr-only">Description:</label>
+                            <textarea class="form-control" name="desc" id="description" placeholder="Description"></textarea>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Edit Blog</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onSelectBlog(){
+        // Get the details of the selected user
+        $.post("/dashboard/blog/get", {blog_id: $("#selected-blog").val()}, function(data){
+            data = JSON.parse(data);
+            var blog = data.found_blog;
+            $("input[name='ID']").val(blog.Id);
+            $("input[name='name']").val(blog.Name);
+            $("textarea[name='desc']").val(blog.Description);
+
+            $("#hidden-select-blog").removeClass("hidden");
+        });
+
+
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

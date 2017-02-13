@@ -7,11 +7,16 @@
  */
 
 use Untitled\Untitled;
+use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 
 require_once "System/Untitled_Autoloader.php";
 Untitled_Autoloader::register();
 
-$RequestString = isset($_GET['route']) ? $_GET['route'] : "home";
+$RequestString = isset($_GET['route']) ? Sanitiser::String($_GET['route']) : "home";
+
+if(substr($RequestString, -1) == "/"){
+    $RequestString = substr($RequestString, 0, -1);
+}
 
 try {
     $System = new Untitled($RequestString);
