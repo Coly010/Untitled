@@ -27,13 +27,13 @@ class UGallery extends Api implements IPlugin
 
     public static function AddMenuLink(){
         UWA_Config::$MENU_LINKS[] = new MenuItem("Gallery Settings", null, true);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Album", UGallery_RouteStrings::$ADD_ALBUM);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Album", UGallery_RouteStrings::$EDIT_ALBUM);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("View Album", UGallery_RouteStrings::$VIEW_ALBUM);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Album", UGallery_RouteStrings::$DELETE_ALBUM);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Album", DIRECTORY_SEPARATOR.UGallery_RouteStrings::$ADD_ALBUM);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Album", DIRECTORY_SEPARATOR.UGallery_RouteStrings::$EDIT_ALBUM);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("View Album", DIRECTORY_SEPARATOR.UGallery_RouteStrings::$VIEW_ALBUM);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Album", DIRECTORY_SEPARATOR.UGallery_RouteStrings::$DELETE_ALBUM);
 
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Upload Media", UGallery_RouteStrings::$UPLOAD_MEDIA);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Media to Album", UGallery_RouteStrings::$ADD_MEDIA_ALBUM);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Upload Media", DIRECTORY_SEPARATOR.UGallery_RouteStrings::$UPLOAD_MEDIA);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Add Media to Album", DIRECTORY_SEPARATOR.UGallery_RouteStrings::$ADD_MEDIA_ALBUM);
 
     }
 
