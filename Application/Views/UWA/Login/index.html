@@ -15,21 +15,31 @@
     <div class="col-sm-12">
         <div class="container">
 
-            <div class="col-sm-2 col-sm-offset-5">
-                <div class="login">
-                    <form role="form" method="post" action="/login/do">
-                        <div class="form-group">
-                            <label class="sr-only" for="username">Username:</label>
-                            <input type="text" name="username" id="username" placeholder="Username" />
-                        </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4 text-center">
+                    <h2>Web Dashboard</h2>
+                    <br />
+                </div>
+            </div>
 
-                        <div class="form-group">
-                            <label class="sr-only" for="password">Password:</label>
-                            <input type="password" name="password" id="password" placeholder="Password" />
-                        </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="login uCard uCard-Standalone">
+                        <h2>Login</h2>
+                        <form role="form" method="post" action="/login/do">
+                            <div class="form-group">
+                                <label class="sr-only" for="username">Username:</label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" />
+                            </div>
 
-                        <button type="submit" class="btn btn-default">Login</button>
-                    </form>
+                            <div class="form-group">
+                                <label class="sr-only" for="password">Password:</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" style="display: block; width:100%;">Login</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
