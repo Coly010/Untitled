@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Untitled Framework Homepage">
     <meta name="author" content="Colum Ferry">
@@ -44,6 +44,22 @@
     </div>
 </nav>
 
+<div id="mobile-menu" class="hidden">
+
+    <div class="menu-icon">
+        <i class="fa fa-bars"></i>
+    </div>
+
+    <div class="menu-links-container hidden">
+        <div class="menu-links">
+            <div class="text-right">
+                <i class="fa fa-times"></i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <div class="container-fluid">
     <div class="row">
 
@@ -78,20 +94,8 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script src="/Resources/JS/UWA/UWA.js"></script>
 <script src="/Resources/JS/SCE/minified/jquery.sceditor.bbcode.min.js"></script>
-<script>
-   function BootboxConfirm(title, msg, cancelBtn, confirmBtn, callback){
-       bootbox.confirm({
-           title: title,
-           message: msg,
-           buttons: {
-               confirm: confirmBtn,
-               cancel: cancelBtn
-           },
-           callback: callback
-       });
-   }
-</script>
 
 <script>
     $(function() {
@@ -105,6 +109,5 @@
         });
     });
 </script>
-
 </body>
 </html>
