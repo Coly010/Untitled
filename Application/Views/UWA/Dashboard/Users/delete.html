@@ -23,7 +23,7 @@
         {% endif %}
 
         <div class="row">
-            <div class="login uCard uCard-Standalone">
+            <div class="uCard uCard-Standalone">
                 <h2>Delete User</h2>
 
                 <div class="row">
@@ -51,10 +51,9 @@
 
 <script>
     function deleteOnSubmit() {
-        console.log("Delete form");
         var currentForm = $("#deleteUserForm");
         BootboxConfirm("Confirm Delete User",
-                "Are you sure you want to delete "+ $("#selected-user").text() +"?",
+                "Are you sure you want to delete "+ $("#selected-user option:selected").text() +"?",
                 {
                     label: "<i class='fa fa-times'></i> Cancel",
                     className: "btn-default"

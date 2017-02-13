@@ -97,17 +97,29 @@ class Page
                 $Matchable = explode("/", $R->Request);
                 $RequestParts = explode("/", $Request);
 
+                if(count($Matchable) != count($RequestParts)){
+                    continue;
+                }
+
                 $indexes = [];
                 $PartsToMatch = 0;
                 $MatchedParts = 0;
+                $Variables = 0;
                 $Params = [];
 
                 for($i = 0; $i < count($Matchable); $i++){
                     if($Matchable[$i] != "%VAR%"){
                         $indexes[] = $i;
-                        $PartsToMatch++;
+                    } else{
+                        $Variables++;
                     }
                 }
+
+                for($i = 0; $i < count($RequestParts); $i++){
+                    $PartsToMatch++;
+                }
+
+                $PartsToMatch -= $Variables;
 
                 foreach($indexes as $i){
                     if(isset($RequestParts[$i]) && $RequestParts[$i] == $Matchable[$i]){
@@ -123,8 +135,11 @@ class Page
                     }
                     $R->Params = $Params;
                     $this->FoundRoute = $R;
+
                     return true;
                 }
+
+
 
             }
             if($R->getRequest() == $Request){
@@ -142,6 +157,12 @@ class Page
         if(isset($this->FoundRoute) && $this->FoundRoute != null){
             if($this->FoundRoute->ProcessRoute()){
                 if($this->FoundRoute->isRenderView()){
+
+                    foreach(Twig_Config::$GLOBAL_DATA as $key=>$value){
+                        $this->Twig->addGlobal($key, $value);
+                    }
+
+
                     $this->Twig->display($this->FoundRoute->getViewFilePath(), $this->FoundRoute->getViewData());
                 } else {
                     echo json_encode($this->FoundRoute->getViewData());
@@ -157,10 +178,6 @@ class Page
         $loader = new \Twig_Loader_FileSystem(Twig_Config::$TEMPLATE_PATH);
         $this->Twig = new \Twig_Environment($loader,
             ['cache' => Application_Config::$ENV == "Development" ? false : Twig_Config::$CACHE_PATH]);
-
-        foreach(Twig_Config::$GLOBAL_DATA as $key=>$value){
-            $this->Twig->addGlobal($key, $value);
-        }
     }
 
 }

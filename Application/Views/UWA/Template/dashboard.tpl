@@ -28,6 +28,7 @@
     <![endif]-->
 
     <script src="https://use.fontawesome.com/5318d08ea2.js"></script>
+    <link rel="stylesheet" href="/Resources/JS/SCE/minified/themes/default.min.css" />
 </head>
 <body>
 
@@ -94,5 +95,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script src="/Resources/JS/UWA/UWA.js"></script>
+<script src="/Resources/JS/SCE/minified/jquery.sceditor.bbcode.min.js"></script>
+
+<script>
+    $(function() {
+        // Replace all textarea tags with SCEditor
+        var instance = $('.bbcode-editor').sceditor({
+            plugins: 'bbcode',
+            toolbarExclude: "subscript,superscript,cut,copy,paste,pastetext,email,youtube,print",
+            emoticonsRoot: "/Resources/JS/SCE/",
+            bbcodeTrim: true,
+            style: 'Resources/JS/SCE/minified/jquery.sceditor.default.min.css'
+        });
+    });
+</script>
 </body>
 </html>

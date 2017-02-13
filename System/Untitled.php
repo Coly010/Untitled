@@ -10,6 +10,7 @@ namespace Untitled;
 
 use Application\Config\Application_Config;
 use Application\Pages\Error\Error_Page;
+use System\Libraries\UWebAdmin\UWA;
 
 class Untitled
 {
@@ -70,8 +71,17 @@ class Untitled
     }
 
     private function ActivatePlugins(){
+        $UWA = false;
         foreach(Application_Config::$PLUGINS as $plugin){
             $plugin::Start();
+
+            if($plugin == UWA::class){
+                $UWA = true;
+            }
+        }
+
+        if($UWA){
+            UWA::ConvertGlobalDataToTwigGlobals();
         }
     }
 

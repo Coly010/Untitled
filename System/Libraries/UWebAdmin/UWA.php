@@ -25,12 +25,11 @@ class UWA extends Api implements IPlugin
      */
     public static function Start(){
         self::SetupMenuLinks();
-
-        foreach(self::GetGlobalData() as $glob=>$data){
-            Twig_Config::$GLOBAL_DATA[$glob] = $data;
-        }
     }
 
+    /**
+     * Set up menu links
+     */
     public static function SetupMenuLinks(){
         UWA_Config::$MENU_LINKS[] = new MenuItem("Home", UWA_RouteStrings::$DASHBOARD);
 
@@ -57,6 +56,12 @@ class UWA extends Api implements IPlugin
         }
 
         return $global;
+    }
+
+    public static function ConvertGlobalDataToTwigGlobals(){
+        foreach(self::GetGlobalData() as $glob=>$data){
+            Twig_Config::$GLOBAL_DATA[$glob] = $data;
+        }
     }
 
 }
