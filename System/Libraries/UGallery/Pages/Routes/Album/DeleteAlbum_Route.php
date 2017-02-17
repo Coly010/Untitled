@@ -10,6 +10,7 @@ namespace System\Libraries\UGallery\Pages\Routes\Album;
 
 
 use System\Libraries\UGallery\Config\UGallery_RouteStrings;
+use System\Libraries\UGallery\UGallery;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
@@ -31,7 +32,7 @@ class DeleteAlbum_Route extends Route
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['all_albums'] = UGallery::GetAllAlbumsWithoutMedia();
     }
 
 

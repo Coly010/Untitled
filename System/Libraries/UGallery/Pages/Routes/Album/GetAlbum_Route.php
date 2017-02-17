@@ -10,6 +10,9 @@ namespace System\Libraries\UGallery\Pages\Routes\Album;
 
 
 use System\Libraries\UGallery\Config\UGallery_RouteStrings;
+use System\Libraries\UGallery\Models\Gallery\Album;
+use Untitled\Libraries\Input\Input;
+use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 use Untitled\PageBuilder\Route;
 
 class GetAlbum_Route extends Route
@@ -27,7 +30,8 @@ class GetAlbum_Route extends Route
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $album = new Album(Sanitiser::Number(Input::Post("album_id")));
+        $this->ViewData['found_album'] = $album->ToArray();
     }
 
 

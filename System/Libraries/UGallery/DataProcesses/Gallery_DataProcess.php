@@ -31,7 +31,7 @@ class Gallery_DataProcess extends DataProcess
             $album = new Album();
 
             $album->Name = Sanitiser::String(Input::Post("name"));
-            $album->Description = Sanitiser::String(Input::Post("description"));
+            $album->Description = Sanitiser::String(Input::Post("desc"));
             $album->User = new User(Session::Get("user")['Id']);
             $album->Created = time();
             $album->LastModified = time();
@@ -52,7 +52,7 @@ class Gallery_DataProcess extends DataProcess
             $album = new Album(Sanitiser::Number(Input::Post("ID")), false);
 
             $album->Name = Sanitiser::String(Input::Post("name"));
-            $album->Description = Sanitiser::String(Input::Post("description"));
+            $album->Description = Sanitiser::String(Input::Post("desc"));
             $album->User = new User(Session::Get("user")['Id']);
             $album->LastModified = time();
         }

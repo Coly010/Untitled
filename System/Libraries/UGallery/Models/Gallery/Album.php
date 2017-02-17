@@ -77,12 +77,12 @@ class Album implements IObjArray, IDeletable, ISaveable
 
             $db = new Database(true);
 
-            $db->Run("SELECT * FROM ". UGallery_Config::$ALBUMS_TABLE ." id = :id",
+            $db->Run("SELECT * FROM ". UGallery_Config::$ALBUMS_TABLE ." WHERE id = :id",
                 [
                     ":id" => $this->Id
                 ]);
 
-            $album = $db->Fetch(\PDO::FETCH_ASSOC);
+            $album = $db->Fetch();
             $this->Name = $album['name'];
             $this->Description = $album['description'];
             $this->Created = $album['created'];

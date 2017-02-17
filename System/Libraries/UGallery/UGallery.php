@@ -17,10 +17,17 @@ use System\Libraries\UWebAdmin\Models\Dashboard\MenuItem;
 
 class UGallery extends Api implements IPlugin
 {
+
+    public static $MIME_TYPES = ['jpeg' => 'image/jpeg', 'jpg' => 'image/jpeg', 'png' => 'image/png', 'gif' => 'image/gif',
+    'tiff' => 'image/tiff', 'tif' => 'image/tiff', 'bmp' => 'image/bmp', 'txt' => 'text/plain', 'text' => 'text/plain',
+    'avi' => 'video/avi', 'm2v' => 'video/mpeg', 'mov' => 'video/quicktime', 'mpeg' => 'video/mpeg', 'zip' => 'application/zip', ];
+
     public static function Start()
     {
         define("UGALLERY_PHOTO", 1);
         define("UGALLERY_VIDEO", 2);
+
+        define("UPLOAD_SIZE", 2200000);
 
         self::AddMenuLink();
     }

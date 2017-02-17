@@ -9,6 +9,7 @@
 namespace System\Libraries\UGallery\Pages\Routes\Media;
 
 
+use System\Libraries\UGallery\Config\UGallery_RouteStrings;
 use Untitled\PageBuilder\Route;
 
 class UploadMedia_Route extends Route
@@ -20,11 +21,16 @@ class UploadMedia_Route extends Route
      */
     public function __construct()
     {
+        $this->Request = UGallery_RouteStrings::$UPLOAD_MEDIA;
+        $this->RenderView = true;
+        $this->ViewFilePath = "UGallery/Dashboard/Media/upload.html";
+        $this->ViewData['page_name'] = "Upload Media";
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $this->ViewData['session_progress_name'] = ini_get("session.upload_progress.name");
+        $this->ViewData['max_file_size'] = UPLOAD_SIZE;
     }
 
 

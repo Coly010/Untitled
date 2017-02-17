@@ -9,6 +9,8 @@
 namespace System\Libraries\UGallery\Pages\Routes\Media;
 
 
+use System\Libraries\UGallery\Config\UGallery_RouteStrings;
+use Untitled\Libraries\Input\Input;
 use Untitled\PageBuilder\Route;
 
 class DoUploadMedia_Route extends Route
@@ -20,11 +22,13 @@ class DoUploadMedia_Route extends Route
      */
     public function __construct()
     {
+        $this->Request = UGallery_RouteStrings::$UPLOAD_MEDIA."/do";
+        $this->RenderView = false;
     }
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $files = Input::File("files");
     }
 
 

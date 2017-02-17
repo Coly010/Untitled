@@ -29,7 +29,7 @@ class Api
         $Albums = [];
         if($db->NumRows()){
             foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $album){
-                $Album[] = new Album($album['id']);
+                $Albums[] = new Album($album['id']);
             }
         }
 
@@ -47,7 +47,7 @@ class Api
         $Albums = [];
         if($db->NumRows()){
             foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $album){
-                $Album[] = new Album($album['id'], false);
+                $Albums[] = new Album($album['id'], false);
             }
         }
 

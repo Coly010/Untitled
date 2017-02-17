@@ -21,6 +21,7 @@ use System\Libraries\UGallery\Pages\Routes\Media\AddMediaAlbum_Route;
 use System\Libraries\UGallery\Pages\Routes\Media\DoAddMedia_Route;
 use System\Libraries\UGallery\Pages\Routes\Media\DoUploadMedia_Route;
 use System\Libraries\UGallery\Pages\Routes\Media\UploadMedia_Route;
+use System\Libraries\UGallery\Pages\Routes\Upload\GetUploadProgress_Route;
 use Untitled\PageBuilder\Page;
 
 class GalleryDashboard_Page extends Page
@@ -47,6 +48,8 @@ class GalleryDashboard_Page extends Page
         $this->AddRoute(new DoAddMedia_Route());
         $this->AddRoute(new UploadMedia_Route());
         $this->AddRoute(new DoUploadMedia_Route());
+
+        $this->AddRoute(new GetUploadProgress_Route());
 
     }
 }

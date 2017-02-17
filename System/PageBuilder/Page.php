@@ -165,7 +165,9 @@ class Page
 
                     $this->Twig->display($this->FoundRoute->getViewFilePath(), $this->FoundRoute->getViewData());
                 } else {
-                    echo json_encode($this->FoundRoute->getViewData());
+                    if(count($this->FoundRoute->getViewData()) > 0){
+                        echo json_encode($this->FoundRoute->getViewData());
+                    }
                 }
             }
         }
