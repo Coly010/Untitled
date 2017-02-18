@@ -11,6 +11,7 @@ namespace System\Libraries\UGallery\DataProcesses;
 
 use System\Libraries\UGallery\Config\UGallery_Config;
 use System\Libraries\UGallery\Models\Gallery\Album;
+use System\Libraries\UGallery\UGallery;
 use System\Libraries\UWebAdmin\Models\Users\User;
 use Untitled\Database\Database;
 use Untitled\Libraries\Input\Input;
@@ -84,11 +85,14 @@ class Gallery_DataProcess extends DataProcess
 
     //region Media
 
+    /**
+     * Upload media
+     */
     public function UploadMedia(){
 
         $files = Input::File("files");
         $addToAlbum = Sanitiser::Int(Input::Post("addToAlbum"));
-        $album = $addToAlbum != -1 ? Sanitiser::Int(Input::Post("album")) : -1;
+        $album = $addToAlbum == 1 ? Sanitiser::Int(Input::Post("album")) : -1;
 
         $db = new Database(true);
 
@@ -113,7 +117,7 @@ class Gallery_DataProcess extends DataProcess
                     ":time" => time()
                 ]);
 
-            if($addToAlbum != -1){
+            if($album != -1){
                 $media = $db->InsertId();
                 $db->Run("INSERT INTO ". UGallery_Config::$ALBUM_MEDIA_TABLE ."(album, media) VALUES(:album, :media)",
                     [
@@ -123,6 +127,30 @@ class Gallery_DataProcess extends DataProcess
             }
 
         }
+    }
+
+    /**
+     * @return bool result
+     */
+    public function AddMediaToAlbum(){
+
+        $album = Sanitiser::Int(Input::Post("album"));
+        $selected_media = Input::Post("selected_media");
+
+        $db = new Database(true);
+
+        foreach($selected_media as $media){
+            $media = Sanitiser::Int($media);
+            if(!UGallery::CheckMediaExists($media)){
+                return false;
+            }
+
+            UGallery::AddMediaToAlbum($album, $media, $db);
+
+        }
+
+        return true;
+
     }
 
     //endregion

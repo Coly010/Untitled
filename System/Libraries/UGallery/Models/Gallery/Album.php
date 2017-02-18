@@ -96,10 +96,11 @@ class Album implements IObjArray, IDeletable, ISaveable
                     ]);
                 if($db->NumRows()){
                     foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $item){
-                        if($item == UGALLERY_PHOTO){
-                            $this->Photos[] = new Photo($item['media']);
-                        } else if($item == UGALLERY_VIDEO) {
-                            $this->Videos[] = new Video($item['media']);
+                        $media = new Media($item['media']);
+                        if($media->Type == UGALLERY_PHOTO) {
+                            $this->Photos[] = $media;
+                        } else if($media->Type == UGALLERY_VIDEO) {
+                            $this->Videos[] = $media;
                         }
                     }
                 }

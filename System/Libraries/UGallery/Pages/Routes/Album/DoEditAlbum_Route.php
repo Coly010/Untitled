@@ -11,6 +11,7 @@ namespace System\Libraries\UGallery\Pages\Routes\Album;
 
 use System\Libraries\UGallery\Config\UGallery_RouteStrings;
 use System\Libraries\UGallery\DataProcesses\Gallery_DataProcess;
+use System\Libraries\UGallery\UGallery;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
@@ -38,6 +39,7 @@ class DoEditAlbum_Route extends Route
             $this->ViewData['result'] = true;
             $this->ViewData['album'] = $album;
         }
+        $this->ViewData['all_albums'] = UGallery::GetAllAlbumsWithoutMedia();
     }
 
 

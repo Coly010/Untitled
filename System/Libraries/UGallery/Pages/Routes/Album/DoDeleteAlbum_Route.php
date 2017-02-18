@@ -38,6 +38,7 @@ class DoDeleteAlbum_Route extends Route
             $this->ViewData['result'] = true;
             $this->ViewData['album'] = $album;
         }
+        $this->ViewData['all_albums'] = UGallery::GetAllAlbumsWithoutMedia();
     }
 
 

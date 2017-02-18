@@ -11,7 +11,11 @@ namespace System\Libraries\UGallery\Pages\Routes\Media;
 
 use System\Libraries\UGallery\Config\UGallery_RouteStrings;
 use System\Libraries\UGallery\DataProcesses\Gallery_DataProcess;
+use System\Libraries\UGallery\Models\Gallery\Album;
+use System\Libraries\UGallery\UGallery;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use Untitled\Libraries\Input\Input;
+use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 use Untitled\PageBuilder\Route;
 
 class DoAddMedia_Route extends Route
@@ -32,7 +36,14 @@ class DoAddMedia_Route extends Route
 
     public function RunDataProcess()
     {
+        $result = $this->DataProcess->AddMediaToAlbum();
 
+        $this->ViewData['result'] = $result;
+        $this->ViewData['album'] = new Album(Sanitiser::Int(Input::Post("album")), false);
+        $this->ViewData['num_photos'] = $result == true ? count(Input::Post("selected_media")) : 0;
+
+        $this->ViewData['albums'] = UGallery::GetAllAlbumsWithoutMedia();
+        $this->ViewData['media'] = UGallery::GetAllMedia();
     }
 
 

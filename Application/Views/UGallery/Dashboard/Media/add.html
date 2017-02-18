@@ -13,6 +13,22 @@
 <div class="row">
     <div class="col-sm-12">
 
+        {% if result is defined and result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Added {{ num_photos }} photos to album {{ album.Name }}.
+        </div>
+
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Could not add photos to album.
+        </div>
+
+        {% endif %}
+
         <div class="uCard uCard-Standalone">
 
             <h2>Add Media to Album</h2>
@@ -29,7 +45,7 @@
                                 <option value="-1">No albums</option>
                                 {% endfor %}
                             </select>
-                            <select name="selected_media" id="selected_media" class="hidden" multiple>
+                            <select name="selected_media[]" id="selected_media" class="hidden" multiple>
                                 {% for item in media %}
                                     <option value="{{item.Id}}" class="select_item_{{item.Id}}"></option>
                                 {% endfor %}
