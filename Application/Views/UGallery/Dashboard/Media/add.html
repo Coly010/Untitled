@@ -1,0 +1,81 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        <div class="uCard uCard-Standalone">
+
+            <h2>Add Media to Album</h2>
+
+            <form role="form" action="/dashboard/album/media/do" method="post">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="albumToAdd" class="sr-only">Choose Album</label>
+                            <select name="album" class="form-control" id="albumToAdd">
+                                {% for album in albums %}
+                                <option value="{{album.Id}}">{{album.Name}}</option>
+                                {% else %}
+                                <option value="-1">No albums</option>
+                                {% endfor %}
+                            </select>
+                            <select name="selected_media" id="selected_media" class="hidden" multiple>
+                                {% for item in media %}
+                                    <option value="{{item.Id}}" class="select_item_{{item.Id}}"></option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-1 col-sm-offset-7">
+                        <button class="btn btn-block btn-primary" type="submit" onclick="startUpload('uploadForm');">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 thumbnail-holder">
+                        <div class="row">
+
+                            {% for item in media %}
+
+                            <div class="col-lg-2 col-sm-3 col-xs-6 selectable-item" data-media-id="{{item.Id}}">
+
+                                {% if item.Type == 1 %}
+                                    <img src="{{item.Source}}" class="img-thumbnail selectable" style="" />
+                                {% else %}
+                                    <div class="embed-responsive selectable">
+                                        <video controls>
+                                            <source src="{{item.Source}}">
+                                        </video>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="/Resources/JS/UGallery/upload.js"></script>
+
+{% endif %}
+
+{% endblock %}

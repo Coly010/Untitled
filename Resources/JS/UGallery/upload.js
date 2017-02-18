@@ -59,3 +59,18 @@ function getProgressUpdate(){
 function toggleAlbumChoice(){
     $("#chooseAlbumUpload").slideToggle();
 }
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    $(".selectable-item").click(function () {
+        var itemId = $(this).attr("data-media-id");
+        var option = $(".select_item_"+itemId);
+        if(option.is(":selected")){
+            option.removeAttr("selected");
+            $(this).find(".selectable").removeClass("selectable-selected");
+        } else {
+            option.attr("selected", "selected");
+            $(this).find(".selectable").addClass("selectable-selected");
+        }
+
+    });
+});

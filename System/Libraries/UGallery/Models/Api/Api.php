@@ -11,6 +11,7 @@ namespace System\Libraries\UGallery\Models\Api;
 
 use System\Libraries\UGallery\Config\UGallery_Config;
 use System\Libraries\UGallery\Models\Gallery\Album;
+use System\Libraries\UGallery\Models\Gallery\Media;
 use Untitled\Database\Database;
 
 class Api
@@ -53,6 +54,29 @@ class Api
         }
 
         return $Albums;
+    }
+
+    //endregion
+
+    //region Media
+
+    /**
+     * @return array|null Media
+     */
+    public static function GetAllMedia(){
+        $db = new Database(true);
+
+        $db->Run("SELECT id FROM ". UGallery_Config::$MEDIA_TABLE, []);
+
+        $Media = null;
+        if($db->NumRows()){
+            $Media = [];
+            foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $media){
+                $Media[] = new Media($media['id']);
+            }
+        }
+
+        return $Media;
     }
 
     //endregion
