@@ -10,6 +10,8 @@ namespace System\Libraries\UGallery\Pages\Routes\Media;
 
 
 use System\Libraries\UGallery\Config\UGallery_RouteStrings;
+use System\Libraries\UGallery\DataProcesses\Gallery_DataProcess;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\Libraries\Input\Input;
 use Untitled\PageBuilder\Route;
 
@@ -24,11 +26,13 @@ class DoUploadMedia_Route extends Route
     {
         $this->Request = UGallery_RouteStrings::$UPLOAD_MEDIA."/do";
         $this->RenderView = false;
+        $this->RouteGuard = new AuthenticatedUser_Guard();
+        $this->DataProcess = new Gallery_DataProcess();
     }
 
     public function RunDataProcess()
     {
-        $files = Input::File("files");
+        $this->DataProcess->UploadMedia();
     }
 
 

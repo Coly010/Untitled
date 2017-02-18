@@ -99,4 +99,13 @@ class Validator
         return is_numeric($value) ? $value < $limit : false;
     }
 
+    /**
+     * Check if file is image
+     * @param $location - file location
+     * @return bool - result
+     */
+    public static function IsImage($location) {
+        return @is_array(getimagesize($location));
+    }
+
 }

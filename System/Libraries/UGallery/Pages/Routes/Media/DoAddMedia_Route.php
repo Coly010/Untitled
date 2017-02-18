@@ -9,6 +9,8 @@
 namespace System\Libraries\UGallery\Pages\Routes\Media;
 
 
+use System\Libraries\UGallery\Config\UGallery_RouteStrings;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class DoAddMedia_Route extends Route
@@ -19,6 +21,8 @@ class DoAddMedia_Route extends Route
      */
     public function __construct()
     {
+        $this->Request = UGallery_RouteStrings::$ADD_MEDIA_ALBUM."/do";
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     public function RunDataProcess()

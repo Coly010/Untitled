@@ -44,8 +44,9 @@ class Api
 
         $db->Run("SELECT id FROM ". UGallery_Config::$ALBUMS_TABLE, []);
 
-        $Albums = [];
+        $Albums = null;
         if($db->NumRows()){
+            $Albums = [];
             foreach($db->FetchAll(\PDO::FETCH_ASSOC) as $album){
                 $Albums[] = new Album($album['id'], false);
             }

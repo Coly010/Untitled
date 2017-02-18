@@ -8,18 +8,21 @@ var form_upload_interval = null;
 
 function startUpload(formName){
 
-    $("#upload_progress").show();
-    $(".upload_complete_text").addClass("hidden");
+    if($("#"+formName).val() == ""){
+        $("#upload_progress").show();
+        $(".upload_complete_text").addClass("hidden");
 
-    form_upload = formName;
+        form_upload = formName;
 
-    form_upload_interval = setInterval(getProgressUpdate, 500);
+        form_upload_interval = setInterval(getProgressUpdate, 500);
+    }
 
 }
 
 function getProgressUpdate(){
     $.get("/upload/progress/"+form_upload, function(data){
         var progress = JSON.parse(data);
+        console.log(progress);
 
         if(progress.error){
             $(".upload_complete_text").text("Error, upload aborted: "+progress.error_msg);
@@ -37,8 +40,22 @@ function getProgressUpdate(){
             if(progress.done){
                 clearInterval(form_upload_interval);
                 $(".upload_complete_text").removeClass("hidden");
+
+                if(progress.image){
+                    progress.files.forEach(function(file, index) {
+                        $(".thumbnail-holder").append("<img src='"+file+"' width='120' class='img-thumbnail' />");
+                    });
+                }
+
+                $("#upload_file_input").val("");
+                $("#addToAlbum_Check").attr("checked", false);
+
             }
         }
 
     });
+}
+
+function toggleAlbumChoice(){
+    $("#chooseAlbumUpload").slideToggle();
 }

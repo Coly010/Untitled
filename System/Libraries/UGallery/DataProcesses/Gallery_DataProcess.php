@@ -9,10 +9,13 @@
 namespace System\Libraries\UGallery\DataProcesses;
 
 
+use System\Libraries\UGallery\Config\UGallery_Config;
 use System\Libraries\UGallery\Models\Gallery\Album;
 use System\Libraries\UWebAdmin\Models\Users\User;
+use Untitled\Database\Database;
 use Untitled\Libraries\Input\Input;
 use Untitled\Libraries\Input\Sanitiser\Sanitiser;
+use Untitled\Libraries\Input\Sanitiser\Validator;
 use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\DataProcess;
 
@@ -75,6 +78,51 @@ class Gallery_DataProcess extends DataProcess
         $album->Delete();
 
         return $album;
+    }
+
+    //endregion
+
+    //region Media
+
+    public function UploadMedia(){
+
+        $files = Input::File("files");
+        $addToAlbum = Sanitiser::Int(Input::Post("addToAlbum"));
+        $album = $addToAlbum != -1 ? Sanitiser::Int(Input::Post("album")) : -1;
+
+        $db = new Database(true);
+
+        foreach($files as $file){
+
+            $rel_file = $file;
+
+            if($file[0] != "."){
+                if($file[1] != "/"){
+                    $rel_file = "./" . $file;
+                }
+            }
+
+            $type = Validator::IsImage($rel_file) == true ? 1 : 2;
+
+            $db->Run("INSERT INTO ". UGallery_Config::$MEDIA_TABLE ."(type, source, user, time)
+            VALUES(:type, :source, :user, :time)",
+                [
+                    ":type" => $type,
+                    ":source" => $file,
+                    ":user" => Session::Get("user")['Id'],
+                    ":time" => time()
+                ]);
+
+            if($addToAlbum != -1){
+                $media = $db->InsertId();
+                $db->Run("INSERT INTO ". UGallery_Config::$ALBUM_MEDIA_TABLE ."(album, media) VALUES(:album, :media)",
+                    [
+                        ":album" => $album,
+                        ":media" => $media
+                    ]);
+            }
+
+        }
     }
 
     //endregion

@@ -10,6 +10,7 @@ namespace Untitled\Libraries\Input;
 
 use System\Helpers\Arrays\Array_Helper;
 use System\Libraries\UGallery\UGallery;
+use Untitled\Libraries\Session\Session;
 
 class Input
 {
@@ -37,7 +38,7 @@ class Input
      * @param $key - Files uploaded key
      * @param array $exts - accepted extensions
      * @param string $uploadPath - the upload path to put the file
-     * @return bool/string - the location of where it was uploaded or false
+     * @return bool|array - the location of where it was uploaded or false
      */
     public static function File($key, $exts = null, $uploadPath = "./uploads/") {
         header('Content-Type: text/plain; charset=utf-8');
@@ -53,6 +54,8 @@ class Input
             }
 
             $files = Array_Helper::ReorderFileArray($_FILES[$key]);
+
+            $UploadedFiles = [];
 
             foreach($files as $file){
                 if(is_array($file['error'])){
@@ -98,8 +101,21 @@ class Input
                     throw new \RuntimeException("Failed to move uploaded file.");
                 }
 
-                return $location;
+                if(@is_array(getimagesize($location)))
+                {
+                    Session::Add("UploadedImage", true);
+                }
+
+                if($location[0] == "."){
+                    $location = substr($location, 1);
+                }
+
+                $UploadedFiles[] = $location;
             }
+
+            Session::Add("UploadedFilesLocations", $UploadedFiles);
+
+            return $UploadedFiles;
 
         } catch(\RuntimeException $e) {
             echo "File Upload Error - ". $e->getMessage();

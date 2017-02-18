@@ -53,6 +53,10 @@ class GetUploadProgress_Route extends Route
         } else {
             $returnData['progress'] = 100;
             $returnData['done'] = true;
+            $returnData['files'] = Session::Get("UploadedFilesLocations");
+            $returnData['image'] = Session::Get("UploadedImage");
+            unset($_SESSION['UploadedFilesLocations']);
+            unset($_SESSION['UploadedImage']);
         }
         echo json_encode($returnData);
     }

@@ -24,7 +24,21 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <input class="form-control" type="file" name="files[]" />
+                            <input class="form-control" id="upload_file_input" type="file" name="files[]" required multiple />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="checkbox" id="addToAlbum_Check" name="addToAlbum" value="1" onchange="toggleAlbumChoice();" />
+                            <label for="addToAlbum_Check">Add to album?</label>
+                        </div>
+                        <div id="chooseAlbumUpload" class="form-group" style="display: none;">
+                            <select name="album" class="form-control">
+                                {% for album in albums %}
+                                    <option value="{{album.Id}}">{{album.Name}}</option>
+                                {% else %}
+                                    <option value="-1">No albums</option>
+                                {% endfor %}
+                            </select>
                         </div>
 
                         <button class="btn btn-primary" type="submit" onclick="startUpload('uploadForm');">
@@ -44,6 +58,11 @@
                     </div>
                     <br>
                     <p class="text-success hidden upload_complete_text">Upload Complete!</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 thumbnail-holder">
+
                 </div>
             </div>
 
