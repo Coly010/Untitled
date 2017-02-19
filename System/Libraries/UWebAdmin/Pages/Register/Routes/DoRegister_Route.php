@@ -42,12 +42,12 @@ class DoRegister_Route extends Route
         if($registered_user != false){
             $this->ViewData["result"] = true;
             $this->ViewData["new_user"] = $registered_user->ToArray();
+            $Me = new User(Session::Get("user")['Id']);
+            UWA::NewActivity($Me, $Me->Name." added new user ".$registered_user->Name.".", time());
         } else {
             $this->ViewData["result"] = false;
         }
 
-        $Me = new User(Session::Get("user")['Id']);
-        UWA::NewActivity($Me, $Me->Name." added new user ".$registered_user->Name.".", time());
     }
 
 }
