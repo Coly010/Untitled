@@ -12,7 +12,10 @@ namespace System\Libraries\UGallery\Pages\Routes\Album;
 use System\Libraries\UGallery\Config\UGallery_RouteStrings;
 use System\Libraries\UGallery\DataProcesses\Gallery_DataProcess;
 use System\Libraries\UGallery\UGallery;
+use System\Libraries\UWebAdmin\Models\Users\User;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use System\Libraries\UWebAdmin\UWA;
+use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
 
 class DoAddAlbum_Route extends Route
@@ -38,6 +41,8 @@ class DoAddAlbum_Route extends Route
         if($album != false){
             $this->ViewData['result'] = true;
             $this->ViewData['album'] = $album;
+            $Me = new User(Session::Get("user")['Id']);
+            UWA::NewActivity($Me, $Me->Name." added album ".$album->Name.".", time());
         }
     }
 

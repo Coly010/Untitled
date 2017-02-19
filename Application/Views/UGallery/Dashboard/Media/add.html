@@ -17,7 +17,7 @@
 
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> Added {{ num_photos }} photos to album {{ album.Name }}.
+            <strong>Success!</strong> Added {{ num_photos }} photo{{ num_photos > 1 ? 's' : '' }} to album {{ album.Name }}.
         </div>
 
         {% elseif result is defined and result == false %}

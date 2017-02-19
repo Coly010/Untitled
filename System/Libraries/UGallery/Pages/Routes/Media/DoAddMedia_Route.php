@@ -13,9 +13,12 @@ use System\Libraries\UGallery\Config\UGallery_RouteStrings;
 use System\Libraries\UGallery\DataProcesses\Gallery_DataProcess;
 use System\Libraries\UGallery\Models\Gallery\Album;
 use System\Libraries\UGallery\UGallery;
+use System\Libraries\UWebAdmin\Models\Users\User;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use System\Libraries\UWebAdmin\UWA;
 use Untitled\Libraries\Input\Input;
 use Untitled\Libraries\Input\Sanitiser\Sanitiser;
+use Untitled\Libraries\Session\Session;
 use Untitled\PageBuilder\Route;
 
 class DoAddMedia_Route extends Route
@@ -44,6 +47,12 @@ class DoAddMedia_Route extends Route
 
         $this->ViewData['albums'] = UGallery::GetAllAlbumsWithoutMedia();
         $this->ViewData['media'] = UGallery::GetAllMedia();
+
+        if($result){
+            $Me = new User(Session::Get("user")['Id']);
+            $photos = "photo" . ($this->ViewData['num_photos'] > 1 ? "s" : "");
+            UWA::NewActivity($Me, $Me->Name." added ".$this->ViewData['num_photos']." ".$photos. " to album ".$this->ViewData['album']->Name.".", time());
+        }
     }
 
 

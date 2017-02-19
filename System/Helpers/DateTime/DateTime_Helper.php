@@ -32,10 +32,11 @@ class DateTime_Helper
         );
 
         foreach($tokens as $unit => $text){
-            if($diff < $unit)
+            if($diff < $unit){
                 continue;
+            }
             $remaining = floor($diff / $unit);
-            return $remaining. " ". $text . ($remaining > 1 ) ? "s ago" : "ago";
+            return ($remaining. " ". $text . ($remaining > 1  ? "s ago" : "ago"));
         }
     }
 
@@ -66,6 +67,18 @@ class DateTime_Helper
      */
     public static function ConvertTimeHoursMins($timestamp){
         return date("H:i", $timestamp);
+    }
+
+    /**
+     * @param $timestamp
+     * @param $fallback
+     * @return string - the time
+     */
+    public static function DynamicTimeAgo($timestamp, $fallback){
+        if(604800 < $diff = time() - $timestamp){
+            return call_user_func($fallback, $timestamp);
+        }
+        return self::TimeAgo($timestamp);
     }
 
 }
