@@ -105,6 +105,9 @@ class Register_DataProcess extends DataProcess
      * @return bool|User return the registered user or false if it fails
      */
     public function Register(){
+        if(empty(Input::Post("username")) && empty(Input::Post("password"))){
+            return false;
+        }
         if(!$this->CheckUsernameExists(Sanitiser::String(Input::Post("username")))
         && $this->CheckPasswordsMatch(Sanitiser::String(Input::Post("password")), Sanitiser::String(Input::Post("cpassword")))){
             return $this->SetupUser();

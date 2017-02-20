@@ -35,9 +35,12 @@ h6 {
 }
 .uwa-menu {
   background-color: #0d0d0d;
-  height: calc(100vh - 70px);
-  position: relative;
+  min-height: 100vh;
+  width: 15vw;
+  position: absolute;
   top: -20px;
+  left: 0;
+  bottom: 0;
 }
 .uwa-menu .menu-header {
   padding: 6px;
@@ -64,16 +67,17 @@ h6 {
 }
 #mobile-menu .menu-icon {
   padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   color: #ffffff;
   position: fixed;
   top: 0;
   left: 0;
   font-size: 1.5em;
+  z-index: 5;
 }
 #mobile-menu .menu-links-container {
   background: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -83,7 +87,7 @@ h6 {
 #mobile-menu .menu-links-container .menu-links {
   padding: 6px;
   background: #000000;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 75vw;
@@ -111,4 +115,50 @@ h6 {
 #mobile-menu .menu-links-container .menu-links .fa.fa-times {
   font-size: 1.5em;
   color: #ffffff;
+}
+#upload_progress {
+  display: none;
+}
+#upload_iframe {
+  display: none;
+}
+.selectable {
+  min-width: 150px !important;
+  max-width: 150px !important;
+  min-height: 150px !important;
+  max-height: 150px !important;
+  object-fit: cover;
+}
+.selectable:hover {
+  cursor: pointer;
+  background: #0099cc;
+}
+.view_album_thumbnail {
+  min-width: 150px !important;
+  max-width: 150px !important;
+  min-height: 150px !important;
+  max-height: 150px !important;
+  object-fit: cover;
+}
+.selectable-selected {
+  background: #0099cc;
+}
+@media only screen and (max-device-width: 736px) {
+  .selectable {
+    min-width: 100% !important;
+    max-width: 100% !important;
+    min-height: 8em !important;
+    max-height: 8em !important;
+    object-fit: cover;
+  }
+  .view_album_thumbnail {
+    min-width: 100% !important;
+    max-width: 100% !important;
+    min-height: 8em !important;
+    max-height: 8em !important;
+    object-fit: cover;
+  }
+  .menu-links {
+    padding-bottom: 15vh !important;
+  }
 }

@@ -52,6 +52,7 @@ $(document).ready(function() {
         // Redisplay a mobile friendly menu
         $("#mobile-menu").removeClass("hidden");
         $(".menu-links").append(menu);
+        $(".menu-links").append('<li class="menu-header">Me</li><li class="menu-item"><a href="/login/logout">Logout</a></li>');
 
         // Handle the menu click
 

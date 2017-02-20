@@ -1,0 +1,122 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result is defined and result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Added {{ num_photos }} photos to album {{ album.Name }}.
+        </div>
+
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Could not add photos to album.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+
+            <h2>View Album</h2>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="selected-album">Select Album:</label>
+                    <select class="form-control" id="selected-album" name="selected-album" type="dropdown" onchange="onSelectViewAlbum()">
+                        <option value="">Select Album</option>
+                        {% for a in all_albums %}
+                        <option value="{{ a.Id }}">{{ a.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row hidden" id="hidden-select-view-album">
+                <div class="col-sm-12 thumbnail-holder">
+                    <div class="row ">
+
+                        {% for item in media %}
+                        <div class="col-lg-2 col-sm-3 col-xs-6">
+
+                            {% if item.Type == 1 %}
+                            <img src="{{item.Source}}" class="img-thumbnail" />
+                            {% else %}
+                            <div class="embed-responsive">
+                                <video controls>
+                                    <source src="{{item.Source}}">
+                                </video>
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function onSelectViewAlbum(){
+
+        var album = $("#selected-album").val();
+
+        $.post("/dashboard/album/get", {album_id: album}, function(data) {
+
+            var Album = JSON.parse(data);
+            Album = Album.found_album;
+
+            var Photos = Album.Photos;
+            var Videos = Album.Videos;
+
+            if(Photos != null){
+                $(".thumbnail-holder").append("<h3>Photos</h3><div class='row album_photos'></div>");
+
+                Photos.forEach(function(photo, index) {
+                    $(".album_photos").append("<div class='col-lg-2 col-sm-3 col-xs-6'>" +
+                            "<a href='"+photo.Source+"' data-lightbox='album-"+Album.Name+"'><img src='"+photo.Source+"' class='img-thumbnail view_album_thumbnail' /></a></div>");
+                });
+            }
+
+            if(Videos != null){
+                $(".thumbnail-holder").append("<h3>Videos</h3><div class='row album_videos'></div>");
+
+                Videos.forEach(function(photo, index) {
+                    $(".album_photos").append("<div class='col-lg-2 col-sm-3 col-xs-6'>" +
+                            "<div class='embed-responsive'>" +
+                            "<video controls><source src='"+video.Source+"'></video>" +
+                            "</div></div>");
+                });
+            }
+
+            $("#hidden-select-view-album").removeClass("hidden");
+
+        });
+
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}
