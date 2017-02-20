@@ -1,0 +1,43 @@
+
+DROP TABLE IF EXISTS ug_albums;
+
+CREATE TABLE ug_albums(
+
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description MEDIUMTEXT DEFAULT NULL,
+  created VARCHAR(15) NOT NULL,
+  last_modified VARCHAR(15) NOT NULL,
+  user INT(11) NOT NULL,
+
+  PRIMARY KEY (id)
+
+)ENGINE=InnoDb;
+
+
+DROP TABLE IF EXISTS ug_media;
+
+CREATE TABLE ug_media(
+
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  type INT(1) NOT NULL,
+  source LONGTEXT NOT NULL,
+  user INT(11) NOT NULL,
+  time VARCHAR(15) NOT NULL,
+
+  PRIMARY KEY (id)
+
+)ENGINE=InnoDb;
+
+
+DROP TABLE IF EXISTS ug_album_media;
+
+CREATE TABLE ug_album_media(
+
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  album INT(11) NOT NULL,
+  media INT(11) NOT NULL,
+
+  PRIMARY KEY (id)
+
+)ENGINE=InnoDb;

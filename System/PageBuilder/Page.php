@@ -165,7 +165,9 @@ class Page
 
                     $this->Twig->display($this->FoundRoute->getViewFilePath(), $this->FoundRoute->getViewData());
                 } else {
-                    echo json_encode($this->FoundRoute->getViewData());
+                    if(count($this->FoundRoute->getViewData()) > 0){
+                        echo json_encode($this->FoundRoute->getViewData());
+                    }
                 }
             }
         }
@@ -176,6 +178,11 @@ class Page
      */
     private function InitialiseTwig(){
         $loader = new \Twig_Loader_FileSystem(Twig_Config::$TEMPLATE_PATH);
+        if(count(Twig_Config::$TEMPLATE_PATHS) > 0){
+            foreach (Twig_Config::$TEMPLATE_PATHS as $path){
+                $loader->addPath($path);
+            }
+        }
         $this->Twig = new \Twig_Environment($loader,
             ['cache' => Application_Config::$ENV == "Development" ? false : Twig_Config::$CACHE_PATH]);
     }

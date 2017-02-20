@@ -29,6 +29,7 @@
 
     <script src="https://use.fontawesome.com/5318d08ea2.js"></script>
     <link rel="stylesheet" href="/Resources/JS/SCE/minified/themes/default.min.css" />
+    <link rel="stylesheet" href="/Resources/JS/Lightbox/css/lightbox.min.css" />
 </head>
 <body>
 
@@ -63,21 +64,24 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-sm-2 uwa-menu">
-            <ul class="nav nav-pills nav-stacked">
+        <div class="col-sm-2">
+            <div class="uwa-menu">
+                <ul class="nav nav-pills nav-stacked">
 
-                {% for item in uwa_dashboard_menu %}
+                    {% for item in uwa_dashboard_menu %}
                     {% if item.Header == true %}
-                        <li class="menu-header">
-                            {{ item.Link }}
-                    {% else %}
-                        <li class="menu-item">
-                            <a href="{{ item.Url }}">{{ item.Link }}</a>
-                    {% endif %}
-                </li>
-                {% endfor %}
+                    <li class="menu-header">
+                        {{ item.Link }}
+                        {% else %}
+                    <li class="menu-item">
+                        <a href="{{ item.Url }}">{{ item.Link }}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
 
-            </ul>
+                </ul>
+            </div>
+
         </div>
         <div class="col-sm-10 uwa-content">
             <div class="container">
@@ -96,6 +100,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script src="/Resources/JS/UWA/UWA.js"></script>
 <script src="/Resources/JS/SCE/minified/jquery.sceditor.bbcode.min.js"></script>
+<script src="/Resources/JS/Lightbox/js/lightbox.min.js"></script>
 
 <script>
     $(function() {

@@ -10,6 +10,7 @@ namespace System\Libraries\UWebAdmin\Pages\Users\Routes;
 
 
 use System\Libraries\UWebAdmin\DataProcesses\Admin_DataProcess;
+use System\Libraries\UWebAdmin\Models\Users\User;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use System\Libraries\UWebAdmin\UWA;
 use Untitled\Libraries\Session\Session;
@@ -37,14 +38,14 @@ class DoDeleteUser_Route extends Route
         if($deleted != false){
             $this->ViewData['result'] = true;
             $this->ViewData['deleted_user'] = $deleted->ToArray();
+            $Me = new User(Session::Get("user")['Id']);
+            UWA::NewActivity($Me, $Me->Name." deleted user ".$deleted->Name.".", time());
         }
 
         foreach(UWA::GetUsers() as $user){
             $this->ViewData["all_users"][] = $user->ToArray();
         }
 
-        $Me = new User(Session::Get("user")['Id']);
-        UWA::NewActivity($Me, $Me->Name." deleted user ".$deleted->Name.".", time());
     }
 
 

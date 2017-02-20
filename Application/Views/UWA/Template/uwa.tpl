@@ -29,6 +29,7 @@
 
     <script src="https://use.fontawesome.com/5318d08ea2.js"></script>
     <link rel="stylesheet" href="/Resources/JS/SCE/minified/themes/default.min.css" />
+    <link rel="stylesheet" href="/Resources/JS/Lightbox/css/lightbox.min.css" />
 </head>
 <body>
 
@@ -43,6 +44,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 <script src="/Resources/JS/UWA/UWA.js"></script>
 <script src="/Resources/JS/SCE/minified/jquery.sceditor.bbcode.min.js"></script>
+<script src="/Resources/JS/Lightbox/js/lightbox.min.js"></script>
 
 <script>
     $(function() {

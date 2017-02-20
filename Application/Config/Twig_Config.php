@@ -18,6 +18,11 @@ class Twig_Config
     public static $TEMPLATE_PATH = "Application/Views";
 
     /**
+     * @var array Paths to other templates
+     */
+    public static $TEMPLATE_PATHS = [];
+
+    /**
      * @var string Path to the cache directory
      */
     public static $CACHE_PATH = "Application/Cache";

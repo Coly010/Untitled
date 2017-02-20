@@ -1,0 +1,75 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Deleted album {{ album.Name }}.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+            <h2>Delete Album</h2>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <form role="form" method="post" id="deleteAlbumForm">
+                        <div class="form-group">
+                            <label for="selected-album">Select Album:</label>
+                            <select class="form-control" id="selected-album" name="selected_album" type="dropdown">
+                                <option value="">Select Album</option>
+                                {% for a in all_albums %}
+                                <option value="{{ b.Id }}">{{ a.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button class="btn btn-danger" type="button" onclick="deleteAlbumOnSubmit()">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function deleteAlbumOnSubmit() {
+        var currentForm = $("#deleteAlbumForm");
+        BootboxConfirm("Confirm Delete Album",
+                "Are you sure you want to delete "+ $("#selected-album option:selected").text() +"?",
+                {
+                    label: "<i class='fa fa-times'></i> Cancel",
+                    className: "btn-default"
+                },
+                {
+                    label: "<i class='fa fa-trash'></i> Confirm",
+                    className: "btn-danger"
+                },
+                function(result) {
+                    if(result){
+                        currentForm.attr("action", "/dashboard/album/delete/do");
+                        currentForm.submit();
+                    }
+                }
+        );
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

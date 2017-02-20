@@ -42,7 +42,7 @@ class DashboardHome_Route extends Route
         $latest_activity = UWA::GetLatestActivity(10);
         foreach($latest_activity as $la){
             $la = $la->ToArray();
-            $la["Time"] = DateTime_Helper::ConvertTimeFullDateWithTime($la['Time']);
+            $la["Time"] = DateTime_Helper::DynamicTimeAgo($la["Time"], 'self::ConvertTimeFullDateWithTime');
             $this->ViewData["latest_activity"][] = $la;
         }
     }
