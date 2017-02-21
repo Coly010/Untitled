@@ -1,0 +1,57 @@
+/* Primary Colours */
+/* Brand Colours */
+/* Helpful Mixins */
+.uCarousel {
+  height: 50vh;
+  min-height: 50vh;
+  margin-top: 25px;
+}
+.uCarousel-holder {
+  padding: 10px;
+}
+.uCarousel-holder .item .photo {
+  display: inline-block;
+  background-color: #e6e6e6;
+  width: 40vw;
+  height: 50vh;
+  vertical-align: top;
+}
+.uCarousel-holder .item .content {
+  position: relative;
+  display: inline-block;
+  width: 35vw;
+  height: 50vh;
+  margin-left: 20px;
+  vertical-align: top;
+}
+.uCarousel-holder .item .content h2 {
+  margin-top: 0;
+}
+.uCarousel-holder .item .content .details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.uCarousel-holder .item .content .details div {
+  display: inline-block;
+}
+.uCarousel-holder .item-counter {
+  text-align: center;
+  margin: 15px;
+}
+.uCarousel-holder .item-counter .item-counter-image {
+  display: inline-block;
+  min-width: 20px;
+  min-height: 20px;
+  background-color: #999999;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.uCarousel-holder .item-counter .item-counter-image:hover {
+  background-color: #0099cc;
+  cursor: pointer;
+}
+.uCarousel-holder .item-counter .active {
+  background-color: #0099cc !important;
+}

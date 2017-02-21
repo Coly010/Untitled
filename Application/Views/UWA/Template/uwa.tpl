@@ -20,6 +20,7 @@
     <!-- UWA -->
     <link rel="stylesheet" href="/Resources/CSS/UWA.css" type="text/css" />
     <link rel="stylesheet" href="/Resources/CSS/UCard.css" type="text/css" />
+    <link rel="stylesheet" href="/Resources/CSS/UCarousel.css" type="text/css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

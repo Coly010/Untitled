@@ -1,0 +1,78 @@
+@import 'variables';
+
+.uCarousel {
+  height: 50vh;
+  min-height: 50vh;
+  margin-top: 25px;
+}
+
+.uCarousel-holder {
+  padding: 10px;
+
+  .item {
+
+    .photo {
+      display: inline-block;
+      background-color: darken(@white, 10%);
+      width: 40vw;
+      height: 50vh;
+      vertical-align: top;
+    }
+
+    .content {
+      position: relative;
+      display: inline-block;
+      width: 35vw;
+      height: 50vh;
+      margin-left: 20px;
+      vertical-align: top;
+
+      h2 {
+        margin-top: 0;
+      }
+
+      .details {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        div {
+          display: inline-block;
+        }
+      }
+
+    }
+
+  }
+
+  .item-counter {
+
+    text-align: center;
+
+    margin: 15px;
+
+    .item-counter-image {
+      display: inline-block;
+
+      min-width: 20px;
+      min-height: 20px;
+      background-color: darken(@white, 40%);
+
+      margin-left: 4px;
+      margin-right: 4px;
+
+      &:hover {
+        background-color: @brand-primary;
+        cursor: pointer;
+      }
+
+    }
+
+    .active {
+      background-color: @brand-primary !important;
+    }
+
+  }
+
+}
