@@ -11,6 +11,7 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\CarouselItem;
 
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class DoAddItem_Route extends Route
@@ -24,8 +25,10 @@ class DoAddItem_Route extends Route
         $this->Request = UCarousel_RouteStrings::$ADD_CAROUSEL_ITEM."/do";
         $this->DataProcess = new UCarousel_DataProcess();
         $this->RenderView = true;
+        $this->ComplexRoute = true;
         $this->ViewFilePath = "Dashboard/CarouselItem/add.html";
         $this->ViewData['page_name'] = "Add Carousel Item";
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     public function RunDataProcess()

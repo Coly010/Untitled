@@ -11,6 +11,8 @@ namespace System\Libraries\UCarousel\DataProcesses;
 
 use System\Libraries\UCarousel\Models\Carousel\Carousel;
 use System\Libraries\UCarousel\Models\Carousel\CarouselItem;
+use Untitled\Libraries\Input\Input;
+use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 use Untitled\PageBuilder\DataProcess;
 
 class UCarousel_DataProcess extends DataProcess
@@ -20,11 +22,16 @@ class UCarousel_DataProcess extends DataProcess
 
     /**
      * @param Carousel $carousel
-     * @return Carousel item
+     * @return bool|Carousel item
      */
     public function AddCarousel($carousel = null){
         if(is_null($carousel)){
 
+            $carousel = new Carousel();
+            if(false == $carousel->Name = Sanitiser::String(Input::Post("name"))){
+                return false;
+            }
+            
         }
 
         $carousel->Insert();

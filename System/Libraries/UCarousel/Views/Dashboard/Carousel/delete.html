@@ -1,0 +1,53 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Deleted carousel {{ carousel.Name }}.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+            <h2>Delete a carousel</h2>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <form action="/dashboard/carousel/delete/do" method="post" role="form">
+                        <div class="form-group">
+                            <label for="carousels" class="sr-only">Select Carousel:</label>
+                            <select type="dropdown" name="carousel" id="carousels">
+                                <option value="-1">Select Carousel</option>
+                                {% for carousel in all_carousels %}
+
+                                <option value="{{ carousel.Id }}">{{ carousel.Name }}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button class="btn btn-danger" type="submit">Delete Carousel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

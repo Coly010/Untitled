@@ -10,6 +10,7 @@ namespace Application\Config;
 
 
 use System\Libraries\UBlog\UBlog;
+use System\Libraries\UCarousel\UCarousel;
 use System\Libraries\UGallery\UGallery;
 use System\Libraries\UWebAdmin\UWA;
 
@@ -23,7 +24,8 @@ class Application_Config
     public static $PLUGINS = [
         UWA::class,
         UBlog::class,
-        UGallery::class
+        UGallery::class,
+        UCarousel::class
     ];
 
     public static $ENV = "Development";

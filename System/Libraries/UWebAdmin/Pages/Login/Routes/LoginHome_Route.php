@@ -26,6 +26,7 @@ class LoginHome_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "UWA/Login/index.html";
         $this->DataProcess = new Login_DataProcess();
+        $this->ViewData['page_name'] = "Login";
     }
 
     /**

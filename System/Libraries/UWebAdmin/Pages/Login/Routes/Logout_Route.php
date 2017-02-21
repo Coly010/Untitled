@@ -26,6 +26,7 @@ class Logout_Route extends Route
         $this->ViewFilePath = "UWA/Login/index.html";
         $this->DataProcess = new Admin_DataProcess();
         $this->RouteGuard = new AuthenticatedUser_Guard();
+        $this->ViewData['page_name'] = "Login";
     }
 
     public function RunDataProcess()

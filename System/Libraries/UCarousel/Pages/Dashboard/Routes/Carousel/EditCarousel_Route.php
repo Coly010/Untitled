@@ -11,6 +11,7 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\Carousel;
 
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class EditCarousel_Route extends Route
@@ -26,6 +27,7 @@ class EditCarousel_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "Dashboard/Carousel/edit.html";
         $this->ViewData['page_name'] = "Edit Carousel";
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     public function RunDataProcess()

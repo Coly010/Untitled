@@ -23,6 +23,7 @@ class GetItem_Route extends Route
     {
         $this->Request = UCarousel_RouteStrings::$GET_CAROUSEL_ITEM;
         $this->DataProcess = new UCarousel_DataProcess();
+        $this->ComplexRoute = true;
     }
 
     public function RunDataProcess()

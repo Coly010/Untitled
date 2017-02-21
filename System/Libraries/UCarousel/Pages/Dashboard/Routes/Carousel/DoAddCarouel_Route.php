@@ -11,6 +11,7 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\Carousel;
 
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class DoAddCarouel_Route extends Route
@@ -26,10 +27,18 @@ class DoAddCarouel_Route extends Route
         $this->RenderView = true;
         $this->ViewFilePath = "Dashboard/Carousel/add.html";
         $this->ViewData['page_name'] = "Add Carousel";
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     public function RunDataProcess()
     {
+        $result = $this->DataProcess->AddCarousel();
+        if($result != false){
+            $this->ViewData['result'] = true;
+            $this->ViewData['carousel'] = $result;
+        } else {
+            $this->ViewData['result'] = false;
+        }
 
     }
 

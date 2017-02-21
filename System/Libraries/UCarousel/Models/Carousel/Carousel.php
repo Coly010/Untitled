@@ -110,9 +110,11 @@ class Carousel implements ISaveable, IDeletable, IObjArray
 
         $this->Id = $db->InsertId();
 
-        foreach($this->Items as $item){
-            $item->Carousel = $this->Id;
-            $item->Insert();
+        if(is_array($this->Items) && count($this->Items) > 0){
+            foreach($this->Items as $item){
+                $item->Carousel = $this->Id;
+                $item->Insert();
+            }
         }
     }
 

@@ -11,6 +11,7 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\CarouselItem;
 
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
 class DeleteItem_Route extends Route
@@ -24,8 +25,10 @@ class DeleteItem_Route extends Route
         $this->Request = UCarousel_RouteStrings::$DELETE_CAROUSEL_ITEM;
         $this->DataProcess = new UCarousel_DataProcess();
         $this->RenderView = true;
+        $this->ComplexRoute = true;
         $this->ViewFilePath = "Dashboard/CarouselItem/delete.html";
         $this->ViewData['page_name'] = "Delete Carousel Item";
+        $this->RouteGuard = new AuthenticatedUser_Guard();
     }
 
     public function RunDataProcess()
