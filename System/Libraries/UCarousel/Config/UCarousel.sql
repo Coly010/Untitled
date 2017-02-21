@@ -1,0 +1,28 @@
+DROP TABLE IF EXISTS uc_carousels;
+
+CREATE TABLE uc_carousels(
+
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL DEFAULT '',
+
+  PRIMARY KEY (id)
+
+)ENGINE=InnoDb;
+
+
+DROP TABLE IF EXISTS uc_carousel_items;
+
+CREATE TABLE uc_carousel_items(
+
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  carousel INT(11) NOT NULL,
+  header VARCHAR(255) NOT NULL,
+  description LONGTEXT DEFAULT NULL,
+  post INT(11) DEFAULT NULL,
+  media INT(11) DEFAULT NULL,
+  user INT(11) NOT NULL,
+  time VARCHAR(15) NOT NULL,
+
+  PRIMARY KEY (id)
+
+)ENGINE=InnoDb;
