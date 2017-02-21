@@ -125,8 +125,8 @@ class CarouselItem implements ISaveable, IDeletable, IObjArray
                 ":carousel" => $this->Carousel->Id,
                 ":header" => $this->Header,
                 ":description" => $this->Description,
-                ":media" => $this->Media->Id,
-                ":post" => $this->BlogPost->Id,
+                ":media" => is_null($this->Media) ? null : $this->Media->Id,
+                ":post" => is_null($this->BlogPost) ? null : $this->BlogPost->Id,
                 ":user" => $this->User->Id,
                 ":time" => $this->Time,
                 ":id" => $this->Id
@@ -146,8 +146,8 @@ class CarouselItem implements ISaveable, IDeletable, IObjArray
                 ":carousel" => $this->Carousel->Id,
                 ":header" => $this->Header,
                 ":description" => $this->Description,
-                ":media" => $this->Media->Id,
-                ":post" => $this->BlogPost->Id,
+                ":media" => is_null($this->Media) ? null : $this->Media->Id,
+                ":post" => is_null($this->BlogPost) ? null : $this->BlogPost->Id,
                 ":user" => $this->User->Id,
                 ":time" => time()
             ]);

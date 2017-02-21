@@ -20,6 +20,13 @@
             <strong>Success!</strong> Deleted {{item.Name}} from {{ carousel.Name }}.
         </div>
 
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Something went wrong, please try again.
+        </div>
+
         {% endif %}
 
         <div class="uCard uCard-Standalone">
@@ -30,11 +37,11 @@
                     <form action="/dashboard/carousel/{{carousel.Id}}/item/delete/do" method="post" role="form">
                         <div class="form-group">
                             <label for="items" class="sr-only">Select Item:</label>
-                            <select type="dropdown" name="item" id="items">
+                            <select type="dropdown" name="item" id="items" class="form-control">
                                 <option value="-1">Select Items</option>
-                                {% for items in carousel_items %}
+                                {% for item in carousel_items %}
 
-                                <option value="{{ item.Id }}">{{ item.Name }}</option>
+                                <option value="{{ item.Id }}">{{ item.Header }}</option>
 
                                 {% endfor %}
                             </select>

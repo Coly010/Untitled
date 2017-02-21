@@ -17,7 +17,14 @@
 
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> Added {{ item.Name }} to {{ carousel.Name }}.
+            <strong>Success!</strong> Added {{ item.Header }} to {{ carousel.Name }}.
+        </div>
+
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Something went wrong, please try again.
         </div>
 
         {% endif %}
@@ -26,8 +33,8 @@
             <h2>Add an item to {{carousel.Name}}</h2>
 
             <div class="row">
-                <div class="col-sm-6">
-                    <form action="/dashboard/carousel/{{carousel.Id}}/item/add/do" method="post" role="form">
+                <form action="/dashboard/carousel/{{carousel.Id}}/item/add/do" method="post" role="form">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="header" class="sr-only">Header:</label>
                             <input type="text" class="form-control" name="header" id="header" placeholder="Header" />
@@ -36,21 +43,71 @@
                             <label for="description" class="sr-only">Description:</label>
                             <textarea class="form-control" name="desc" id="description" placeholder="Description"></textarea>
                         </div>
-                        <label for="selected-post">Select Post:</label>
-                        <select class="form-control" id="selected-post" name="selected-post" type="dropdown">
-                            <option value="-1">Select Post</option>
-                            {% for p in all_posts %}
-                            <option value="{{ p.Id }}">{{ p.Title }}</option>
+                        <div class="form-group">
+                            <label for="selected-post">Select Post:</label>
+                            <select class="form-control" id="selected-post" name="selected-post" type="dropdown">
+                                <option value="-1">Select Post</option>
+                                {% for p in all_posts %}
+                                <option value="{{ p.Id }}">{{ p.Title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <select name="selected_media" id="selected_media" class="hidden">
+                        {% for item in media %}
+                        <option value="{{item.Id}}" class="select_item_{{item.Id}}"></option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-sm-12 thumbnail-holder">
+                        <label>Add Media To Carousel:</label>
+                        <div class="row">
+                            {% for item in media %}
+
+                            <div class="col-lg-2 col-sm-3 col-xs-6 selectable-item selectable-item-{{item.Id}}" onclick="selectMediaForCarousel({{item.Id}});">
+
+                                {% if item.Type == 1 %}
+                                <img src="{{item.Source}}" class="img-thumbnail selectable" />
+                                {% else %}
+                                <div class="embed-responsive selectable">
+                                    <video controls>
+                                        <source src="{{item.Source}}">
+                                    </video>
+                                </div>
+                                {% endif %}
+
+                            </div>
+
                             {% endfor %}
-                        </select>
-                        <button class="btn btn-primary" type="submit">Add Item</button>
-                    </form>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <br>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Add Item</button>
+                        </div>
+                    </div>
+
+                </form>
                 </div>
             </div>
         </div>
 
     </div>
 </div>
+
+<script>
+    function selectMediaForCarousel(id){
+        $(".selectable-selected").removeClass("selectable-selected");
+        $("#selected_media option:selected").removeAttr("selected");
+
+        var media = $(".select_item_"+id);
+        media.attr("selected", "selected");
+        var thumb = $(".selectable-item-"+id).find(".selectable");
+        thumb.addClass("selectable-selected");
+    }
+</script>
 
 {% endif %}
 

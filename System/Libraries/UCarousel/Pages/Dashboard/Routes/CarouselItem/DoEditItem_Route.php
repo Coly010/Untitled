@@ -9,8 +9,12 @@
 namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\CarouselItem;
 
 
+use System\Libraries\UBlog\UBlog;
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UCarousel\Models\Carousel\Carousel;
+use System\Libraries\UCarousel\UCarousel;
+use System\Libraries\UGallery\UGallery;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
@@ -33,7 +37,18 @@ class DoEditItem_Route extends Route
 
     public function RunDataProcess()
     {
-        // TODO: Implement RunDataProcess() method.
+        $result = $this->DataProcess->EditCarouselItem(null, $this->Params[0]);
+        if($result != false){
+            $this->ViewData['result'] = true;
+            $this->ViewData['item'] = $result;
+        } else {
+            $this->ViewData['result'] = false;
+        }
+
+        $this->ViewData['all_posts'] = UBlog::GetPosts();
+        $this->ViewData['media'] = UGallery::GetAllMedia();
+        $this->ViewData['all_carousel_items'] = UCarousel::GetCarouselItems($this->Params[0]);
+        $this->ViewData['carousel'] = new Carousel($this->Params[0], false);
     }
 
 

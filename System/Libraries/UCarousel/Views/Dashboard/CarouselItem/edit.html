@@ -1,0 +1,153 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Edited Carousel Item {{ item.Header }}.
+        </div>
+
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Something went wrong, please try again.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+            <h2>Edit Carousel Item</h2>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="selected-carousel-item">Select Carousel Item:</label>
+                    <select class="form-control" id="selected-carousel-item" name="selected-carousel-item" type="dropdown" onchange="onSelectCarouselItem()">
+                        <option value="-1">Select Carousel Item</option>
+                        {% for i in all_carousel_items %}
+                        <option value="{{ i.Id }}">{{ i.Header }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row hidden" id="hidden-select-carousel-item">
+                <form action="/dashboard/carousel/{{carousel.Id}}/item/edit/do" method="post" role="form">
+                    <input type="hidden" name="ID" />
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="header" class="sr-only">Header:</label>
+                            <input type="text" class="form-control" name="header" id="header" placeholder="Header" />
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="sr-only">Description:</label>
+                            <textarea class="form-control" name="desc" id="description" placeholder="Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="selected-post">Select Post:</label>
+                            <select class="form-control" id="selected-post" name="selected-post" type="dropdown">
+                                <option value="-1">Select Post</option>
+                                {% for p in all_posts %}
+                                <option value="{{ p.Id }}">{{ p.Title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <select name="selected_media" id="selected_media" class="hidden">
+                        {% for item in media %}
+                        <option value="{{item.Id}}" class="select_item_{{item.Id}}"></option>
+                        {% endfor %}
+                    </select>
+
+                    <div class="col-sm-12 thumbnail-holder">
+                        <label>Add Media To Carousel:</label>
+                        <div class="row">
+                            {% for item in media %}
+
+                            <div class="col-lg-2 col-sm-3 col-xs-6 selectable-item selectable-item-{{item.Id}}" onclick="selectMediaForCarousel({{item.Id}});">
+
+                                {% if item.Type == 1 %}
+                                <img src="{{item.Source}}" class="img-thumbnail selectable" />
+                                {% else %}
+                                <div class="embed-responsive selectable">
+                                    <video controls>
+                                        <source src="{{item.Source}}">
+                                    </video>
+                                </div>
+                                {% endif %}
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <br>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Edit Item</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onSelectCarouselItem(){
+        if($("#selected-carousel-item").val() != -1){
+
+            // Get the details of the selected carousel
+            $.post("/dashboard/carousel/{{carousel.Id}}/item/get", {item_id: $("#selected-carousel-item").val()}, function(data){
+                data = JSON.parse(data);
+                var item = data.item;
+                $("input[name='ID']").val(item.Id);
+                $("input[name='header']").val(item.Header);
+                $("textarea[name='desc']").val(item.Description);
+                $("select[name='selected-post']").val(item.BlogPost.Id);
+                $("select[name='selected_media']").val(item.Media.Id);
+                var media = $(".select_item_"+item.Media.Id);
+                media.attr("selected", "selected");
+                var thumb = $(".selectable-item-"+item.Media.Id).find(".selectable");
+                thumb.addClass("selectable-selected");
+
+
+                $("#hidden-select-carousel-item").removeClass("hidden");
+
+            });
+
+        }
+    }
+
+    function selectMediaForCarousel(id){
+        $(".selectable-selected").removeClass("selectable-selected");
+        $("#selected_media option:selected").removeAttr("selected");
+
+        var media = $(".select_item_"+id);
+        media.attr("selected", "selected");
+        var thumb = $(".selectable-item-"+id).find(".selectable");
+        thumb.addClass("selectable-selected");
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

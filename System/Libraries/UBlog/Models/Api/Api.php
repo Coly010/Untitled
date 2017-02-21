@@ -56,4 +56,23 @@ class Api
         return $Posts;
     }
 
+    /**
+     * @return array|bool Get all the posts
+     */
+    public static function GetPosts(){
+        $db = new Database(true);
+        $db->Run("SELECT id FROM ". UBlog_Config::$BLOG_POSTS_TABLE, []);
+
+        if(!$db->NumRows()){
+            return false;
+        }
+
+        $Posts = [];
+        foreach($db->FetchAll() as $post){
+            $Posts[] = new Post($post['id']);
+        }
+
+        return $Posts;
+    }
+
 }
