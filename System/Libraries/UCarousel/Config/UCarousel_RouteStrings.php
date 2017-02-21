@@ -17,12 +17,14 @@ class UCarousel_RouteStrings
     public static $ADD_CAROUSEL = "dashboard/carousel/add";
     public static $EDIT_CAROUSEL = "dashboard/carousel/edit";
     public static $DELETE_CAROUSEL = "dashboard/carousel/delete";
+    public static $GET_CAROUSEL = "dashboard/carousel/get";
 
     // LINKS FOR ITEMS
 
     public static $ADD_CAROUSEL_ITEM = "dashboard/carousel/%VAR%/item/add";
     public static $EDIT_CAROUSEL_ITEM = "dashboard/carousel/%VAR%/item/edit";
     public static $DELETE_CAROUSEL_ITEM = "dashboard/carousel/%VAR%/item/delete";
+    public static $GET_CAROUSEL_ITEM = "dashboard/carousel/%VAR%/item/get";
 
 
 }
