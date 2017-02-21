@@ -11,6 +11,9 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\Carousel;
 
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UCarousel\Models\Carousel\Carousel;
+use Untitled\Libraries\Input\Input;
+use Untitled\Libraries\Input\Sanitiser\Sanitiser;
 use Untitled\PageBuilder\Route;
 
 class GetCarousel_Route extends Route
@@ -28,6 +31,7 @@ class GetCarousel_Route extends Route
 
     public function RunDataProcess()
     {
+        $this->ViewData['carousel'] = new Carousel(Sanitiser::Int(Input::Post("carousel_id")));
     }
 
 

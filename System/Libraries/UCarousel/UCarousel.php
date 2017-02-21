@@ -40,7 +40,7 @@ class UCarousel extends Api implements IPlugin
         UWA_Config::$MENU_LINKS[] = new MenuItem("UCarousel", null, true);
         UWA_Config::$MENU_LINKS[] = new MenuItem("Add Carousel", DIRECTORY_SEPARATOR.UCarousel_RouteStrings::$ADD_CAROUSEL);
         UWA_Config::$MENU_LINKS[] = new MenuItem("Edit Carousel", DIRECTORY_SEPARATOR.UCarousel_RouteStrings::$EDIT_CAROUSEL);
-        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Carousel", DIRECTORY_SEPARATOR.UCarousel_RouteStrings::$EDIT_CAROUSEL);
+        UWA_Config::$MENU_LINKS[] = new MenuItem("Delete Carousel", DIRECTORY_SEPARATOR.UCarousel_RouteStrings::$DELETE_CAROUSEL);
 
         $db = new Database(true);
         $db->Run("SELECT id, name FROM ". UCarousel_Config::$CAROUSEL_TABLE, []);

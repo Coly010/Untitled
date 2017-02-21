@@ -46,6 +46,11 @@ class UCarousel_DataProcess extends DataProcess
     public function EditCarousel($carousel = null){
         if(is_null($carousel)){
 
+            $carousel = new Carousel(Sanitiser::Int(Input::Post("ID")));
+            if(false == $carousel->Name = Sanitiser::String(Input::Post("carousel_name"))){
+                return false;
+            }
+
         }
 
         $carousel->Save();
@@ -59,6 +64,8 @@ class UCarousel_DataProcess extends DataProcess
      */
     public function DeleteCarousel($carousel = null){
         if(is_null($carousel)){
+
+            $carousel = new Carousel(Sanitiser::Int(Input::Post("carousel")));
 
         }
 

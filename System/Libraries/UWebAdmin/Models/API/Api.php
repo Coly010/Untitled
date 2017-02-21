@@ -9,10 +9,13 @@
 namespace System\Libraries\UWebAdmin\Models\API;
 
 
+use Application\Config\Application_Config;
+use Application\Config\Twig_Config;
 use System\Libraries\UWebAdmin\Config\UWA_Config;
 use System\Libraries\UWebAdmin\Models\Dashboard\Activity;
 use System\Libraries\UWebAdmin\Models\Users\Role;
 use System\Libraries\UWebAdmin\Models\Users\User;
+use System\Libraries\UWebAdmin\UWA;
 use Untitled\Database\Database;
 
 class Api
@@ -30,6 +33,17 @@ class Api
             $Menu[] = $item->ToArray();
         }
         return $Menu;
+    }
+
+    public static function ReloadMenu(){
+        UWA_Config::$MENU_LINKS = [];
+        Twig_Config::$GLOBAL_DATA['uwa_dashboard_menu'] = [];
+
+        foreach (Application_Config::$PLUGINS as $plugin){
+            $plugin::Start();
+        }
+
+        UWA::ConvertGlobalDataToTwigGlobals();
     }
 
     //endregion

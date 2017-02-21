@@ -11,6 +11,7 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\Carousel;
 
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
+use System\Libraries\UCarousel\UCarousel;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
 use Untitled\PageBuilder\Route;
 
@@ -32,7 +33,7 @@ class EditCarousel_Route extends Route
 
     public function RunDataProcess()
     {
-
+        $this->ViewData['all_carousels'] = UCarousel::GetAllCarousels();
     }
 
 

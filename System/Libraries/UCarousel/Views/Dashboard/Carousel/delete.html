@@ -20,6 +20,13 @@
             <strong>Success!</strong> Deleted carousel {{ carousel.Name }}.
         </div>
 
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Something went wrong, please try again.
+        </div>
+
         {% endif %}
 
         <div class="uCard uCard-Standalone">
@@ -30,7 +37,7 @@
                     <form action="/dashboard/carousel/delete/do" method="post" role="form">
                         <div class="form-group">
                             <label for="carousels" class="sr-only">Select Carousel:</label>
-                            <select type="dropdown" name="carousel" id="carousels">
+                            <select type="dropdown" name="carousel" id="carousels" class="form-control">
                                 <option value="-1">Select Carousel</option>
                                 {% for carousel in all_carousels %}
 

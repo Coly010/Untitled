@@ -1,0 +1,87 @@
+{% extends "UWA/Template/dashboard.tpl" %}
+
+{% block content %}
+
+{% if uwa_user.Role.Role.Name != "Admin" %}
+
+<div class="alert alert-danger" role="alert">
+    <strong>Sorry!</strong> You do not have the necessary permissions to view this page.
+</div>
+
+{% else %}
+
+<div class="row">
+    <div class="col-sm-12">
+
+        {% if result == true %}
+
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Edited Carousel {{ carousel.Name }}.
+        </div>
+
+        {% elseif result is defined and result == false %}
+
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Error!</strong> Something went wrong, please try again.
+        </div>
+
+        {% endif %}
+
+        <div class="uCard uCard-Standalone">
+            <h2>Edit Carousel</h2>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label for="selected-carousel">Select Carousel:</label>
+                    <select class="form-control" id="selected-carousel" name="selected-carousel" type="dropdown" onchange="onSelectCarousel()">
+                        <option value="">Select Carousel</option>
+                        {% for c in all_carousels %}
+                        <option value="{{ c.Id }}">{{ c.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row hidden" id="hidden-select-carousel">
+                <div class="col-sm-6">
+                    <form action="/dashboard/carousel/edit/do" method="post" role="form">
+                        <input type="hidden" name="ID" />
+                        <div class="form-group">
+                            <label for="carousel_name" class="sr-only">Name:</label>
+                            <input type="text" class="form-control" name="carousel_name" id="carousel_name" placeholder="Name:" />
+                        </div>
+                        <button class="btn btn-primary" type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onSelectCarousel(){
+        if($("#selected-carousel").val() != -1){
+
+            // Get the details of the selected carousel
+            $.post("/dashboard/carousel/get", {carousel_id: $("#selected-carousel").val()}, function(data){
+                data = JSON.parse(data);
+                var carousel = data.carousel;
+                $("input[name='ID']").val(carousel.Id);
+                $("input[name='carousel_name']").val(carousel.Name);
+
+                $("#hidden-select-carousel").removeClass("hidden");
+
+            });
+
+        }
+    }
+</script>
+
+{% endif %}
+
+{% endblock %}

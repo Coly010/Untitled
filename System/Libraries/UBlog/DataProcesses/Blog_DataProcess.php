@@ -9,6 +9,7 @@
 namespace System\Libraries\UBlog\DataProcesses;
 
 
+use Application\Config\Application_Config;
 use Application\Config\Twig_Config;
 use System\Libraries\UBlog\Models\Blogs\Blog;
 use System\Libraries\UBlog\UBlog;
@@ -38,8 +39,12 @@ class Blog_DataProcess extends DataProcess
         $blog->Insert();
 
         UWA_Config::$MENU_LINKS = [];
-        UWA::Start();
-        UBlog::Start();
+        Twig_Config::$GLOBAL_DATA['uwa_dashboard_menu'] = [];
+
+        foreach (Application_Config::$PLUGINS as $plugin){
+            $plugin::Start();
+        }
+
         UWA::ConvertGlobalDataToTwigGlobals();
 
         return $blog;
@@ -62,8 +67,12 @@ class Blog_DataProcess extends DataProcess
         $blog->Save();
 
         UWA_Config::$MENU_LINKS = [];
-        UWA::Start();
-        UBlog::Start();
+        Twig_Config::$GLOBAL_DATA['uwa_dashboard_menu'] = [];
+
+        foreach (Application_Config::$PLUGINS as $plugin){
+            $plugin::Start();
+        }
+
         UWA::ConvertGlobalDataToTwigGlobals();
 
         return $blog;
@@ -82,8 +91,11 @@ class Blog_DataProcess extends DataProcess
 
         UWA_Config::$MENU_LINKS = [];
         Twig_Config::$GLOBAL_DATA['uwa_dashboard_menu'] = [];
-        UWA::Start();
-        UBlog::Start();
+
+        foreach (Application_Config::$PLUGINS as $plugin){
+            $plugin::Start();
+        }
+
         UWA::ConvertGlobalDataToTwigGlobals();
 
         return $blog;

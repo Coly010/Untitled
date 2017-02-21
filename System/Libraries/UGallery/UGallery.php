@@ -24,10 +24,10 @@ class UGallery extends Api implements IPlugin
 
     public static function Start()
     {
-        define("UGALLERY_PHOTO", 1);
-        define("UGALLERY_VIDEO", 2);
+        defined("UGALLERY_PHOTO") OR define("UGALLERY_PHOTO", 1);
+        defined("UGALLERY_VIDEO") OR define("UGALLERY_VIDEO", 2);
 
-        define("UPLOAD_SIZE", 2200000);
+        defined("UPLOAD_SIZE") OR define("UPLOAD_SIZE", 2200000);
 
         self::AddMenuLink();
     }

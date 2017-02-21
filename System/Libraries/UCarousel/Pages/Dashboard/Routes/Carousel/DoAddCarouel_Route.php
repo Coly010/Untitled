@@ -12,6 +12,7 @@ namespace System\Libraries\UCarousel\Pages\Dashboard\Routes\Carousel;
 use System\Libraries\UCarousel\Config\UCarousel_RouteStrings;
 use System\Libraries\UCarousel\DataProcesses\UCarousel_DataProcess;
 use System\Libraries\UWebAdmin\RouteGuards\AuthenticatedUser_Guard;
+use System\Libraries\UWebAdmin\UWA;
 use Untitled\PageBuilder\Route;
 
 class DoAddCarouel_Route extends Route
@@ -39,6 +40,8 @@ class DoAddCarouel_Route extends Route
         } else {
             $this->ViewData['result'] = false;
         }
+
+        UWA::ReloadMenu();
 
     }
 
